@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "sigd-be78b"
+  },
+  "targets": {
+    "sigd-be78b": {
+      "hosting": {
+        "my-first-app": [
+          "sigd-be78b"
+        ]
+      }
+    }
+  }
+}

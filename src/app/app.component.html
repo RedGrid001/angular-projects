@@ -1,0 +1,249 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<app-my-nav></app-my-nav>
+
+
+<!-- <style>
+  :host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 8px 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+   .toolbar {
+    height: 60px;
+    margin: -8px;
+    display: flex;
+    align-items: center;
+    background-color: #1976d2;
+    color: white;
+    font-weight: 600;
+  }
+
+  .toolbar img {
+    margin: 0 16px;
+  }
+
+  .toolbar #twitter-logo {
+    height: 40px;
+    margin: 0 16px;
+  }
+
+  .toolbar #twitter-logo:hover {
+    opacity: 0.8;
+  }
+
+  .content {
+    display: flex;
+    margin: 32px auto;
+    padding: 0 16px;
+    max-width: 960px;
+    flex-direction: column;
+    align-items: center;
+  } 
+
+</style> -->
+
+   
+<!--     <div class="toolbar" role="banner">
+      <img
+        width="40"
+        alt="Angular Logo"
+        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
+      />
+      <span>SIGDC</span>
+        <div class="spacer"></div>
+    </div> -->
+    
+      <!--   <div id="div-container" class="container mt-4">
+          <div class="row">
+            <div class="col">
+              <h4>Dirección de Planificación</h4>
+              <h5>Datos del denunciante</h5>         
+              <div>Completar los campos obligatorios para solventar a la brevedad posible su denuncia</div>
+            </div>
+            <div class="col">
+              <img src="https://www.mined.gob.sv/templates/mined/img/logo-mined.svg" alt="MINED" class="img-fluid" width="400" height="200">
+            </div>
+          </div>
+          <hr>
+          <div>
+            <mat-accordion class="example-headers-align">
+              <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Personales
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <div id="inf-personales">Validar utilizando documento de identidad</div>
+                    <mat-icon id="icon-1">account_circle</mat-icon>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                    <mat-form-field>
+                      <mat-label>Tipo de documento</mat-label>
+                      <mat-select [formControl]="tipodocumento" required>
+                        <mat-option *ngFor="let documento of documentos" [value]="documento.value" >
+                          {{documento.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="tipodocumento.hasError('required')">Por favor elige un documento</mat-error>
+                    </mat-form-field>
+                  <form>
+                    <mat-form-field>
+                      <input matInput placeholder="Numero de documento" [formControl]="dui" required>
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                      <input matInput placeholder="Fecha de nacimiento" [matDatepicker]="picker" (focus)="picker.open()" readonly [formControl]="fechanacimiento" required>
+                    </mat-form-field>
+                    <mat-datepicker #picker></mat-datepicker>
+    
+                    <button mat-raised-button color="primary" >Validar</button>
+                  </form>
+                    <hr>
+    
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Nombre" disabled>
+                    </mat-form-field>
+              
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Apellido" disabled>
+                    </mat-form-field>
+    
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Departamento" disabled>
+                    </mat-form-field>
+    
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Dirección" disabled>
+                    </mat-form-field>
+    
+                <mat-action-row>
+                  <button mat-button color="primary" (click)="nextStep()">Siguiente</button>
+                </mat-action-row>
+              </mat-expansion-panel>
+            
+              <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Preguntas
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <div id="inf-preguntas">Marcar según el caso</div>
+                    <mat-icon id="icon-2">edit</mat-icon>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <table class="example-full-width">
+                  <tr>
+                    <td>
+                      <label id="example-radio-group-label">Trabaja o estudia en el lugar:</label>
+                        <mat-radio-group class="example-radio-group" aria-label="Select an option">
+                          <mat-radio-button class="example-radio-button" value="1">SI</mat-radio-button>
+                          <mat-radio-button class="example-radio-button" value="2">NO</mat-radio-button>
+                        </mat-radio-group>                        
+                    </td>
+                    <td>
+                      <label id="example-radio-group-label">Es representante legal del denunciante:</label>
+                        <mat-radio-group class="example-radio-group" aria-label="Select an option">
+                          <mat-radio-button class="example-radio-button" value="1">SI</mat-radio-button>
+                          <mat-radio-button class="example-radio-button" value="2">NO</mat-radio-button>
+                        </mat-radio-group>                                  
+                    </td>
+                  </tr>
+                </table>       
+                <mat-action-row>
+                  <button mat-button color="warn" (click)="prevStep()">Volver</button>
+                  <button mat-button color="primary" (click)="nextStep()">Siguiente</button>
+                </mat-action-row>
+              </mat-expansion-panel>
+            
+              <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Contactar
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <div id="inf-contactar">Datos para comunicación o ubicación</div>
+                    <mat-icon id="icon-3">map</mat-icon>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+    
+                <table class="example-full-width" cellspacing="0">
+                  <tr>
+                   
+                      <mat-form-field class="example-full-width">
+                        <span matPrefix>+503 &nbsp;</span>
+                        <input type="tel" matInput placeholder="Movil" [formControl]="tmovil" required>
+                        <mat-icon matSuffix>phone</mat-icon>
+                      </mat-form-field>
+    
+                      <mat-form-field class="example-full-width">
+                        <span matPrefix>+503 &nbsp;</span>
+                        <input type="tel" matInput placeholder="Casa">
+                        <mat-icon matSuffix>phone</mat-icon>
+                      </mat-form-field>
+             
+                  </tr>
+                </table>
+    
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Introduce tu correo electrónico" [formControl]="email" required>
+                    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                  </mat-form-field>
+    
+                  <mat-form-field class="example-full-width">
+                    <textarea matInput placeholder="Dirección" [formControl]="direccion" required></textarea>
+                  </mat-form-field>  
+            
+                <mat-action-row>
+                  <button mat-button color="warn" (click)="prevStep()">Volver</button>
+                  <button mat-button color="primary" (click)="nextStep()">Finalizar</button>
+                </mat-action-row>
+              </mat-expansion-panel>
+            
+            </mat-accordion>
+            <div>
+              <button id="btn-save" mat-raised-button color="primary" >Guardar</button>
+            </div>  
+          </div>
+        </div> -->
+     
+    <!-- Footer -->
+<!--     <footer>
+      <span>© 2020 SIGDC</span>
+    </footer> -->
+    <!-- Footer -->
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
