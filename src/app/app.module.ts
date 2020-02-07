@@ -52,6 +52,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FirstPageComponent } from './first-page/first-page.component';
 import { SecondPageComponent } from './second-page/second-page.component';
 import { ThirdPageComponent } from './third-page/third-page.component';
+import { ModelFuncionarioComponent, ModelFuncionarioDialogComponent } from './model-funcionario/model-funcionario.component';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import { ThirdPageComponent } from './third-page/third-page.component';
     MyNavComponent,
     FirstPageComponent,
     SecondPageComponent,
-    ThirdPageComponent
+    ThirdPageComponent,
+    ModelFuncionarioComponent,
+    ModelFuncionarioDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -111,7 +115,11 @@ import { ThirdPageComponent } from './third-page/third-page.component';
     LayoutModule,
     FormsModule, ReactiveFormsModule
   ],
-  providers: [],
+  entryComponents: [ModelFuncionarioComponent,
+    ModelFuncionarioDialogComponent],
+  providers: [
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
+  ],
   bootstrap: [AppComponent]
 })
 

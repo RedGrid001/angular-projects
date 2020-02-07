@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>Funcionario Denunciado</h1>
+<div mat-dialog-content>
+  <p>Completar con datos verídicos del funcionario denunciado para proceder rápido y a la brevedad posible.</p>
+  <mat-form-field>
+    <mat-label>Tipo de documento</mat-label>
+    <input matInput [(ngModel)]="data.typedocument">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Numero de documento</mat-label>
+    <input matInput [(ngModel)]="data.numberdocument">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Cargo</mat-label>
+    <input matInput [(ngModel)]="data.position">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Nombre completo</mat-label>
+    <input matInput [(ngModel)]="data.fullname">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>¿Aun labora en la entidad educativa?</mat-label>
+    <input matInput [(ngModel)]="data.question">
+  </mat-form-field>
+</div>
+<div id="btn-modal" mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Guardar</button>
+</div>
