@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>Documento de sustento</h2>
+<mat-dialog-content class="mat-typography">
+<p>(*) Campos obligatorios</p>
+<mat-form-field class="example-full-width">
+    <mat-label>Descripción (*)</mat-label>
+    <input matInput [(ngModel)]="data.descripcionD">
+</mat-form-field>
+<mat-form-field class="example-full-width">
+    <mat-label>Anexo o página</mat-label>
+    <input matInput [(ngModel)]="data.anexoD">
+</mat-form-field>
+<mat-form-field class="example-full-width">
+    <mat-label>Ubicación de la información original</mat-label>
+    <input matInput [(ngModel)]="data.ubicacionD">
+</mat-form-field>
+<mat-form-field class="example-full-width">
+    <mat-label>Archivo (*)</mat-label>
+    <input matInput [(ngModel)]="data.archivoD">
+</mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="false" color="warn">Cancelar</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial color="primary">Registrar</button>
+</mat-dialog-actions>

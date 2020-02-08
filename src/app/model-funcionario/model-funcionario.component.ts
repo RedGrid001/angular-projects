@@ -28,7 +28,7 @@ export class ModelFuncionarioComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(ModelFuncionarioDialogComponent, {
+    const dialogRef = this.dialog.open(ModalFuncionarioDialogComponent, {
       width: '400px',
       data: {typedocument: '', numberdocument: '', position: '', fullname: '', question: ''}
     });
@@ -46,14 +46,15 @@ export class ModelFuncionarioComponent implements OnInit {
 }
 
 @Component({
-  selector: 'model-funcionario-dialog.component',
-  templateUrl: 'model-funcionario-dialog.component.html',
+  selector: 'modal-funcionario-dialog.component',
+  templateUrl: './modal-funcionario-dialog.component.html',
+  styleUrls: ['./model-funcionario.component.css']
 })
 
-export class ModelFuncionarioDialogComponent {
+export class ModalFuncionarioDialogComponent {
 
   constructor(
-    public dialogRef: MatDialogRef<ModelFuncionarioDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    public dialogRef: MatDialogRef<ModalFuncionarioDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
   onNoClick(): void {
     this.dialogRef.close();

@@ -22,7 +22,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatDialogModule} from '@angular/material/dialog';
+import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -50,9 +50,9 @@ import { MyNavComponent } from './my-nav/my-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FirstPageComponent } from './first-page/first-page.component';
-import { SecondPageComponent } from './second-page/second-page.component';
+import { SecondPageComponent, ModalDatosAlmacenadosComponent } from './second-page/second-page.component';
 import { ThirdPageComponent } from './third-page/third-page.component';
-import { ModelFuncionarioComponent, ModelFuncionarioDialogComponent } from './model-funcionario/model-funcionario.component';
+import { ModelFuncionarioComponent, ModalFuncionarioDialogComponent } from './model-funcionario/model-funcionario.component';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 
 @NgModule({
@@ -64,7 +64,8 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
     SecondPageComponent,
     ThirdPageComponent,
     ModelFuncionarioComponent,
-    ModelFuncionarioDialogComponent
+    ModalFuncionarioDialogComponent,
+    ModalDatosAlmacenadosComponent
   ],
   imports: [
     BrowserModule,
@@ -116,11 +117,13 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
     FormsModule, ReactiveFormsModule
   ],
   entryComponents: [ModelFuncionarioComponent,
-    ModelFuncionarioDialogComponent],
+    ModalFuncionarioDialogComponent,ModalDatosAlmacenadosComponent],
   providers: [
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
+    
   ],
   bootstrap: [AppComponent]
 })
 
 export class AppModule { }
+//provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' }
+//{ provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false} },

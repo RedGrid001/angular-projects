@@ -1,3 +1,17 @@
-#btn-modal{
-    align-content:end;
+mat-form-field {
+    margin-right: 12px;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+}
+  
+.example-radio-button {
+    margin: 5px;
 }

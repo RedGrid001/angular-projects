@@ -1,9 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 export interface Entidades {
   value: string;
   viewValue: string;
+}
+export interface DialogData {
+  codRegistro: string;
+  fechaPlazo: string;
+}
+
+export interface ModalDocumentoData {
+  descripcionD: string;
+  anexoD: string;
+  ubicacionD: string;
+  archivoD: string;
 }
 
 @Component({
@@ -13,10 +25,17 @@ export interface Entidades {
 })
 export class SecondPageComponent implements OnInit {
 
+  //Variables
+  RegistroAct: boolean;
+  descripcionD: string;
+  anexoD: string;
+  ubicacionD: string;
+  archivoD: string;
+
   entidades: Entidades[] = [
-    {value: '0', viewValue: 'PNC'},
-    {value: '1', viewValue: 'Junta'},
-    {value: '2', viewValue: 'Fiscalia'}
+    {value: 'pnc', viewValue: 'PNC'},
+    {value: 'junta', viewValue: 'Junta'},
+    {value: 'fiscalia', viewValue: 'Fiscalia'}
   ];
 
   institucion = new FormControl('', Validators.required);
@@ -27,9 +46,51 @@ export class SecondPageComponent implements OnInit {
   fechahechosf = new FormControl('', Validators.required);
 
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
   }
 
+  openDialogDatos(){
+    const dialogRef = this.dialog.open(ModalDatosAlmacenadosComponent, {
+      data: {codRegistro: 'UI.2014.1132316',fechaPlazo:'22/8/2014'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.RegistroAct = result;
+      console.log('Resultado:'+result);
+    });
+
+  }
+
+  openDialogDocumento(){
+    const dialogDocRef = this.dialog.open(ModalSubirDocumentoComponent);
+
+    dialogDocRef.afterClosed().subscribe(resultado => {
+      this.descripcionD = resultado.descripcionD;
+      this.anexoD = resultado.anexoD;
+      this.ubicacionD = resultado.ubicacionD;
+      this.archivoD = resultado.archivoD;
+      console.log('Descripcion: '+resultado.descripcionD+' Anexo: '+resultado.anexoD)
+    });
+  }
+
+}
+
+@Component({
+  selector:'modal-datos-almacenados.component',
+  templateUrl:'./modal-datos-almacenados.component.html',
+  styleUrls: ['./second-page.component.css']
+})
+export class ModalDatosAlmacenadosComponent{
+  constructor(public dialogRef: MatDialogRef<ModalDatosAlmacenadosComponent>, @Inject(MAT_DIALOG_DATA) public data){}
+}
+
+@Component({
+  selector: 'modal-subir-documento.component',
+  templateUrl: './modal-subir-documento.component.html',
+  styleUrls: ['./second-page.component.css']
+})
+export class ModalSubirDocumentoComponent {
+  constructor(public dialogRef: MatDialogRef<ModalSubirDocumentoComponent>, @Inject(MAT_DIALOG_DATA) public data: ModalDocumentoData){}
 }
