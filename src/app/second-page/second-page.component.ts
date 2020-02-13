@@ -15,7 +15,7 @@ export interface ModalDocumentoData {
   descripcionD: string;
   anexoD: string;
   ubicacionD: string;
-  archivoD: string;
+  archivoD: File;
 }
 
 @Component({
@@ -30,7 +30,11 @@ export class SecondPageComponent implements OnInit {
   descripcionD: string;
   anexoD: string;
   ubicacionD: string;
-  archivoD: string;
+  archivoD: File = null;
+
+  fileToUpload: File = null;
+
+  disabled: boolean = false;
 
   entidades: Entidades[] = [
     {value: 'pnc', viewValue: 'PNC'},
@@ -64,16 +68,40 @@ export class SecondPageComponent implements OnInit {
   }
 
   openDialogDocumento(){
-    const dialogDocRef = this.dialog.open(ModalSubirDocumentoComponent);
+    const dialogDocRef = this.dialog.open(ModalSubirDocumentoComponent, {
+      data: {descripcionD: '',anexoD: '', ubicacionD: '', archivoD: ''}
+    });
 
     dialogDocRef.afterClosed().subscribe(resultado => {
       this.descripcionD = resultado.descripcionD;
       this.anexoD = resultado.anexoD;
       this.ubicacionD = resultado.ubicacionD;
       this.archivoD = resultado.archivoD;
-      console.log('Descripcion: '+resultado.descripcionD+' Anexo: '+resultado.anexoD)
+      console.log('Descripcion: '+resultado.descripcionD+' Anexo: '+resultado.anexoD+' Archivo: '+resultado.archivoD)
+      if (this.archivoD!) {
+        this.disabled = true;
+      }
     });
   }
+/*
+  uploadFileToActivity() {
+    this.fileUploadService.postFile(this.fileToUpload).subscribe(data => {
+      // do something, if upload success
+      }, error => {
+        console.log(error);
+      });
+  }
+
+  postFile(fileToUpload: File): Observable<boolean> {
+    const endpoint = 'your-destination-url';
+    const formData: FormData = new FormData();
+    formData.append('fileKey', fileToUpload, fileToUpload.name);
+    return this.httpClient
+      .post(endpoint, formData, { headers: yourHeadersConfig })
+      .map(() => { return true; })
+      .catch((e) => this.handleError(e));
+}
+*/
 
 }
 
@@ -92,5 +120,11 @@ export class ModalDatosAlmacenadosComponent{
   styleUrls: ['./second-page.component.css']
 })
 export class ModalSubirDocumentoComponent {
+  fileToUpload: File = null;
+
   constructor(public dialogRef: MatDialogRef<ModalSubirDocumentoComponent>, @Inject(MAT_DIALOG_DATA) public data: ModalDocumentoData){}
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+  }
 }

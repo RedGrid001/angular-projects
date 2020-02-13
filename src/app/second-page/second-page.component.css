@@ -122,3 +122,7 @@ input.example-right-align {
 #datepicker-1 {
   margin-right: 1rem;
   }
+
+#label {
+  margin-right: 5px;
+}
