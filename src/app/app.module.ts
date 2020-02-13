@@ -54,6 +54,7 @@ import { SecondPageComponent, ModalDatosAlmacenadosComponent, ModalSubirDocument
 import { ThirdPageComponent } from './third-page/third-page.component';
 import { ModelFuncionarioComponent, ModalFuncionarioDialogComponent } from './model-funcionario/model-funcionario.component';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
     ModelFuncionarioComponent,
     ModalFuncionarioDialogComponent,
     ModalDatosAlmacenadosComponent,
-    ModalSubirDocumentoComponent
+    ModalSubirDocumentoComponent,
+    MyDashboardComponent
   ],
   imports: [
     BrowserModule,

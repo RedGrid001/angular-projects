@@ -3,12 +3,13 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>SIGDC</mat-toolbar>
+    <mat-toolbar class="example-header">SIGDC</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item href="/first-page">Denuncia</a>
       <a mat-list-item href="/second-page">Hechos</a>
       <a mat-list-item href="/third-page">Undefined</a>
     </mat-nav-list>
+    <mat-toolbar class="example-footer"><span>© 2020 SIGDC</span></mat-toolbar>
   </mat-sidenav>
   <mat-sidenav-content id="div-sidenav">
     <mat-toolbar color="primary">

@@ -43,3 +43,17 @@
 .toolbar #twitter-logo:hover {
   opacity: 0.8;
 }
+
+.example-header {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.example-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
