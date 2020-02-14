@@ -20,6 +20,26 @@
 }
   
 h1{
-    color: cornflowerblue;
+    color: blue;
     text-align: center;
 }
+
+
+@media (max-width: 360px){
+
+    .video_iframe{
+        width: auto;
+        height: auto;
+    }
+}
+
+@media (max-width: 580px){
+
+    .video_iframe{
+        width: 310px;
+        height: 200px;
+        overflow: auto;
+    }
+}
+
+

@@ -58,6 +58,7 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
 import { InicioUsuarioComponent } from './inicio-usuario/inicio-usuario.component';
 import { PrincipalComponent } from './principal/principal.component';
+import { CompromisoComponent } from './compromiso/compromiso.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { PrincipalComponent } from './principal/principal.component';
     ModalSubirDocumentoComponent,
     MyDashboardComponent,
     InicioUsuarioComponent,
-    PrincipalComponent
+    PrincipalComponent,
+    CompromisoComponent
   ],
   imports: [
     BrowserModule,
