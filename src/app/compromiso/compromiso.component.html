@@ -1,1 +1,62 @@
-<p>compromiso works!</p>
+<div class="container example-container" [class.mat-elevation-z2]="true" >
+    
+    <h1 class="h1-class">Ventana de compromiso</h1>
+    
+    <div class="mat-typography">
+        <div class="mat-h3">Antes de empezar el proceso de denuncia se necesita autenticar que 
+            todos y cada uno de los datos que serán proporcionados a esta institución, sean 
+            verídicos y que no carezcan de credibilidad, favor leer atento el siguiente compromiso 
+            para posteriormente adecuar su denuncia a las necesidades de la misma</div>
+            <hr>
+        <div class="mat-h2">Compromisos del Ciudadano</div>
+        <div class="mat-body-1">Estoy dispuesto a suscribir el Compromiso de brindar toda la información 
+            que sea solicitada por el departamento de asesoría jurídica, a fin de cumplir con uno de los 
+            requisitos de autenticidad que las juntas de la carrera docente necesitan para acogerme a la 
+            Ley de la carrera docente en el ámbito administrativo y de colaboración eﬁcaz en el ámbito 
+            judicial para que mi denuncia tenga la validez y resolución necesaria.
+            <p></p>
+            La Dirección de Asesoría Jurídica en conjunto con la junta de la carrera docente, de acuerdo 
+            con lo establecido en la Ley de procedimientos administrativos, cumplirá con la responsabilidad
+             de que debe guardar la reserva y confidencialidad de la identidad del ciudadano y del contenido 
+             de la denuncia con el propósito de garantizar el adecuado trámite de la misma. Le sugerimos que
+              al registrar su denuncia mantenga la confidencialidad de la misma en todo momento.</div>
+        <hr>
+        <div class="mat-body-2">
+            Para realizar su denuncia usted debe contar con los siguientes requisitos:
+            <ul>
+                <li>Algún documento, DUI, NIP o NIT</li>
+                <li> Denuncia basada en hechos que afecten directamente el área administrativa, pedagógica 
+                    o de convivencia en el centro de estudios, por el mal uso de los recursos públicos y/o 
+                    bienes del estado y que no correspondan sólo a intereses personales.</li>
+                <li>Pruebas sustentatorias de la denuncia o información sobre donde encontrarla.</li>
+                <li>Datos que permitan la identificación individual de los denunciados (cargo, institución, entre otros).</li>
+            </ul>
+        </div>
+            <hr>
+            <div class="mat-body-2">
+                De la misma manera debe seguir estas condiciones:
+                <ul>
+                    <li>Ser mayor de edad.</li>
+                    <li>Describir los hechos en forma clara y coherente.</li>
+                    <li>Denunciar sólo hechos ilegales o arbitrarios ocurridos en centro de estudios.</li>
+                    <li>Identificar el lugar donde ocurrieron los hechos.</li>
+                    <li>Indicar información concreta que permita su verificación.</li>
+                    <li>Especificar temas que NO estén siendo comprendidos en causas o investigaciones en 
+                        otras instancias competentes (ej.: PNC, Fiscalia, procuraduria etc).</li>
+                </ul>
+            </div>
+            <hr>
+            <div>
+                
+           <div class="mat-body-1">Marque el recuadro como señal de haber tomado conocimiento de los 
+               requerimientos y consideraciones para continuar con el registro (*)</div>
+               <mat-checkbox></mat-checkbox>
+            </div>
+            
+               
+            <div class="btn-siguiente">
+                <button [routerLink]="['/first-page']" mat-raised-button color="primary">Siguiente</button>
+            </div>
+            
+    </div>
+</div>
