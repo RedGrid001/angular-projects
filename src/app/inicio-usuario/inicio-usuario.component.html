@@ -1,0 +1,17 @@
+<div id="div-container" class="container" >
+    <div id="div-img">
+        <img src="https://img.icons8.com/bubbles/100/000000/cloud-account-login-male.png" width="200px" height="200px" >
+    </div>
+    
+    <h3>Bienvenido Usuario</h3>
+    <div class="mat-body-2">Acceda a su denuncia</div>
+    <mat-form-field class="example-full-width">
+        <mat-label>Numero de documento</mat-label>
+        <input matInput placeholder="00000000-0" >
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <mat-label>Correlativo de denuncia</mat-label>
+        <input matInput placeholder="UI.2014.1132316">
+    </mat-form-field>
+    <button [routerLink]="['/principal']"mat-raised-button color="primary">Iniciar</button>
+</div> 

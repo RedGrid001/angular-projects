@@ -1,0 +1,25 @@
+.btn_siguiente {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+.container {
+    align-content: center;
+    max-width: 960px;
+    background: #d6d4d4;
+    display: flex;
+    flex-direction: column;
+}
+
+.example-container > * {
+    width: 100%;
+  }
+
+.example-container {
+    padding: 16px;
+    margin-bottom: 0rem;
+}
+  
+h1{
+    color: cornflowerblue;
+    text-align: center;
+}

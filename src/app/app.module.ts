@@ -47,7 +47,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import { MyNavComponent } from './my-nav/my-nav.component';
-import { LayoutModule } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
+import { LayoutModule, Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FirstPageComponent } from './first-page/first-page.component';
 import { SecondPageComponent, ModalDatosAlmacenadosComponent, ModalSubirDocumentoComponent } from './second-page/second-page.component';
@@ -55,6 +56,8 @@ import { ThirdPageComponent } from './third-page/third-page.component';
 import { ModelFuncionarioComponent, ModalFuncionarioDialogComponent } from './model-funcionario/model-funcionario.component';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
+import { InicioUsuarioComponent } from './inicio-usuario/inicio-usuario.component';
+import { PrincipalComponent } from './principal/principal.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +71,9 @@ import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
     ModalFuncionarioDialogComponent,
     ModalDatosAlmacenadosComponent,
     ModalSubirDocumentoComponent,
-    MyDashboardComponent
+    MyDashboardComponent,
+    InicioUsuarioComponent,
+    PrincipalComponent
   ],
   imports: [
     BrowserModule,
