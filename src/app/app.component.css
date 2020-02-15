@@ -125,3 +125,10 @@ footer {
 #div-container {
   max-width: 960px;
 }
+.navbar{
+  background-color: #3f51b5;
+}
+
+nav{
+  background-color: #3f51b5;
+}

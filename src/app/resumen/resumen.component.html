@@ -1,0 +1,59 @@
+<div class="container example-container" [class.mat-elevation-z2]="true" >
+    
+    
+    <!-- Contenedor de tipografia justify-content-md-center-->
+    <div class="mat-typography">
+        <div class="row ">
+            <div class="col-sm-4">
+                <img src="https://www.mined.gob.sv/templates/mined/img/logo-mined.svg" 
+                alt="MINED" class="img-fluid" width="200" height="100">
+            </div>
+            <div class="col-sm-8"><h1 class="h1-class">Ventana de resumen</h1>
+                Gracias por utilizar nuestro sistema de denuncias a 
+                continuación obtendrá la información necesaria referente a su denuncia.</div>
+        </div>
+        <hr>
+        <!-- Contenedor de texto -->
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="mat-body-1">La dirección de planificación en conjunto con el 
+                    departamento de asesoría jurídica y la junta de la carrera docente 
+                    que se le ha sido asignada agradece su colaboración, en beneficio de 
+                    ayudar a solventar a la brevedad posible su inquietud con respecto a la 
+                    situación presentada en su centro de estudios, porque de esta manera nos 
+                    permite sanear las áreas administrativas y pedagógicas del MINED, para 
+                    una mayor transparencia en la gestión y convivencia escolar.
+                    <p></p>
+                    Para autenticar y validar los datos de su denuncia, el día que se le asigne 
+                    hacerse presente a la audiencia inicial, en la Junta de la carrera docente 
+                    respectiva; tendrá que imprimir y firmar su compromiso. Este mismo compromiso 
+                    deberá ser presentado en las oficinas, en un plazo que no exceda de 10 
+                    días, después de la emisión de esta petición.
+                </div>
+                <p></p>
+            </div>
+            <div class="col-sm-6" >
+                <div class="mat-body-2">¡¡¡Aviso!!!</div>
+                <p></p>
+                <div class="mat-body-1">Al haber proporcionado un correo electrónico, se le enviara 
+                    al mismo el correlativo de su denuncia, mismo que le servirá de contraseña para 
+                    ingresar y ver el progreso de su denuncia. En dado no halla podido adjuntar, 
+                    alguna prueba o archivo a la denuncia electrónica, favor presentarlo el día de 
+                    la audiencia para agregarlo a su denuncia para hacer el debido proceso, recordando 
+                    que el plazo máximo a realizarlo es de 10 días.</div>
+            </div>
+        </div>
+        <hr>
+            <!-- Contenedor de botones -->
+                <div class="row">
+                    <div class="col-6">
+                        <button mat-raised-button color="primary" >Descarga</button>
+                        <!-- <div class="mat-caption">Denuncia procesada</div> <i class="material-icons">cloud_download</i> -->
+                    </div>
+                    <div class="col-6">
+                        <button [routerLink]="['/inicio-usuario']" mat-raised-button color="primary">Finalizar</button>
+                    </div>
+                </div>
+            
+    </div>
+</div>

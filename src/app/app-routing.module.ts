@@ -6,6 +6,7 @@ import { ThirdPageComponent } from './third-page/third-page.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { InicioUsuarioComponent} from './inicio-usuario/inicio-usuario.component';
 import { CompromisoComponent } from './compromiso/compromiso.component';
+import { ResumenComponent } from './resumen/resumen.component';
 
 
 const routes: Routes = [ 
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path:'principal', component: PrincipalComponent},
   {path:'inicio-usuario', component:InicioUsuarioComponent},
   {path:'compromiso', component:CompromisoComponent},
+  {path:'resumen', component:ResumenComponent},
   {path:'**', pathMatch:'full', redirectTo: 'inicio-usuario'}
 ];
 

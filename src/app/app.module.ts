@@ -59,6 +59,7 @@ import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
 import { InicioUsuarioComponent } from './inicio-usuario/inicio-usuario.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { CompromisoComponent } from './compromiso/compromiso.component';
+import { ResumenComponent } from './resumen/resumen.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { CompromisoComponent } from './compromiso/compromiso.component';
     MyDashboardComponent,
     InicioUsuarioComponent,
     PrincipalComponent,
-    CompromisoComponent
+    CompromisoComponent,
+    ResumenComponent
   ],
   imports: [
     BrowserModule,
