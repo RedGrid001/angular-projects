@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 export interface Entidades {
   value: string;
@@ -50,7 +51,7 @@ export class SecondPageComponent implements OnInit {
   fechahechosf = new FormControl('', Validators.required);
 
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private router: Router) { }
 
   ngOnInit() {
   }
@@ -63,6 +64,9 @@ export class SecondPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.RegistroAct = result;
       console.log('Resultado:'+result);
+      if (this.RegistroAct) {
+        this.router.navigate(['/resumen']);
+      }
     });
 
   }
@@ -77,7 +81,7 @@ export class SecondPageComponent implements OnInit {
       this.anexoD = resultado.anexoD;
       this.ubicacionD = resultado.ubicacionD;
       this.archivoD = resultado.archivoD;
-      console.log('Descripcion: '+resultado.descripcionD+' Anexo: '+resultado.anexoD+' Archivo: '+resultado.archivoD)
+      console.log('Descripcion: '+resultado.descripcionD+' Anexo: '+resultado.anexoD+' Archivo: '+resultado.archivoD);
       if (this.archivoD!) {
         this.disabled = true;
       }
