@@ -12,7 +12,7 @@ export interface Documento {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'my-first-app';
+  title = 'Sdcmined-User';
 
   step = 0;
 

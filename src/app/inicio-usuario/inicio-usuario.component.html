@@ -1,6 +1,6 @@
 <div id="div-container" class="container" [class.mat-elevation-z2]="true" >
     <div id="div-img">
-        <img src="https://img.icons8.com/bubbles/100/000000/cloud-account-login-male.png" width="200px" height="200px" >
+        <img src="https://img.icons8.com/bubbles/100/000000/cloud-account-login-male.png" width="100px" height="100px" >
     </div>
     
     <h3>Bienvenido Usuario</h3>
@@ -13,5 +13,6 @@
         <mat-label>Correlativo de denuncia</mat-label>
         <input matInput placeholder="UI.2014.1132316">
     </mat-form-field>
-    <button [routerLink]="['/principal']"mat-raised-button color="primary">Iniciar</button>
+    <button class="btn btn-primary btn-lg btn-block" [routerLink]="['/principal']" 
+    mat-raised-button color="primary">Iniciar</button>
 </div> 

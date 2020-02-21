@@ -1,11 +1,11 @@
   <div id="div-container" class="container">
       <!-- Aregar mt-x para que el div container tenga un margen de x -->
-    <div class="row">
+    <div class="row mt-3" >
       <div class="col">
         <div class="mat-typography">
           <h1 class="mat-h1">Datos del denunciante</h1>
           <h4 class="mat-h4">Completar los campos obligatorios para solventar a la brevedad posible su denuncia</h4>
-        </div>     
+        </div>
       </div>
     </div>
     <hr>
@@ -21,7 +21,7 @@
               <mat-icon id="icon-1">account_circle</mat-icon>
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <mat-form-field>
+          <mat-form-field class="example-full-width">
             <mat-label>Tipo de documento</mat-label>
             <mat-select [formControl]="tipodocumento" required>
               <mat-option *ngFor="let documento of documentos" [value]="documento.value" >
@@ -30,51 +30,93 @@
             </mat-select>
             <mat-error *ngIf="tipodocumento.hasError('required')">Por favor elige un documento</mat-error>
           </mat-form-field>
-          <form>
-            <mat-form-field>
+          
+            <mat-form-field class="example-full-width">
               <input matInput placeholder="Numero de documento" [formControl]="dui" required>
             </mat-form-field>
-            
-            <mat-form-field>
+
+            <mat-form-field class="example-full-width">
               <input matInput placeholder="Fecha de nacimiento" [matDatepicker]="picker" (focus)="picker.open()" readonly [formControl]="fechanacimiento" required>
             </mat-form-field>
             <mat-datepicker #picker></mat-datepicker>
-            
-            <button mat-raised-button color="primary" >Validar</button>
-          </form>
+
+            <button class="btn btn-primary btn-lg btn-block" mat-raised-button color="primary" >Validar</button>
+         
           <hr>
-          
+
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Nombre" disabled>
           </mat-form-field>
-          
+
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Apellido" disabled>
           </mat-form-field>
-          
+
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Departamento" disabled>
           </mat-form-field>
-          
+
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Dirección" disabled>
           </mat-form-field>
-          
+
           <mat-action-row>
             <button mat-button color="primary" (click)="nextStep()">Siguiente</button>
           </mat-action-row>
         </mat-expansion-panel>
-        
+
         <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Contactar
+            </mat-panel-title>
+            <mat-panel-description>
+              <div id="inf-preguntas">Datos para comunicación o ubicación</div>
+              <mat-icon id="icon-2">map</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <table class="example-full-width" cellspacing="0">
+            <tr>
+              <mat-form-field class="example-full-width">
+                <span matPrefix>+503 &nbsp;</span>
+                <input type="tel" matInput placeholder="Movil" [formControl]="tmovil" required>
+                <mat-icon matSuffix>phone</mat-icon>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <span matPrefix>+503 &nbsp;</span>
+                <input type="tel" matInput placeholder="Casa">
+                <mat-icon matSuffix>phone</mat-icon>
+              </mat-form-field>
+            </tr>
+          </table>
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Introduce tu correo electrónico" [formControl]="email" required>
+            <mat-error *ngIf="email.invalid">{{getErrorEmailMessage()}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <textarea matInput placeholder="Dirección" [formControl]="direccion" required></textarea>
+          </mat-form-field>
+
+          <mat-action-row>
+            <button mat-button color="warn" (click)="prevStep()">Volver</button>
+            <button mat-button color="primary" (click)="nextStep()">Siguiente</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
           <mat-expansion-panel-header>
             <mat-panel-title>
               Preguntas
             </mat-panel-title>
             <mat-panel-description>
-              <div id="inf-preguntas">Marcar según el caso</div>
-              <mat-icon id="icon-2">edit</mat-icon>
+              <div id="inf-contactar">Marcar según el caso</div>
+              <mat-icon id="icon-3">edit</mat-icon>
             </mat-panel-description>
           </mat-expansion-panel-header>
+
           <div class="row">
             <div class="col-sm-12">
               <div class="mat-body-2">Tipo de denuncia:</div>
@@ -98,59 +140,16 @@
                 </mat-radio-group>
             </div>
           </div>
-          <mat-action-row>
-            <button mat-button color="warn" (click)="prevStep()">Volver</button>
-            <button mat-button color="primary" (click)="nextStep()">Siguiente</button>
-          </mat-action-row>
-        </mat-expansion-panel>
-        
-        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Contactar
-            </mat-panel-title>
-            <mat-panel-description>
-              <div id="inf-contactar">Datos para comunicación o ubicación</div>
-              <mat-icon id="icon-3">map</mat-icon>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          
-          <table class="example-full-width" cellspacing="0">
-            <tr>
-              
-              <mat-form-field class="example-full-width">
-                <span matPrefix>+503 &nbsp;</span>
-                <input type="tel" matInput placeholder="Movil" [formControl]="tmovil" required>
-                <mat-icon matSuffix>phone</mat-icon>
-              </mat-form-field>
-              
-              <mat-form-field class="example-full-width">
-                <span matPrefix>+503 &nbsp;</span>
-                <input type="tel" matInput placeholder="Casa">
-                <mat-icon matSuffix>phone</mat-icon>
-              </mat-form-field>
-              
-            </tr>
-          </table>
-          
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Introduce tu correo electrónico" [formControl]="email" required>
-            <mat-error *ngIf="email.invalid">{{getErrorEmailMessage()}}</mat-error>
-          </mat-form-field>
-          
-          <mat-form-field class="example-full-width">
-            <textarea matInput placeholder="Dirección" [formControl]="direccion" required></textarea>
-          </mat-form-field>
-          
+
           <mat-action-row>
             <button mat-button color="warn" (click)="prevStep()">Volver</button>
             <button mat-button color="primary" (click)="nextStep()">Finalizar</button>
           </mat-action-row>
         </mat-expansion-panel>
-        
+
       </mat-accordion>
       <div>
-        <button [routerLink]="['/second-page']" id="btn-save" mat-raised-button color="primary" >Guardar <i class="material-icons">save</i></button>
+        <button class="btn btn-primary btn-lg btn-block" [routerLink]="['/second-page']" id="btn-save" mat-raised-button color="primary" >Guardar <i class="material-icons">save</i></button>
       </div>
     </div>
   </div>

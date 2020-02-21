@@ -1,6 +1,6 @@
 <div class="container example-container" [class.mat-elevation-z2]="true" >
     
-    <div class="mat-typography">
+    <div class="mat-typography mt-3">
         <h1 class="mat-h1">SDCMINED</h1>
         <div class="mat-h2">Gobierno electrónico a tu alcance</div>
         <div class="mat-body-1">Una plataforma accesible al publico donde puedes hacer valer tus derechos ante 
@@ -24,9 +24,10 @@
             frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
             allowfullscreen>
             </iframe>
+            <p></p>
             <div class="btn-siguiente">
-                <button [routerLink]="['/compromiso']" mat-raised-button color="primary">Siguiente</button>
-            </div>
-            
+                <button class="btn btn-primary btn-lg btn-block" [routerLink]="['/compromiso']" 
+                mat-raised-button color="primary">Siguiente</button>
+            </div>           
     </div>
 </div>
