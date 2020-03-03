@@ -1,11 +1,7 @@
-.btn_siguiente {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
 .container {
     align-content: center;
     max-width: 960px;
-    background: #d6d4d4;
+    background: #ffffff;
     display: flex;
     flex-direction: column;
 }

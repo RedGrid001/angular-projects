@@ -1,8 +1,8 @@
-<div class="container example-container" [class.mat-elevation-z2]="true" >
+<div class="container" [class.mat-elevation-z2]="true" >
     
     <div class="mat-typography mt-3">
         <h1 class="mat-h1">SDCMINED</h1>
-        <div class="mat-h2">Gobierno electrónico a tu alcance</div>
+        <h2 class="mat-h2">Gobierno electrónico a tu alcance</h2>
         <div class="mat-body-1">Una plataforma accesible al publico donde puedes hacer valer tus derechos ante 
             el MINED y la junta de la carrera docente mas cercana para que nos puedas ayudar 
             a formar un sistema educativo mas eficiente y transparente</div>
@@ -18,16 +18,17 @@
             de cambio y proteccion en la educacion de tus hijos te invitamos a formar parte 
             de esta nueva estrategia de cambio al interior de nuestra institucion conoce 
             mas en el siguiente video</div>
-            <hr>
-           
-            <iframe class="video_iframe" width="560" height="315" src="https://www.youtube.com/embed/7zWMYZNC52o" 
-            frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-            </iframe>
-            <p></p>
-            <div class="btn-siguiente">
-                <button class="btn btn-primary btn-lg btn-block" [routerLink]="['/compromiso']" 
-                mat-raised-button color="primary">Siguiente</button>
-            </div>           
+            <hr>    
     </div>
+    <div class="video_iframe">
+        <iframe height="250px" src="https://www.youtube.com/embed/7zWMYZNC52o" 
+    frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+    </iframe>
+    </div>
+    <p></p>
+    <div class="mb-2">
+        <button class="btn btn-primary btn-lg btn-block" [routerLink]="['/compromiso']" 
+        mat-raised-button>Siguiente</button>
+    </div>          
 </div>

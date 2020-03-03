@@ -1,6 +1,6 @@
-<div class="container example-container" [class.mat-elevation-z2]="true" >
+<div class="container" [class.mat-elevation-z2]="true" role="main" >
     
-    <div class="mat-typography mt-3" role="main">
+    <div class="mat-typography mt-3">
         <h1 class="mat-h1" >Ventana de compromiso</h1>
         <div class="mat-h3">Antes de empezar el proceso de denuncia se necesita autenticar que 
             todos y cada uno de los datos que serán proporcionados a esta institución, sean 
@@ -47,21 +47,19 @@
             <hr>
             <div class="row justify-content-between">
                 <div class="col-sm-10">
-                    <div class="mat-body-1">Marque el recuadro como señal de haber tomado conocimiento de los 
+                    <div class="mat-body-1 bg-warning">Marque el recuadro como señal de haber tomado conocimiento de los 
                         requerimientos y consideraciones para continuar con el registro (*)
                         <p></p>
                     </div>
                         
-                     </div>
-                     <div class="col-sm-2"><mat-checkbox>Entiendo</mat-checkbox></div>
                 </div>
-  
-            <p></p>
-               
-            <div class="btn-siguiente">
-                <button class="btn btn-primary btn-lg btn-block" [routerLink]="['/first-page']" 
-                mat-raised-button color="primary">Siguiente</button>
+                <div class="col-sm-2"><mat-checkbox>Entiendo</mat-checkbox></div>
             </div>
-            
+  
+            <p></p> 
+    </div>
+    <div class="mb-2">
+        <button class="btn btn-primary btn-lg btn-block" [routerLink]="['/first-page']" 
+        mat-raised-button>Siguiente</button>
     </div>
 </div>

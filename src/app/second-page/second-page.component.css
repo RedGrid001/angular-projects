@@ -57,7 +57,7 @@ input.example-right-align {
   -moz-appearance: textfield;
 }
 
-#div-container {
+.container {
   max-width: 960px;
 }
 

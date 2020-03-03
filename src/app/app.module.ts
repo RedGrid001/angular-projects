@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DatepickerComponent } from './datepicker/datepicker.component';
 import {A11yModule} from '@angular/cdk/a11y';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {PortalModule} from '@angular/cdk/portal';
@@ -47,14 +46,12 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import { MyNavComponent } from './my-nav/my-nav.component';
-import { map } from 'rxjs/operators';
 import { LayoutModule, Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FirstPageComponent } from './first-page/first-page.component';
 import { SecondPageComponent, ModalDatosAlmacenadosComponent, ModalSubirDocumentoComponent } from './second-page/second-page.component';
 import { ThirdPageComponent } from './third-page/third-page.component';
 import { ModelFuncionarioComponent, ModalFuncionarioDialogComponent } from './model-funcionario/model-funcionario.component';
-import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
 import { InicioUsuarioComponent } from './inicio-usuario/inicio-usuario.component';
 import { PrincipalComponent } from './principal/principal.component';
@@ -64,7 +61,6 @@ import { ResumenComponent } from './resumen/resumen.component';
 @NgModule({
   declarations: [
     AppComponent,
-    DatepickerComponent,
     MyNavComponent,
     FirstPageComponent,
     SecondPageComponent,
