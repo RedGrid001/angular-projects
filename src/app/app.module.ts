@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DatepickerComponent } from './datepicker/datepicker.component';
 import {A11yModule} from '@angular/cdk/a11y';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {PortalModule} from '@angular/cdk/portal';
@@ -46,8 +47,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import { MyNavComponent } from './my-nav/my-nav.component';
-import { LayoutModule, Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { LayoutModule } from '@angular/cdk/layout';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FirstPageComponent } from './first-page/first-page.component';
 import { SecondPageComponent, ModalDatosAlmacenadosComponent, ModalSubirDocumentoComponent } from './second-page/second-page.component';
 import { ThirdPageComponent } from './third-page/third-page.component';
@@ -57,6 +58,7 @@ import { InicioUsuarioComponent } from './inicio-usuario/inicio-usuario.componen
 import { PrincipalComponent } from './principal/principal.component';
 import { CompromisoComponent } from './compromiso/compromiso.component';
 import { ResumenComponent } from './resumen/resumen.component';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,8 @@ import { ResumenComponent } from './resumen/resumen.component';
     InicioUsuarioComponent,
     PrincipalComponent,
     CompromisoComponent,
-    ResumenComponent
+    ResumenComponent,
+    DatepickerComponent
   ],
   imports: [
     BrowserModule,

@@ -1,21 +1,5 @@
 {
-  "hosting": [
-    {
-      "public": "dist/my-first-app",
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    {
-      "target": "my-first-app",
+  "hosting": {
       "public": "dist/my-first-app",
       "ignore": [
         "firebase.json",
@@ -29,5 +13,4 @@
         }
       ]
     }
-  ]
 }
