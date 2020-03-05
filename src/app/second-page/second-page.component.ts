@@ -37,6 +37,20 @@ export class SecondPageComponent implements OnInit {
 
   disabled: boolean = false;
 
+  step = 0;
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
+  }
+
   entidades: Entidades[] = [
     {value: 'pnc', viewValue: 'PNC'},
     {value: 'junta', viewValue: 'Junta'},

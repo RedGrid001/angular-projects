@@ -8,10 +8,6 @@
   align-items: center;
 }
 
-mat-form-field {
-  margin-right: 12px;
-}
-
 .example-container {
   display: flex;
   flex-direction: column;
@@ -25,10 +21,6 @@ mat-form-field {
   width: 100%;
 }
 
-td {
-  padding-right: 8px;
-}
-
 .example-radio-group {
   display: flex;
   flex-direction: column;
@@ -37,11 +29,6 @@ td {
 
 .example-radio-button {
   margin: 5px;
-}
-
-#btn-save {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
 }
 
 .example-right-align {
@@ -60,10 +47,6 @@ input.example-right-align {
 .container {
   max-width: 960px;
 }
-
-#datepicker-1 {
-  margin-right: 1rem;
-  }
 
 #label {
   margin-right: 5px;

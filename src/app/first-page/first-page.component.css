@@ -44,11 +44,6 @@ td {
   padding: 5%;
 }
 
-#btn-save {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-
 /*
 // Extra small devices (portrait phones, less than 576px)
 // No media query for `xs` since this is the default in Bootstrap 
@@ -61,40 +56,6 @@ td {
   }
 }
 
-/* @media (min-width: 1160px){
-    #div-container{
-        background: white;
-    }
-}
- */
-/* // Medium devices (tablets, 768px and up) 
-@media (min-width: 768px) {
-  #content-form {
-    background-color: #FAACA8;
-    background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
-
-  }  
-}
-*/
-/* // Large devices (desktops, 992px and up) 
-@media (min-width: 992px) { 
-  #content-form {
-    background-color: #08AEEA;
-    background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
-
-  }
-}
-*/
-/* // Extra large devices (large desktops, 1200px and up) 
-@media (min-width: 1200px) { 
-  #content-form {
-    background-color: #8EC5FC;
-    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
-
-    border-radius: 2rem;
-  }
-}
-*/
 footer {
   display: flex;
   justify-content: center;
@@ -106,12 +67,8 @@ footer {
   height: 50px;
 }
 
-#div-container {
+.container {
   max-width: 960px;
-  /*
-  background: #D3CCE3;  /* fallback for old browsers 
-  background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);  /* Chrome 10-25, Safari 5.1-6 
-  background: linear-gradient(to right, #E9E4F0, #D3CCE3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */  
 }
 
 :host {
