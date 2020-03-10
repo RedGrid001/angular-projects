@@ -1,5 +1,6 @@
-#div-container {
+.container {
     max-width: 400px;
+    height: 500px;
     background: #ffffff;
     text-align: center;
     padding: 2rem;
@@ -28,6 +29,5 @@ mat-form-field {
       margin-bottom: 3rem;
       max-width: 300px;
       border-radius: 0rem;
-      
     }
   }
