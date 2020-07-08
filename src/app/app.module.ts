@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -49,8 +50,8 @@ import {MatTreeModule} from '@angular/material/tree';
 import { MyNavComponent } from './my-nav/my-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { FirstPageComponent } from './first-page/first-page.component';
-import { SecondPageComponent, ModalDatosAlmacenadosComponent, ModalSubirDocumentoComponent } from './second-page/second-page.component';
+import { FirstPageComponent, DialogFuncionarioComponent, DialogConfirmacionComponent, DialogCargarDocumentoComponent } from './first-page/first-page.component';
+import { SecondPageComponent } from './second-page/second-page.component';
 import { ThirdPageComponent } from './third-page/third-page.component';
 import { ModelFuncionarioComponent, ModalFuncionarioDialogComponent } from './model-funcionario/model-funcionario.component';
 import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
@@ -58,7 +59,10 @@ import { InicioUsuarioComponent } from './inicio-usuario/inicio-usuario.componen
 import { PrincipalComponent } from './principal/principal.component';
 import { CompromisoComponent } from './compromiso/compromiso.component';
 import { ResumenComponent } from './resumen/resumen.component';
-import { from } from 'rxjs';
+import { DenunciaGuardService } from './services/denuncia-guard.service';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -67,10 +71,9 @@ import { from } from 'rxjs';
     FirstPageComponent,
     SecondPageComponent,
     ThirdPageComponent,
-    ModelFuncionarioComponent,
-    ModalFuncionarioDialogComponent,
-    ModalDatosAlmacenadosComponent,
-    ModalSubirDocumentoComponent,
+    DialogFuncionarioComponent,
+    DialogConfirmacionComponent,
+    DialogCargarDocumentoComponent,
     MyDashboardComponent,
     InicioUsuarioComponent,
     PrincipalComponent,
@@ -125,12 +128,17 @@ import { from } from 'rxjs';
     PortalModule,
     ScrollingModule,
     LayoutModule,
-    FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule,
+    HttpClientModule, 
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule
   ],
-  entryComponents: [ModelFuncionarioComponent,
-    ModalFuncionarioDialogComponent,ModalDatosAlmacenadosComponent, ModalSubirDocumentoComponent],
+  entryComponents: [
+    DialogFuncionarioComponent,
+    DialogCargarDocumentoComponent, 
+    DialogConfirmacionComponent],
   providers: [
-    
+    DenunciaGuardService
   ],
   bootstrap: [AppComponent]
 })

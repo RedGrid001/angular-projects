@@ -7,10 +7,11 @@ import { PrincipalComponent } from './principal/principal.component';
 import { InicioUsuarioComponent} from './inicio-usuario/inicio-usuario.component';
 import { CompromisoComponent } from './compromiso/compromiso.component';
 import { ResumenComponent } from './resumen/resumen.component';
+import { DenunciaGuardService } from './services/denuncia-guard.service';
 
 
 const routes: Routes = [ 
-  {path:'first-page', component:FirstPageComponent}, 
+  {path:'first-page/:compromiso', canActivate:[ DenunciaGuardService ] , component:FirstPageComponent}, 
   {path:'second-page', component:SecondPageComponent},
   {path:'third-page', component:ThirdPageComponent},
   {path:'principal', component: PrincipalComponent},
@@ -21,7 +22,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration:'top' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

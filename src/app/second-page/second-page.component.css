@@ -55,3 +55,8 @@ h1 {
   text-align: center;
   color: #3f51b5;
 }
+
+.mat-h4 {
+  border-radius: 5px;
+  padding: 1rem;
+}

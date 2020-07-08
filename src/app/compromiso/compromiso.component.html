@@ -53,13 +53,13 @@
                     </div>
                         
                 </div>
-                <div class="col-sm-2"><mat-checkbox>Entiendo</mat-checkbox></div>
+                <div class="col-sm-2"><mat-checkbox [(ngModel)]="compromiso" >Entiendo</mat-checkbox></div>
             </div>
   
             <p></p> 
     </div>
     <div class="mb-2">
-        <button class="btn btn-primary btn-lg btn-block" [routerLink]="['/first-page']" 
+        <button class="btn btn-primary btn-lg btn-block" [routerLink]="['/first-page', compromiso]" 
         mat-raised-button>Siguiente</button>
     </div>
 </div>

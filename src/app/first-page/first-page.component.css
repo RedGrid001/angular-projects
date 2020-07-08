@@ -39,9 +39,22 @@ td {
   margin: 5px;
 }
 
+.example-right-align {
+  text-align: right;
+}
+
 .example-margin {
   margin: 0 10px;
   padding: 5%;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
 }
 
 /*
@@ -71,14 +84,18 @@ footer {
   max-width: 960px;
 }
 
-:host {
+#label {
+  margin-right: 5px;
+}
+
+/* :host {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 14px;
     color: #333;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
+  } */
 
   h1{
     text-align: center;
@@ -91,4 +108,9 @@ footer {
 
   .row-header{
     color:  #fff;
+  }
+
+  .mat-h4 {
+    border-radius: 5px;
+    padding: 1rem;
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 export interface Entidades {
   value: string;
@@ -65,14 +65,17 @@ export class SecondPageComponent implements OnInit {
   fechahechosf = new FormControl('', Validators.required);
 
 
-  constructor(public dialog: MatDialog, private router: Router) { }
+  constructor(public dialog: MatDialog, private router: Router, private _route: ActivatedRoute) { 
+    
+  }
 
   ngOnInit() {
+    console.log(this._route.snapshot.params.nombre+" - "+this._route.snapshot.params.apellido);
   }
 
   openDialogDatos(){
     const dialogRef = this.dialog.open(ModalDatosAlmacenadosComponent, {
-      data: {codRegistro: 'UI.2014.1132316',fechaPlazo:'22/8/2014'}
+      data: {codRegistro: 'UI.2020.1132316',fechaPlazo:'30/12/2020'}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -129,7 +132,8 @@ export class SecondPageComponent implements OnInit {
   styleUrls: ['./second-page.component.css']
 })
 export class ModalDatosAlmacenadosComponent{
-  constructor(public dialogRef: MatDialogRef<ModalDatosAlmacenadosComponent>, @Inject(MAT_DIALOG_DATA) public data){}
+  constructor(public dialogRef: MatDialogRef<ModalDatosAlmacenadosComponent>, 
+    @Inject(MAT_DIALOG_DATA) public data){}
 }
 
 @Component({
@@ -140,7 +144,8 @@ export class ModalDatosAlmacenadosComponent{
 export class ModalSubirDocumentoComponent {
   fileToUpload: File = null;
 
-  constructor(public dialogRef: MatDialogRef<ModalSubirDocumentoComponent>, @Inject(MAT_DIALOG_DATA) public data: ModalDocumentoData){}
+  constructor(public dialogRef: MatDialogRef<ModalSubirDocumentoComponent>, 
+    @Inject(MAT_DIALOG_DATA) public data: ModalDocumentoData){}
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);

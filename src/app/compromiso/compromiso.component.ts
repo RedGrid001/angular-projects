@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
+import { denuncia } from '../entities/denuncia';
+import { EventEmitter } from 'protractor';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-compromiso',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompromisoComponent implements OnInit {
 
+  @Input() compromiso: boolean;
+
   constructor() { }
 
   ngOnInit() {
+    
   }
 
 }

@@ -54,7 +54,8 @@ export class ModelFuncionarioComponent implements OnInit {
 export class ModalFuncionarioDialogComponent {
 
   constructor(
-    public dialogRef: MatDialogRef<ModalFuncionarioDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    public dialogRef: MatDialogRef<ModalFuncionarioDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
   onNoClick(): void {
     this.dialogRef.close();

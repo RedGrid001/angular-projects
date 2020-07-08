@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Confirmación para guardar la denuncia</h2>
+<mat-dialog-content class="mat-typography">
+<p>Se ha generado el siguiente código de registro:</p>
+<h3>{{data.codRegistro}}</h3>
+<p>Tome nota de este código para que posteriormente pueda continuar con el trámite de su denuncia.</p>
+<p>Usted tiene como plazo límite para el envío de su denuncia:</p>
+<h3>{{data.fechaPlazo}}</h3>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="false" class="btn btn-danger">Cancelar</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial class="btn btn-primary">Registrar</button>
+</mat-dialog-actions>

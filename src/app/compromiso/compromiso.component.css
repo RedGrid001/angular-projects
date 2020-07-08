@@ -19,3 +19,8 @@ h1{
     color: #3f51b5;
     text-align: center;
 }
+
+.bg-warning {
+    border-radius: 5px;
+    padding: 15px;
+}
