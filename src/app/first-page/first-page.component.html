@@ -58,10 +58,6 @@
             <input type="text" [(ngModel)]="contacto.departamentoCiudadano"  matInput placeholder="Departamento" disabled>
           </mat-form-field>
 
-          <mat-form-field class="example-full-width">
-            <input type="text" [(ngModel)]="contacto.direccionCiudadano" matInput placeholder="Dirección" disabled>
-          </mat-form-field>
-
           <mat-action-row>
             <button mat-button class="btn btn-success" (click)="nextStep()">Siguiente</button>
           </mat-action-row>
@@ -87,7 +83,7 @@
               </mat-form-field>
               <mat-form-field class="example-full-width">
                 <span matPrefix>+503 &nbsp;</span>
-                <input type="tel" matInput placeholder="Casa" [(ngModel)]="denuncia.telefonoCasa">
+                <input type="tel" matInput placeholder="Casa" [formControl]="telefonocasaFC" >
                 <mat-icon matSuffix>phone</mat-icon>
               </mat-form-field>
             </tr>
@@ -269,7 +265,7 @@
       </mat-expansion-panel-header>
 
       <mat-form-field class="example-full-width">
-        <mat-label>Otra entienda donde tenga procesos abiertos</mat-label>
+        <mat-label>Otra entidad donde tenga procesos abiertos</mat-label>
         <mat-select [(ngModel)]="hechos.otroProceso">
           <mat-option *ngFor="let entidad of entidades" [value]="entidad.value" >
             {{entidad.value}}

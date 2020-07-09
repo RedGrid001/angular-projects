@@ -13,4 +13,8 @@ export class InicioUsuarioComponent implements OnInit {
     
   }
 
+  public EstadoDenuncia(){
+    window.alert('El estado de su denuncia es: ...');
+  }
+
 }

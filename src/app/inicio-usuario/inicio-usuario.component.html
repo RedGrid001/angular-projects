@@ -7,12 +7,13 @@
     <div class="mat-body-2">Acceda a su denuncia</div>
     <mat-form-field class="example-full-width">
         <mat-label>Numero de documento</mat-label>
-        <input matInput placeholder="00000000-0" >
+        <input matInput >
     </mat-form-field>
     <mat-form-field class="example-full-width">
         <mat-label>Correlativo de denuncia</mat-label>
-        <input matInput placeholder="UI.2014.1132316">
+        <input matInput placeholder="UI.0-0-0000.0-0.000000000">
     </mat-form-field>
-    <button class="btn btn-success btn-lg btn-block" [routerLink]="['/principal']" 
-    mat-raised-button >Iniciar</button>
+    <button class="btn btn-success btn-lg btn-block" mat-raised-button (click)="EstadoDenuncia()" >Estado Actual</button>
+    <button class="btn btn-primary btn-lg btn-block" [routerLink]="['/principal']" 
+    mat-raised-button >Ingreser Nueva</button>
 </div> 

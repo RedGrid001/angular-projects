@@ -52,6 +52,7 @@ export class FirstPageComponent implements OnInit {
     telefonoMovil:0,
     telefonoCasa:0,
     emailDenunciante: '',
+    noExpediente: '',
     compromiso: [],
     hechos: [],
     prueba: [],
@@ -106,6 +107,7 @@ export class FirstPageComponent implements OnInit {
   tipodocumentoFC = new FormControl('', Validators.required);
   fechanacimientoFC = new FormControl('', Validators.required);
   telefonomovilFC = new FormControl('', Validators.required);
+  telefonocasaFC = new FormControl('');
   direccionFC = new FormControl('', Validators.required);
 
   institucionFC = new FormControl('', Validators.required);
@@ -121,7 +123,6 @@ export class FirstPageComponent implements OnInit {
     tipoDocumento:"",
     numeroDocumento:0,
     fechaNacimiento:null,
-    direccionCiudadano:"",
     departamentoCiudadano:""
   });
 
@@ -207,8 +208,10 @@ export class FirstPageComponent implements OnInit {
         this.denuncia.numeroDocumento = this.documentoFC.value;
         this.denuncia.fechaNacimiento = this.fechanacimientoFC.value;
         this.denuncia.telefonoMovil = this.telefonomovilFC.value;
+        this.denuncia.telefonoCasa = this.telefonocasaFC.value;
         this.denuncia.emailDenunciante = this.emailFC.value;
         this.denuncia.direccionCiudadano = this.direccionFC.value;
+        this.denuncia.noExpediente = result.codRegistro;
         this.hechos.nombreCe = this.institucionFC.value;
         this.hechos.directorCe = this.directorFC.value;
         this.hechos.codCe = this.codceFC.value;

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
-import { contacto } from '../entities/Contacto';
+import { contacto } from '../entities/contacto';
 import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
 import { denuncia } from '../entities/denuncia';
 
 //const localUrl = 'http://localhost:8080/Contactos';

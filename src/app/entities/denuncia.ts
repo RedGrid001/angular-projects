@@ -14,6 +14,7 @@ export class denuncia {
     telefonoMovil: number;
     telefonoCasa: number;
     emailDenunciante: string;
+    noExpediente: string;
 
     compromiso: compromiso[];
     hechos: hechos[];
