@@ -7,11 +7,11 @@
 </mat-form-field>
 <mat-form-field class="example-full-width">
     <mat-label>Anexo o página</mat-label>
-    <input matInput [(ngModel)]="data.anexo">
+    <input matInput [(ngModel)]="data.anexoPagina">
 </mat-form-field>
 <mat-form-field class="example-full-width">
     <mat-label>Ubicación de la información original</mat-label>
-    <input matInput [(ngModel)]="data.ubicacion">
+    <input matInput [(ngModel)]="data.minutoEvidencia">
 </mat-form-field>
 <div class="form-group">
     <label id="label" for="file">File(*)</label>
@@ -19,6 +19,10 @@
            id="file"
            (change)="handleFileInput($event.target.files)">
 </div>
+<hr>
+<section>
+    <mat-progress-bar [mode]="'determinate'" [value]="(uploadPercent | async)"></mat-progress-bar>
+</section>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button [mat-dialog-close]="false" class="btn btn-danger">Cancelar</button>

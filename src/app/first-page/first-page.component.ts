@@ -12,16 +12,10 @@ import { prueba } from '../entities/prueba';
 import { hechos } from '../entities/hechos';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface ISelector {
   value: string;
-}
-
-export interface ICargarDocumento {
-  descripcion: string;
-  anexo: string;
-  ubicacion: string;
-  archivo: File;
 }
 
 export interface IFuncionario {
@@ -68,7 +62,7 @@ export class FirstPageComponent implements OnInit {
   };
 
   compromiso: compromiso = {
-    compromiso: 'S'
+    compromiso: 'SI'
   };
 
   @Input() prueba: prueba = {
@@ -79,9 +73,9 @@ export class FirstPageComponent implements OnInit {
   };
 
   hechos: hechos = {
-    tipoDenunciaP: '',
-    tipoDenunciaS: '',
-    tipoDenunciaT: '',
+    tipoDenunciaP: 'false',
+    tipoDenunciaS: 'false',
+    tipoDenunciaT: 'false',
     trabajaLugar: '',
     representanteLegal: '',
     codCe:0,
@@ -98,7 +92,6 @@ export class FirstPageComponent implements OnInit {
   };
 
   //Variables necesarias
-  file: File = null;
   disabledBtnUpload: boolean = false;
   step = 0;
 
@@ -118,19 +111,20 @@ export class FirstPageComponent implements OnInit {
   fechahechosfFC = new FormControl('', Validators.required);
 
   @Input() contacto: contacto = ({ 
-    nombreCiudadano:"",
-    apellidoCiudadano:"",
-    tipoDocumento:"",
+    nombreCiudadano:'',
+    apellidoCiudadano:'',
+    tipoDocumento:'',
     numeroDocumento:0,
     fechaNacimiento:null,
-    departamentoCiudadano:""
+    departamentoCiudadano:''
   });
 
   constructor(public dialog: MatDialog, 
     private api: ApiService, 
     private router: Router, 
     private _route: ActivatedRoute,
-    public _storage: AngularFireStorage) { 
+    public _storage: AngularFireStorage,
+    private _snackBar: MatSnackBar) { 
     console.log(this._route.snapshot.paramMap.get('compromiso'));
   }
 
@@ -203,7 +197,7 @@ export class FirstPageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
+      if (result!=false) {
         this.denuncia.tipoDocumento = this.tipodocumentoFC.value;
         this.denuncia.numeroDocumento = this.documentoFC.value;
         this.denuncia.fechaNacimiento = this.fechanacimientoFC.value;
@@ -219,63 +213,52 @@ export class FirstPageComponent implements OnInit {
         this.hechos.fechaIniHechos = this.fechahechosiFC.value;
         this.hechos.fechaFinHechos = this.fechahechosfFC.value;
         this.postDenuncia();
-        this.router.navigate(['/resumen']);
+        //this.router.navigate(['/resumen']);
+      } else {
+        this.AbrirSnackBar('Guardar Denuncia','Cancelado');
       }
     });
   }
 
   DialogDocumento(){
     const dialogRef = this.dialog.open(DialogCargarDocumentoComponent, {
-      data: {descripcion: this.prueba.descripcion,anexo: this.prueba.anexoPagina, ubicacion: this.prueba.minutoEvidencia, archivo: this.prueba.archivo}
+      data: this.prueba
     });
 
     dialogRef.afterClosed().subscribe(resultado => {
-      this.prueba.descripcion = resultado.descripcion;
-      this.prueba.anexoPagina = resultado.anexo;
-      this.prueba.minutoEvidencia = resultado.ubicacion;
-      if (resultado.archivo!=null) {
-        this.CargarArchivo(resultado.archivo);
+      if (resultado!=false) {
+        this.prueba.descripcion = resultado.descripcion;
+        this.prueba.anexoPagina = resultado.anexoPagina;
+        this.prueba.minutoEvidencia = resultado.minutoEvidencia;
+        this.prueba.archivo = resultado.archivo;
         this.denuncia.prueba.splice(0,1,this.prueba);
-      }     
-      //console.log(this.denuncia.pruebas);
-      if (resultado.archivo!) {
+        this.AbrirSnackBar('Agregar Prueba','Realizado');
         this.disabledBtnUpload = true;
+      }else {
+        this.AbrirSnackBar('Agregar Prueba','Cancelado')
       }
-      
     });
   }
 
   DialogFuncionario(): void {
     const dialogRef = this.dialog.open(DialogFuncionarioComponent, {
       width: '400px',
-      data: {
-        tipodocumento: this.funcionario.tipoDocumento, 
-        nombrefuncionario: this.funcionario.nombreFuncionario, 
-        numerodocumento: this.funcionario.numeroDocumento, 
-        cargo: this.funcionario.cargo, 
-        respuesta: this.funcionario.respuesta
-      }
+      data: this.funcionario
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if (result!=false) {
       this.funcionario.tipoDocumento = result.tipodocumento;
       this.funcionario.nombreFuncionario = result.nombrefuncionario;
       this.funcionario.numeroDocumento = result.numerodocumento;
       this.funcionario.cargo = result.cargo;
       this.funcionario.respuesta = result.respuesta;
       this.denuncia.funcionario.splice(0,1,this.funcionario);
-      //console.log(this.denuncia.funcionarios);
+      this.AbrirSnackBar('Agregar Funcionario','Realizado');
+      } else {
+        this.AbrirSnackBar('Agregar Funcionario','Cancelado');
+      }
     });
-  }
-
-  CargarArchivo(file: File) {
-    this.file = file;
-    const id = Math.random().toString(36).substring(2);
-    const filePath = 'files/archivo_'+id;
-    const storageRef = this._storage.ref(filePath);
-    const task = this._storage.upload(filePath, this.file);
-    task.snapshotChanges().pipe(finalize(()=>storageRef.getDownloadURL().subscribe((ruta:string) => 
-    { this.prueba.archivo = ruta; }))).subscribe();
   }
 
   handleError(error){
@@ -291,6 +274,12 @@ export class FirstPageComponent implements OnInit {
       return throwError(errorMessage);
   }
 
+  AbrirSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
 }
 
 @Component({
@@ -299,8 +288,10 @@ export class FirstPageComponent implements OnInit {
   styleUrls: ['./first-page.component.css']
 })
 export class DialogConfirmacionComponent{
+
   constructor(public dialogRef: MatDialogRef<DialogConfirmacionComponent>, 
     @Inject(MAT_DIALOG_DATA) public data){}
+
 }
 
 @Component({
@@ -310,11 +301,26 @@ export class DialogConfirmacionComponent{
 })
 export class DialogCargarDocumentoComponent {
 
+  //Variables
+  uploadPercent: Observable<number>;
+  fileToUpload: File = null;
+
   constructor(public dialogRef: MatDialogRef<DialogCargarDocumentoComponent>, 
-    @Inject(MAT_DIALOG_DATA) public data: ICargarDocumento){}
+    @Inject(MAT_DIALOG_DATA) public data: prueba, private _storage: AngularFireStorage){}
 
   handleFileInput(files: FileList) {
-    this.data.archivo = files.item(0);
+    this.fileToUpload = files.item(0);
+    this.CargarArchivo(this.fileToUpload);
+  }
+
+  CargarArchivo(file: File) {
+    const id = Math.random().toString(36).substring(2);
+    const filePath = 'files/archivo_'+id;
+    const storageRef = this._storage.ref(filePath);
+    const task = this._storage.upload(filePath, file);
+    this.uploadPercent = task.percentageChanges();
+    task.snapshotChanges().pipe(finalize(()=>storageRef.getDownloadURL().subscribe((ruta:string) => 
+    { this.data.archivo = ruta; }))).subscribe();
   }
 }
 
@@ -325,9 +331,8 @@ export class DialogCargarDocumentoComponent {
 })
 export class DialogFuncionarioComponent {
 
-  constructor(
-    public dialogRef: MatDialogRef<DialogFuncionarioComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IFuncionario) {}
+  constructor(public dialogRef: MatDialogRef<DialogFuncionarioComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: funcionario) {}
 
   CloseDialog(): void {
     this.dialogRef.close();
