@@ -7,6 +7,7 @@ import { denuncia } from '../entities/denuncia';
 //const localUrl = 'http://localhost:8080/Contactos';
 const urlcontactos = '/api/Contactos';
 const urldenuncia = '/api/Denuncia';
+const ulrce = '/api/CE';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
@@ -21,8 +22,8 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  public sendGetRequest(id: any){
-    return this.http.get(urlcontactos+"/"+id, httpOptions);
+  public getCentrosEscolares(){
+    return this.http.get(ulrce, httpOptions);
   }
 
   public getContacto(id: any): Observable<contacto> {

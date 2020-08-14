@@ -174,7 +174,13 @@
       </mat-expansion-panel-header>
 
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Institución donde sucedieron los hechos" [formControl]="institucionFC" required >
+        <input type="text" matInput placeholder="Institución donde sucedieron los hechos"  
+        [formControl]="institucionFC" [matAutocomplete]="autoce" required >
+        <mat-autocomplete #autoce="matAutocomplete">
+          <mat-option (onSelectionChange)="complementarce(option.codigo_ce)" *ngFor="let option of filteredOptions | async" [value]="option.nombre_ce">
+            {{option.nombre_ce}}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Director del centro escolar" [formControl]="directorFC" required >

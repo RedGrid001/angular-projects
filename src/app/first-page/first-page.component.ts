@@ -13,17 +13,11 @@ import { hechos } from '../entities/hechos';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { centrosescolares } from '../entities/centros_escolares';
+import { map, startWith } from 'rxjs/operators';
 
 export interface ISelector {
   value: string;
-}
-
-export interface IFuncionario {
-  tipodocumento: string;
-  nombrefuncionario: string;
-  numerodocumento: string;
-  cargo: string;
-  respuesta: boolean;
 }
 
 @Component({
@@ -32,8 +26,6 @@ export interface IFuncionario {
   styleUrls: ['./first-page.component.css']
 })
 export class FirstPageComponent implements OnInit {
-
-  title = 'Home-Page';
 
   denuncia: denuncia = {
     nombreCiudadano: '',
@@ -91,9 +83,13 @@ export class FirstPageComponent implements OnInit {
     desOtroProceso: ''
   };
 
+  ce: centrosescolares [] = [{ codigo_ce:1,direccion_ce:'Ninguna',director_ce:'Ninguno',nombre_ce:'Ninguno'}];
+  CentroEscolar: centrosescolares = {codigo_ce:0,direccion_ce:'',director_ce:'',nombre_ce:''};
+
   //Variables necesarias
   disabledBtnUpload: boolean = false;
   step = 0;
+  filteredOptions: Observable<centrosescolares[]>;
 
   emailFC = new FormControl('', [Validators.required, Validators.email]);
   documentoFC = new FormControl('', Validators.required);
@@ -157,8 +153,37 @@ export class FirstPageComponent implements OnInit {
         this.emailFC.hasError('email') ? 'No es un correo valido' : '';
   }
 
+  complementarce(valor:number){
+    console.log(valor);
+    //this.CentroEscolar = this.ce.find(data => data.nombre_ce == this.institucionFC.value)
+    //this.directorFC.setValue(this.CentroEscolar.director_ce);
+    //this.codceFC.setValue(this.CentroEscolar.codigo_ce);
+  }
+
+  private _filter(value: string): centrosescolares[] {
+    const filterValue = value.toLowerCase();
+    return this.ce.filter(option => option.nombre_ce.toLowerCase().includes(filterValue));
+  }
+
   ngOnInit() {
-    
+    this.getCentrosEscolares();
+    this.filteredOptions = this.institucionFC.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+  }
+
+  private getCentrosEscolares(){
+    try {
+      this.api.getCentrosEscolares().subscribe((respuesta:centrosescolares[]) => {
+        this.ce = respuesta;
+        console.log(this.ce);
+      })
+      
+    } catch (error) {
+      this.api.handleError(error);
+    }
   }
 
   public getContacto(id: any){
@@ -171,7 +196,7 @@ export class FirstPageComponent implements OnInit {
         });
 
     } catch(error){
-      this.handleError(error);
+      this.api.handleError(error);
     }
   }
 
@@ -183,7 +208,7 @@ export class FirstPageComponent implements OnInit {
         console.log(respuesta);
       });
     } catch (error) {
-      this.handleError(error);
+      this.api.handleError(error);
     }  
   }
 
@@ -259,19 +284,6 @@ export class FirstPageComponent implements OnInit {
         this.AbrirSnackBar('Agregar Funcionario','Cancelado');
       }
     });
-  }
-
-  handleError(error){
-    let errorMessage = '';
-      if(error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-      } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-      }
-      window.alert(errorMessage);
-      return throwError(errorMessage);
   }
 
   AbrirSnackBar(message: string, action: string) {
