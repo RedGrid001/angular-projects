@@ -22,10 +22,10 @@ export interface ISelector {
 
 @Component({
   selector: 'app-first-page',
-  templateUrl: './first-page.component.html',
-  styleUrls: ['./first-page.component.css']
+  templateUrl: './denuncia.component.html',
+  styleUrls: ['./denuncia.component.css']
 })
-export class FirstPageComponent implements OnInit {
+export class DenunciaComponent implements OnInit {
 
   denuncia: denuncia = {
     nombreCiudadano: '',
@@ -297,7 +297,7 @@ export class FirstPageComponent implements OnInit {
 @Component({
   selector:'dialog-confirmacion.component',
   templateUrl:'./dialog-confirmacion.html',
-  styleUrls: ['./first-page.component.css']
+  styleUrls: ['./denuncia.component.css']
 })
 export class DialogConfirmacionComponent{
 
@@ -309,7 +309,7 @@ export class DialogConfirmacionComponent{
 @Component({
   selector: 'dialog-cargar-documento.component',
   templateUrl: './dialog-cargar-documento.html',
-  styleUrls: ['./first-page.component.css']
+  styleUrls: ['./denuncia.component.css']
 })
 export class DialogCargarDocumentoComponent {
 
@@ -339,7 +339,7 @@ export class DialogCargarDocumentoComponent {
 @Component({
   selector: 'dialog-funcionario.component',
   templateUrl: './dialog-funcionario.html',
-  styleUrls: ['./first-page.component.css']
+  styleUrls: ['./denuncia.component.css']
 })
 export class DialogFuncionarioComponent {
 

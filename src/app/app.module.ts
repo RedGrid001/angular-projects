@@ -50,10 +50,9 @@ import {MatTreeModule} from '@angular/material/tree';
 import { MyNavComponent } from './my-nav/my-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { FirstPageComponent, DialogFuncionarioComponent, DialogConfirmacionComponent, DialogCargarDocumentoComponent } from './first-page/first-page.component';
+import { DenunciaComponent, DialogFuncionarioComponent, DialogConfirmacionComponent, DialogCargarDocumentoComponent } from './denuncia/denuncia.component';
 import { SecondPageComponent } from './second-page/second-page.component';
 import { ThirdPageComponent } from './third-page/third-page.component';
-import { ModelFuncionarioComponent, ModalFuncionarioDialogComponent } from './model-funcionario/model-funcionario.component';
 import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
 import { InicioUsuarioComponent } from './inicio-usuario/inicio-usuario.component';
 import { PrincipalComponent } from './principal/principal.component';
@@ -68,7 +67,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
   declarations: [
     AppComponent,
     MyNavComponent,
-    FirstPageComponent,
+    DenunciaComponent,
     SecondPageComponent,
     ThirdPageComponent,
     DialogFuncionarioComponent,
