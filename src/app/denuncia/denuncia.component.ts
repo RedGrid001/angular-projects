@@ -153,11 +153,11 @@ export class DenunciaComponent implements OnInit {
         this.emailFC.hasError('email') ? 'No es un correo valido' : '';
   }
 
-  complementarce(valor:number){
-    console.log(valor);
-    //this.CentroEscolar = this.ce.find(data => data.nombre_ce == this.institucionFC.value)
-    //this.directorFC.setValue(this.CentroEscolar.director_ce);
-    //this.codceFC.setValue(this.CentroEscolar.codigo_ce);
+  public complementarce(codigo_ce:number){
+    console.log(codigo_ce);
+    this.CentroEscolar = this.ce.find(data => data.codigo_ce == codigo_ce)
+    this.directorFC.setValue(this.CentroEscolar.director_ce);
+    this.codceFC.setValue(this.CentroEscolar.codigo_ce);
   }
 
   private _filter(value: string): centrosescolares[] {
