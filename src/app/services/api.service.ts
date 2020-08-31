@@ -45,9 +45,9 @@ export class ApiService {
  // Error handling .pipe(retry(1), catchError(this.handleError))
   handleError(error) {
     let errorMessage = '';
-    if(error.error instanceof ErrorEvent) {
+    if(error instanceof ErrorEvent) {
       // Get client-side error
-      errorMessage = error.error.message;
+      errorMessage = error.message;
     } else {
       // Get server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;

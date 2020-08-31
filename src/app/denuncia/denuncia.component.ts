@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from '../services/api.service';
@@ -15,6 +15,7 @@ import { finalize } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { centrosescolares } from '../entities/centros_escolares';
 import { map, startWith } from 'rxjs/operators';
+import { jsPDF } from "jspdf"
 
 export interface ISelector {
   value: string;
@@ -26,6 +27,8 @@ export interface ISelector {
   styleUrls: ['./denuncia.component.css']
 })
 export class DenunciaComponent implements OnInit {
+
+  //@ViewChild() content: ElementRef;
 
   denuncia: denuncia = {
     nombreCiudadano: '',
@@ -238,7 +241,7 @@ export class DenunciaComponent implements OnInit {
         this.hechos.fechaIniHechos = this.fechahechosiFC.value;
         this.hechos.fechaFinHechos = this.fechahechosfFC.value;
         this.postDenuncia();
-        //this.router.navigate(['/resumen']);
+        this.router.navigate(['/resumen']);
       } else {
         this.AbrirSnackBar('Guardar Denuncia','Cancelado');
       }
@@ -283,6 +286,12 @@ export class DenunciaComponent implements OnInit {
       } else {
         this.AbrirSnackBar('Agregar Funcionario','Cancelado');
       }
+    });
+  }
+
+  DialogImprimir() {
+    const dialogRef = this.dialog.open(DialogImprimirComponent, {
+      data: this.denuncia
     });
   }
 
@@ -348,6 +357,50 @@ export class DialogFuncionarioComponent {
 
   CloseDialog(): void {
     this.dialogRef.close();
+  }
+
+}
+
+@Component({
+  selector: 'dialog-imprimir.component',
+  templateUrl: './dialog-imprimir.html',
+  styleUrls: ['./denuncia.component.css']
+})
+
+export class DialogImprimirComponent {
+
+  
+  //documento: jsPDF;
+
+  constructor(public dialogRef: MatDialogRef<DialogImprimirComponent>, @Inject(MAT_DIALOG_DATA) public data: denuncia) {}
+
+  public DescargarPDF(contenido: ElementRef){
+    // Landscape export, 2×4 inches
+    /*
+    {
+    orientation: "landscape",
+    unit: "in",
+    format: [4, 2]
+    }
+     */
+    let documento = new jsPDF();
+
+    let specialElementHandlers = {
+      '#editor': function(element, renderer) {
+        return true;
+      }
+    };
+
+    var content = contenido.nativeElement;
+
+    documento.fromHTML(content,15,15, {
+      'width': 190,
+      'elementHandlers': specialElementHandlers
+    });
+
+    //doc.text("Hello world!", 1, 1);
+    documento.save("prueba.pdf");
+
   }
 
 }

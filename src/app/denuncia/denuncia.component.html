@@ -1,4 +1,4 @@
-
+<div id="content" #content>HOLA</div>
 <div class="container" role="main">
       <!-- Aregar mt-x para que el div container tenga un margen de x -->
     <div class="row mt-3" >
@@ -293,6 +293,11 @@
     </mat-expansion-panel>
   </mat-accordion>
   
+  <div *ngIf="false">
+    <button class="btn btn-success btn-lg btn-block mt-3 mb-3" mat-raised-button 
+    (click)="DialogImprimir()" >Descargar<mat-icon aria-hidden="false" aria-label="Example cloud_download icon">cloud_download</mat-icon></button>
+  </div>
+
   <div>
     <button class="btn btn-info btn-lg btn-block mt-3 mb-3" mat-raised-button 
     (click)="DialogConfirmacion()" >Finalizar <i class="material-icons">arrow_forward</i></button>

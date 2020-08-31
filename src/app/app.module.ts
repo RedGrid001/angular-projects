@@ -48,7 +48,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { DenunciaComponent, DialogFuncionarioComponent, DialogConfirmacionComponent, DialogCargarDocumentoComponent } from './denuncia/denuncia.component';
+import { DenunciaComponent, DialogFuncionarioComponent, DialogConfirmacionComponent, DialogCargarDocumentoComponent, DialogImprimirComponent } from './denuncia/denuncia.component';
 import { InicioUsuarioComponent } from './inicio-usuario/inicio-usuario.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { CompromisoComponent } from './compromiso/compromiso.component';
@@ -65,6 +65,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     DialogFuncionarioComponent,
     DialogConfirmacionComponent,
     DialogCargarDocumentoComponent,
+    DialogImprimirComponent,
     InicioUsuarioComponent,
     PrincipalComponent,
     CompromisoComponent,
@@ -125,7 +126,9 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
   entryComponents: [
     DialogFuncionarioComponent,
     DialogCargarDocumentoComponent, 
-    DialogConfirmacionComponent],
+    DialogConfirmacionComponent,
+    DialogImprimirComponent
+  ],
   providers: [
     DenunciaGuardService
   ],
