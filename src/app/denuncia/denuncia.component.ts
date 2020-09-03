@@ -15,7 +15,8 @@ import { finalize } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { centrosescolares } from '../entities/centros_escolares';
 import { map, startWith } from 'rxjs/operators';
-import { jsPDF } from "jspdf"
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 
 export interface ISelector {
   value: string;
@@ -289,8 +290,9 @@ export class DenunciaComponent implements OnInit {
     });
   }
 
-  DialogImprimir() {
+  DialogDescargar() {
     const dialogRef = this.dialog.open(DialogImprimirComponent, {
+      width:'215.9mm',
       data: this.denuncia
     });
   }
@@ -374,32 +376,18 @@ export class DialogImprimirComponent {
 
   constructor(public dialogRef: MatDialogRef<DialogImprimirComponent>, @Inject(MAT_DIALOG_DATA) public data: denuncia) {}
 
-  public DescargarPDF(contenido: ElementRef){
-    // Landscape export, 2×4 inches
-    /*
-    {
-    orientation: "landscape",
-    unit: "in",
-    format: [4, 2]
-    }
-     */
-    let documento = new jsPDF();
+  public DescargarPDF(){
 
-    let specialElementHandlers = {
-      '#editor': function(element, renderer) {
-        return true;
-      }
-    };
-
-    var content = contenido.nativeElement;
-
-    documento.fromHTML(content,15,15, {
-      'width': 190,
-      'elementHandlers': specialElementHandlers
+    var element = document.getElementById('contenido');
+    html2canvas(element).then((canvas) => {
+      console.log(canvas);
+      //var imgData = canvas.toDataURL('image/png');
+      //var imgWidth = 140;
+      var doc = new jsPDF('p','mm',[279.4,215.9]);
+      //var imgHeight = canvas.height * imgWidth / canvas.width;
+      doc.addImage(canvas,5,5,0,0);
+      doc.save("denunciainf.pdf");
     });
-
-    //doc.text("Hello world!", 1, 1);
-    documento.save("prueba.pdf");
 
   }
 
