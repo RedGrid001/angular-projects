@@ -190,9 +190,9 @@ export class DenunciaComponent implements OnInit {
     }
   }
 
-  public getContacto(id: any){
+  public getContacto(numeroDocumento: number,tipoDocumento: string){
     try{
-       this.api.getContacto(id).subscribe((respuesta: contacto) => {
+       this.api.getContacto(numeroDocumento,tipoDocumento).subscribe((respuesta: contacto) => {
           this.contacto = respuesta;
           this.denuncia.nombreCiudadano = respuesta.nombreCiudadano;
           this.denuncia.apellidoCiudadano = respuesta.apellidoCiudadano;
@@ -291,8 +291,7 @@ export class DenunciaComponent implements OnInit {
   }
 
   DialogDescargar() {
-    const dialogRef = this.dialog.open(DialogImprimirComponent, {
-      width:'215.9mm',
+    const dialogRef = this.dialog.open(DialogDescargarComponent, {
       data: this.denuncia
     });
   }
@@ -364,17 +363,17 @@ export class DialogFuncionarioComponent {
 }
 
 @Component({
-  selector: 'dialog-imprimir.component',
-  templateUrl: './dialog-imprimir.html',
+  selector: 'dialog-descargar.component',
+  templateUrl: './dialog-descargar.html',
   styleUrls: ['./denuncia.component.css']
 })
 
-export class DialogImprimirComponent {
+export class DialogDescargarComponent {
 
-  
+  filepdf: File;
   //documento: jsPDF;
 
-  constructor(public dialogRef: MatDialogRef<DialogImprimirComponent>, @Inject(MAT_DIALOG_DATA) public data: denuncia) {}
+  constructor(public dialogRef: MatDialogRef<DialogDescargarComponent>, @Inject(MAT_DIALOG_DATA) public data: denuncia) {}
 
   public DescargarPDF(){
 
@@ -387,6 +386,7 @@ export class DialogImprimirComponent {
       //var imgHeight = canvas.height * imgWidth / canvas.width;
       doc.addImage(canvas,5,5,0,0);
       doc.save("denunciainf.pdf");
+
     });
 
   }

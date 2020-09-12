@@ -5,15 +5,18 @@
     
     <h3>Bienvenido Usuario</h3>
     <div class="mat-body-2">Acceda a su denuncia</div>
-    <mat-form-field class="example-full-width">
-        <mat-label>Numero de documento</mat-label>
-        <input matInput >
-    </mat-form-field>
-    <mat-form-field class="example-full-width">
-        <mat-label>Correlativo de denuncia</mat-label>
-        <input matInput placeholder="UI.0-0-0000.0-0.000000000">
-    </mat-form-field>
-    <button class="btn btn-success btn-lg btn-block" mat-raised-button (click)="EstadoDenuncia()" >Estado Actual</button>
-    <button class="btn btn-primary btn-lg btn-block" [routerLink]="['/principal']" 
-    mat-raised-button >Ingreser Nueva</button>
+    <form [formGroup]="inicioFormGroup" (ngSubmit)="IniciarSesion()" novalidate>
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Numero de documento</mat-label>
+            <input matInput formControlName="duiCtrl" required #documento>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Correlativo de denuncia</mat-label>
+            <input matInput placeholder="UI.0-0-0000.0-0.000000000" formControlName="correlativoCtrl" required #correlativo>
+        </mat-form-field>
+        <button class="btn btn-success btn-lg btn-block" mat-raised-button 
+        [disabled]="inicioFormGroup.invalid" (click)="IniciarSesion(documento.value,correlativo.value)">Ingresar</button>
+    </form>
+    <button class="btn btn-primary btn-lg btn-block mt-3 mb-3" [routerLink]="['/principal']" 
+    mat-raised-button >Ingresar Nueva</button>
 </div> 

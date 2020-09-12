@@ -1,0 +1,23 @@
+<div class="container mt-3">
+    <h3 class="text-center">ETAPA ACTUAL DE LA DENUNCIA</h3>
+    <mat-grid-list class="mt-3 mb-3" cols="1" rowHeight="100px">
+        <mat-grid-tile
+            [colspan]="1"
+            [rowspan]="1"
+            [style.background]="colorRegistrada">
+            DENUNCIA REGISTRADA 
+        </mat-grid-tile>
+        <mat-grid-tile
+            [colspan]="1"
+            [rowspan]="1"
+            [style.background]="colorProceso">
+            DENUNCIA EN PROCESO
+        </mat-grid-tile>
+        <mat-grid-tile
+            [colspan]="1"
+            [rowspan]="1"
+            [style.background]="colorFinalizada">
+            DENUNCIA FINALIZADA
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

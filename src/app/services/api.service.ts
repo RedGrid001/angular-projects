@@ -4,7 +4,7 @@ import { contacto } from '../entities/contacto';
 import { Observable, throwError } from 'rxjs';
 import { denuncia } from '../entities/denuncia';
 
-//const localUrl = 'http://localhost:8080/Contactos';
+//const localUrl = 'http://localhost:8080/Contactos' jwt-token;
 const urlcontactos = '/api/Contactos';
 const urldenuncia = '/api/Denuncia';
 const ulrce = '/api/CE';
@@ -20,14 +20,20 @@ const httpOptions = {
 })
 export class ApiService {
 
+  data: denuncia = null;
+
   constructor(private http: HttpClient) { }
 
   public getCentrosEscolares(){
     return this.http.get(ulrce, httpOptions);
   }
 
-  public getContacto(id: any): Observable<contacto> {
-    return this.http.get<contacto>(urlcontactos+"/"+id, httpOptions);
+  public getContacto(numeroDocumento: number,tipoDocumento: string): Observable<contacto> {
+    return this.http.get<contacto>(urlcontactos+"/"+numeroDocumento+"/"+tipoDocumento, httpOptions);
+  }
+
+  public getDenunciaExist(numeroDocumento: string, noExpediente: string): Observable<denuncia> {
+    return this.http.get<denuncia>(urldenuncia+"/"+numeroDocumento+"/"+noExpediente, httpOptions);
   }
 
   public postDenuncia(denuncia: denuncia): Observable<denuncia> {

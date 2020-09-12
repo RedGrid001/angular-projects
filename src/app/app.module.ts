@@ -48,7 +48,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { DenunciaComponent, DialogFuncionarioComponent, DialogConfirmacionComponent, DialogCargarDocumentoComponent, DialogImprimirComponent } from './denuncia/denuncia.component';
+import { DenunciaComponent, DialogFuncionarioComponent, DialogConfirmacionComponent, DialogCargarDocumentoComponent, DialogDescargarComponent } from './denuncia/denuncia.component';
 import { InicioUsuarioComponent } from './inicio-usuario/inicio-usuario.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { CompromisoComponent } from './compromiso/compromiso.component';
@@ -57,6 +57,13 @@ import { DenunciaGuardService } from './services/denuncia-guard.service';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { UsuarioComponent } from './usuario/usuario.component';
+import { InicioComponent } from './inicio/inicio.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { EstadoComponent } from './estado/estado.component';
+import { UsuarioLayoutComponent } from './layouts/usuario-layout.component';
+import { DenunciaLayoutComponent } from './layouts/denuncia-layout.component';
+import { FaqComponent } from './faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -65,11 +72,18 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     DialogFuncionarioComponent,
     DialogConfirmacionComponent,
     DialogCargarDocumentoComponent,
-    DialogImprimirComponent,
+    DialogDescargarComponent,
     InicioUsuarioComponent,
     PrincipalComponent,
     CompromisoComponent,
-    ResumenComponent
+    ResumenComponent,
+    UsuarioComponent,
+    InicioComponent,
+    PerfilComponent,
+    EstadoComponent,
+    UsuarioLayoutComponent,
+    DenunciaLayoutComponent,
+    FaqComponent
   ],
   imports: [
     BrowserModule,
@@ -127,7 +141,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     DialogFuncionarioComponent,
     DialogCargarDocumentoComponent, 
     DialogConfirmacionComponent,
-    DialogImprimirComponent
+    DialogDescargarComponent
   ],
   providers: [
     DenunciaGuardService

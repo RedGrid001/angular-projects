@@ -1,0 +1,37 @@
+<mat-toolbar class="text-white bg-dark">
+    <mat-toolbar-row>
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+        </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="['/inicio']">
+                <mat-icon>home</mat-icon>
+                <span>INICIO</span>
+            </button>
+            <button mat-menu-item [routerLink]="['/perfil']">
+                <mat-icon>admin_panel_settings</mat-icon>
+                <span>PERFIL</span>
+            </button>
+            <button mat-menu-item [routerLink]="['/estado']">
+                <mat-icon>gavel</mat-icon>
+                <span>DENUNCIA</span>
+            </button>
+            <button mat-menu-item [routerLink]="['/faq']">
+                <mat-icon>help_center</mat-icon>
+                <span>FAQ</span>
+            </button>
+            <button mat-menu-item (click)="CerrarSesion()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>SALIR</span>
+            </button>
+          </mat-menu>
+        <span>SADEMINED</span>
+        <span class="example-spacer"></span>
+        <span>Bienvenido: {{nombreUsuario}}</span>
+        <!-- <button mat-icon-button class="example-icon" aria-label="Icon-button exit">
+            <mat-icon>exit_to_app</mat-icon>
+        </button> -->
+    </mat-toolbar-row>
+</mat-toolbar>
+<router-outlet></router-outlet>
+

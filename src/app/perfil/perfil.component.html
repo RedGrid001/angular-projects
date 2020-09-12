@@ -1,0 +1,88 @@
+<div class="container justify-content-center mt-3 mb-3">
+    <div class="mat-typography">
+        <h2 class="text-center">PERFIL DE USUARIO</h2>
+        <h4 class="text-dark bg-warning text-justify">NOTA: Los campos obligatorios son los que están marcados 
+            con un *. Para modificar los datos de su número de documento, nombre, apellido y 
+            fecha de nacimiento, debe solicitarlo, enviando un correo con un archivo adjunto que contenga, 
+            foto o imagen escaneada de tu documento de identidad (revés y derecho) a la dirección 
+            mined@mined.gob.sv, para que podamos proceder a realizar estos cambios lo más pronto posible.
+        </h4>
+    </div>
+    
+    <mat-card>
+        <h3 class="text-center">DATOS BRINDADOS</h3>
+        <hr>
+        <div class="row">
+            <div class="col col-sm-4">
+                <mat-form-field class="form-field-full-width mr-2" appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input type="text" matInput placeholder="Nombre" [formControl]="nombre" disabled="true" required>
+                </mat-form-field>
+            </div>
+            <div class="col col-sm-4">
+                <mat-form-field class="form-field-full-width mr-2" appearance="outline">
+                    <mat-label>Apellido</mat-label>
+                    <input type="text" matInput placeholder="Apellido" [formControl]="apellido" disabled="true" required>
+                </mat-form-field>
+            </div>
+            <div class="col col-sm-4">
+                <mat-form-field class="form-field-full-width" appearance="outline">
+                    <mat-label>Tipo de Documento</mat-label>
+                    <input type="text" matInput placeholder="Tipo de Documento" [formControl]="tipodocumento" disabled="true" required>
+                </mat-form-field>
+            </div>
+            <div class="col col-sm-4">
+                <mat-form-field class="form-field-full-width" appearance="outline">
+                    <mat-label>Numero de Documento</mat-label>
+                    <input type="text" matInput placeholder="Numero de Documento" [formControl]="numerodocumento" required="true" required>
+                </mat-form-field>
+            </div>
+            <div class="col col-sm-4">
+                <mat-form-field class="form-field-full-width" appearance="outline">
+                    <mat-label>Fecha de Nacimiento</mat-label>
+                    <input type="text" matInput placeholder="Fecha de Nacimiento" [formControl]="fechanacimiento" disabled="true" required>
+                </mat-form-field>
+            </div>
+            <div class="col col-sm-4">
+                <mat-form-field class="form-field-full-width" appearance="outline">
+                    <mat-label>Departamento</mat-label>
+                    <input type="text" matInput placeholder="Departamento" [formControl]="departamento" disabled="true" required>
+                </mat-form-field>
+            </div>
+            <div class="col col-sm-4">
+                <mat-form-field class="form-field-full-width" appearance="outline">
+                    <mat-label>Telefono Movil</mat-label>
+                    <span matPrefix>+503 &nbsp;</span>
+                    <input type="text" matInput placeholder="Telefono Movil" [formControl]="telefonomovil" >
+                    <mat-icon matSuffix>phone</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="col col-sm-4">
+                <mat-form-field class="form-field-full-width" appearance="outline">
+                    <mat-label>Telefono Casa</mat-label>
+                    <span matPrefix>+503 &nbsp;</span>
+                    <input type="text" matInput placeholder="Telefono Casa" [formControl]="telefonocasa" >
+                    <mat-icon matSuffix>phone</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="col col-sm-4">
+                <mat-form-field class="form-field-full-width" appearance="outline">
+                    <mat-label>Correo Electronico</mat-label>
+                    <input type="email" matInput placeholder="Introduce tu correo electrónico" [formControl]="email" required >
+                    <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+                        Ingrese una direccion de correo <strong>Valida</strong>
+                    </mat-error>
+                    <mat-error *ngIf="email.hasError('required')">
+                        El correo es <strong>Requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+       
+        <mat-form-field class="form-field-full-width" appearance="outline">
+            <mat-label>Direccion</mat-label>
+            <textarea matInput placeholder="Dirección" [formControl]="direccion" ></textarea>
+        </mat-form-field>
+
+    </mat-card>
+</div>

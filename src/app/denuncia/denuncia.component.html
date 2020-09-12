@@ -3,7 +3,7 @@
     <div class="row mt-3" >
       <div class="col">
         <div class="mat-typography">
-          <h1 class="mat-h1 text-danger" cdkFocusInitial>DATOS DEL DENUNCIANTE</h1>
+          <h1 class="mat-h1 text-danger">DATOS DEL DENUNCIANTE</h1>
           <h4 class="mat-h4 text-light bg-dark">Completar los campos obligatorios para solventar a la brevedad posible su denuncia</h4>
         </div>
       </div>
@@ -32,7 +32,7 @@
           </mat-form-field>
           
             <mat-form-field class="example-full-width">
-              <input type="number" matInput placeholder="Numero de documento" [formControl]="documentoFC" required #id>
+              <input type="number" matInput placeholder="Numero de documento" [formControl]="documentoFC" required>
             </mat-form-field>
 
             <mat-form-field class="example-full-width">
@@ -41,7 +41,7 @@
             </mat-form-field>
             <mat-datepicker #picker></mat-datepicker>
 
-            <button type="button" class="btn btn-dark btn-lg btn-block" mat-raised-button (click)="getContacto(id.value)" >Validar Identidad</button>
+            <button type="button" class="btn btn-dark btn-lg btn-block" mat-raised-button (click)="getContacto(documentoFC.value,tipodocumentoFC.value)" >Validar Identidad</button>
          
           <hr>
 
