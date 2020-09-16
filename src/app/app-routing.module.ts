@@ -14,6 +14,7 @@ import { EstadoComponent } from './estado/estado.component';
 import { DenunciaLayoutComponent } from './layouts/denuncia-layout.component';
 import { AuthGuard } from './services/auth.guard';
 import { FaqComponent } from './faq/faq.component';
+import { ConfirmarComponent } from './confirmar/confirmar.component';
 
 
 const routes: Routes = [ 
@@ -29,6 +30,7 @@ const routes: Routes = [
     { path: 'compromiso', component: CompromisoComponent },
     { path: 'denuncia/:compromiso', canActivate: [ DenunciaGuardService ], component: DenunciaComponent },
     { path: 'resumen', component: ResumenComponent },
+    { path: 'confirmar/:id', component: ConfirmarComponent }
   ]},
   { path: '**', pathMatch: 'full', redirectTo: '' }
 ];

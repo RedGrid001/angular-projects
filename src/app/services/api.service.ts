@@ -3,17 +3,9 @@ import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { contacto } from '../entities/contacto';
 import { Observable, throwError } from 'rxjs';
 import { denuncia } from '../entities/denuncia';
-
-//const localUrl = 'http://localhost:8080/Contactos' jwt-token;
-const urlcontactos = '/api/Contactos';
-const urldenuncia = '/api/Denuncia';
-const ulrce = '/api/CE';
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    'Authorization': 'jwt-token'
-  })
-};
+import { environment } from 'src/environments/environment';
+import { gestiondenuncia } from '../entities/gestiondenuncia';
+import { correo } from '../entities/correo';
 
 @Injectable({
   providedIn: 'root'
@@ -25,27 +17,33 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   public getCentrosEscolares(){
-    return this.http.get(ulrce, httpOptions);
+    return this.http.get(environment.urlAPI.ce, environment.httpOptions);
   }
 
   public getContacto(numeroDocumento: number,tipoDocumento: string): Observable<contacto> {
-    return this.http.get<contacto>(urlcontactos+"/"+numeroDocumento+"/"+tipoDocumento, httpOptions);
+    return this.http.get<contacto>(environment.urlAPI.contactos+"/"+numeroDocumento+"/"+tipoDocumento, environment.httpOptions);
   }
 
   public getDenunciaExist(numeroDocumento: string, noExpediente: string): Observable<denuncia> {
-    return this.http.get<denuncia>(urldenuncia+"/"+numeroDocumento+"/"+noExpediente, httpOptions);
+    return this.http.get<denuncia>(environment.urlAPI.denuncia+"/"+numeroDocumento+"/"+noExpediente, environment.httpOptions);
   }
 
   public postDenuncia(denuncia: denuncia): Observable<denuncia> {
-    return this.http.post<denuncia>(urldenuncia, denuncia, httpOptions);
+    return this.http.post<denuncia>(environment.urlAPI.denuncia, denuncia, environment.httpOptions);
   }
 
-  public putDenuncia(denuncia: denuncia, id: any): Observable<denuncia> {
-    return this.http.put<denuncia>(urlcontactos+"/"+id, denuncia, httpOptions);
+  public getGestion(tipo:string) {
+    return this.http.get(environment.urlAPI.gestion+"/"+tipo,environment.httpOptions);
   }
 
-  public deleteDenuncia(id: any): Observable<denuncia> {
-    return this.http.delete<denuncia>(urlcontactos+"/"+id,httpOptions);
+  public putGestion(gestion: gestiondenuncia): Observable<gestiondenuncia> {
+    return this.http.put<gestiondenuncia>(environment.urlAPI.gestion, gestion, environment.httpOptions);
+  }
+
+  //Correos
+
+  public postCorreo(tipo: string, correo: correo){
+    return this.http.post(environment.urlAPI.correo+"/"+tipo,correo, environment.httpOptions);
   }
 
  // Error handling .pipe(retry(1), catchError(this.handleError))

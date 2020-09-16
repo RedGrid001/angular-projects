@@ -64,6 +64,7 @@ import { EstadoComponent } from './estado/estado.component';
 import { UsuarioLayoutComponent } from './layouts/usuario-layout.component';
 import { DenunciaLayoutComponent } from './layouts/denuncia-layout.component';
 import { FaqComponent } from './faq/faq.component';
+import { ConfirmarComponent } from './confirmar/confirmar.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { FaqComponent } from './faq/faq.component';
     EstadoComponent,
     UsuarioLayoutComponent,
     DenunciaLayoutComponent,
-    FaqComponent
+    FaqComponent,
+    ConfirmarComponent
   ],
   imports: [
     BrowserModule,
