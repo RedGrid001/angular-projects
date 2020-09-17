@@ -17,6 +17,7 @@ import { centrosescolares } from '../entities/centros_escolares';
 import { map, startWith } from 'rxjs/operators';
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
+import { correo } from '../entities/correo';
 
 export interface ISelector {
   value: string;
@@ -32,6 +33,7 @@ export class DenunciaComponent implements OnInit {
   //@ViewChild() content: ElementRef;
 
   denuncia: denuncia = {
+    idDenuncia: 0,
     nombreCiudadano: '',
     apellidoCiudadano: '',
     tipoDocumento: '',
@@ -46,7 +48,8 @@ export class DenunciaComponent implements OnInit {
     compromiso: [],
     hechos: [],
     prueba: [],
-    funcionario: []
+    funcionario: [],
+    gestionDenuncia: []
   };
 
   @Input() funcionario: funcionario = { 
@@ -198,35 +201,50 @@ export class DenunciaComponent implements OnInit {
           this.denuncia.apellidoCiudadano = respuesta.apellidoCiudadano;
           this.denuncia.departamentoCiudadano = respuesta.departamentoCiudadano;
         });
-
     } catch(error){
       this.api.handleError(error);
     }
   }
 
-  public postDenuncia(){
+  public postDenuncia(denuncia:denuncia){
     try {
-      this.denuncia.compromiso.splice(0,1,this.compromiso);
-      this.denuncia.hechos.splice(0,1,this.hechos);
-      this.api.postDenuncia(this.denuncia).subscribe((respuesta: denuncia) => {
-        console.log(respuesta);
+      this.api.postDenuncia(denuncia).subscribe((respuesta: denuncia) => { this.denuncia.idDenuncia = respuesta.idDenuncia; console.log(respuesta); },
+      (err) => this.api.handleError(err), () => { 
+        this.AbrirSnackBar('REGISTRAR DENUNCIA','COMPLETADO');
+
+        var dataemail: correo = {
+          emailEmisor: 'sadeuesmined@hotmail.com',
+          passwordEmisor: 'S1a2D3e4',
+          emailReceptor: this.denuncia.emailDenunciante,
+          asunto: 'Correo para confirmar denuncia',
+          contenido: `${this.denuncia.nombreCiudadano} ${this.denuncia.apellidoCiudadano}, te hemos enviado el siguiente enlace para que confirmes tu denuncia: http://localhost/confirmar/${this.denuncia.idDenuncia} .Sino has utilizado tu correo para realizar esta denuncia ignora este mensaje. También te adjuntamos el enlace que contiene el compromiso que aceptaste, recuerda presentarlo el día de la audiencia. https://firebasestorage.googleapis.com/v0/b/sigd-be78b.appspot.com/o/Compromisos%20del%20ciudadano.pdf?alt=media&token=edef1aba-f7c7-4300-a92b-5a4f6c5fa3de.pdf `
+        } 
+        this.postCorreo('Simple',dataemail); 
+      
       });
     } catch (error) {
       this.api.handleError(error);
     }  
   }
 
+  public postCorreo(tipo:string, correo:correo){
+    try {
+      this.api.postCorreo(tipo,correo).subscribe(resultado => {},(err) => this.api.handleError(err),() => this.router.navigate(['/resumen']) )
+    } catch (error) {
+      this.api.handleError(this.api);
+    }
+  }
+
   DialogConfirmacion(){
     let date = new Date();
     const dialogRef = this.dialog.open(DialogConfirmacionComponent, {
       data: {
-        codRegistro: `UI.${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}.${date.getHours()}-${date.getMinutes()}.${this.documentoFC.value}`,
-        fechaPlazo:'30/12/2020'
+        codRegistro: `UI.${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}.${date.getHours()}-${date.getMinutes()}.${this.documentoFC.value}`
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result!=false) {
+      if (result!=null) {
         this.denuncia.tipoDocumento = this.tipodocumentoFC.value;
         this.denuncia.numeroDocumento = this.documentoFC.value;
         this.denuncia.fechaNacimiento = this.fechanacimientoFC.value;
@@ -241,10 +259,11 @@ export class DenunciaComponent implements OnInit {
         this.hechos.descripcionHechos = this.hechosdescFC.value;
         this.hechos.fechaIniHechos = this.fechahechosiFC.value;
         this.hechos.fechaFinHechos = this.fechahechosfFC.value;
-        this.postDenuncia();
-        this.router.navigate(['/resumen']);
+        this.denuncia.compromiso.splice(0,1,this.compromiso);
+        this.denuncia.hechos.splice(0,1,this.hechos);
+        this.postDenuncia(this.denuncia);
       } else {
-        this.AbrirSnackBar('Guardar Denuncia','Cancelado');
+        this.AbrirSnackBar('REGISTRAR DENUNCIA','CANCELADO');
       }
     });
   }
@@ -255,16 +274,16 @@ export class DenunciaComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(resultado => {
-      if (resultado!=false) {
+      if (resultado!=null) {
         this.prueba.descripcion = resultado.descripcion;
         this.prueba.anexoPagina = resultado.anexoPagina;
         this.prueba.minutoEvidencia = resultado.minutoEvidencia;
         this.prueba.archivo = resultado.archivo;
         this.denuncia.prueba.splice(0,1,this.prueba);
-        this.AbrirSnackBar('Agregar Prueba','Realizado');
+        this.AbrirSnackBar('AGREGAR PRUEBA','REALIZADO');
         this.disabledBtnUpload = true;
       }else {
-        this.AbrirSnackBar('Agregar Prueba','Cancelado')
+        this.AbrirSnackBar('AGREGAR PRUEBA','CANCELADO')
       }
     });
   }
@@ -275,17 +294,17 @@ export class DenunciaComponent implements OnInit {
       data: this.funcionario
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result!=false) {
-      this.funcionario.tipoDocumento = result.tipodocumento;
-      this.funcionario.nombreFuncionario = result.nombrefuncionario;
-      this.funcionario.numeroDocumento = result.numerodocumento;
-      this.funcionario.cargo = result.cargo;
-      this.funcionario.respuesta = result.respuesta;
+    dialogRef.afterClosed().subscribe(resultado => {
+      if (resultado!=null) {
+      this.funcionario.tipoDocumento = resultado.tipodocumento;
+      this.funcionario.nombreFuncionario = resultado.nombrefuncionario;
+      this.funcionario.numeroDocumento = resultado.numerodocumento;
+      this.funcionario.cargo = resultado.cargo;
+      this.funcionario.respuesta = resultado.respuesta;
       this.denuncia.funcionario.splice(0,1,this.funcionario);
-      this.AbrirSnackBar('Agregar Funcionario','Realizado');
+      this.AbrirSnackBar('AGREGAR FUNCIONARIO','REALIZADO');
       } else {
-        this.AbrirSnackBar('Agregar Funcionario','Cancelado');
+        this.AbrirSnackBar('AGREGAR FUNCIONARIO','CANCELADO');
       }
     });
   }
@@ -355,10 +374,6 @@ export class DialogFuncionarioComponent {
 
   constructor(public dialogRef: MatDialogRef<DialogFuncionarioComponent>,
     @Inject(MAT_DIALOG_DATA) public data: funcionario) {}
-
-  CloseDialog(): void {
-    this.dialogRef.close();
-  }
 
 }
 
