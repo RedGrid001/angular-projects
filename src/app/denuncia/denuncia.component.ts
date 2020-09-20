@@ -212,14 +212,16 @@ export class DenunciaComponent implements OnInit {
       (err) => this.api.handleError(err), () => { 
         this.AbrirSnackBar('REGISTRAR DENUNCIA','COMPLETADO');
 
-        var dataemail: correo = {
+        /* var dataemail: correo = {
           emailEmisor: 'sadeuesmined@hotmail.com',
           passwordEmisor: 'S1a2D3e4',
           emailReceptor: this.denuncia.emailDenunciante,
           asunto: 'Correo para confirmar denuncia',
           contenido: `${this.denuncia.nombreCiudadano} ${this.denuncia.apellidoCiudadano}, te hemos enviado el siguiente enlace para que confirmes tu denuncia: http://localhost/confirmar/${this.denuncia.idDenuncia} .Sino has utilizado tu correo para realizar esta denuncia ignora este mensaje. También te adjuntamos el enlace que contiene el compromiso que aceptaste, recuerda presentarlo el día de la audiencia. https://firebasestorage.googleapis.com/v0/b/sigd-be78b.appspot.com/o/Compromisos%20del%20ciudadano.pdf?alt=media&token=edef1aba-f7c7-4300-a92b-5a4f6c5fa3de.pdf `
         } 
-        this.postCorreo('Simple',dataemail); 
+        this.postCorreo('Simple',dataemail); */
+        
+        this.router.navigate(['/resumen'])
       
       });
     } catch (error) {
@@ -229,7 +231,7 @@ export class DenunciaComponent implements OnInit {
 
   public postCorreo(tipo:string, correo:correo){
     try {
-      this.api.postCorreo(tipo,correo).subscribe(resultado => {},(err) => this.api.handleError(err),() => this.router.navigate(['/resumen']) )
+      this.api.postCorreo(tipo,correo).subscribe(resultado => {},(err) => this.api.handleError(err),() => {} )
     } catch (error) {
       this.api.handleError(this.api);
     }

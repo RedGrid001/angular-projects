@@ -41,7 +41,7 @@
             </mat-form-field>
             <mat-datepicker #picker></mat-datepicker>
 
-            <button type="button" class="btn btn-dark btn-lg btn-block" mat-raised-button (click)="getContacto(documentoFC.value,tipodocumentoFC.value)" >Validar Identidad</button>
+            <button type="button" color="primary" class="btn btn-lg btn-block" mat-raised-button (click)="getContacto(documentoFC.value,tipodocumentoFC.value)" >Validar Identidad</button>
          
           <hr>
 
@@ -58,7 +58,7 @@
           </mat-form-field>
 
           <mat-action-row>
-            <button mat-button class="btn btn-success" (click)="nextStep()">Siguiente</button>
+            <button mat-stroked-button color="accent" (click)="nextStep()">Siguiente</button>
           </mat-action-row>
         </mat-expansion-panel>
 
@@ -98,8 +98,8 @@
           </mat-form-field>
 
           <mat-action-row>
-            <button mat-button class="btn btn-danger" (click)="prevStep()">Volver</button>
-            <button mat-button class="btn btn-success" (click)="nextStep()">Siguiente</button>
+            <button mat-stroked-button color="warn" (click)="prevStep()">Volver</button>
+            <button mat-stroked-button color="accent" (click)="nextStep()">Siguiente</button>
           </mat-action-row>
         </mat-expansion-panel>
 
@@ -139,8 +139,8 @@
           </div>
 
           <mat-action-row>
-            <button mat-button class="btn btn-danger" (click)="prevStep()">Volver</button>
-            <button mat-button class="btn btn-success" (click)="setStep(4)">Finalizar</button>
+            <button mat-stroked-button color="warn" (click)="prevStep()">Volver</button>
+            <button mat-stroked-button color="accent" (click)="setStep(4)">Finalizar</button>
           </mat-action-row>
         </mat-expansion-panel>
 
@@ -209,7 +209,7 @@
           </div>
 
           <mat-action-row>
-            <button mat-button class="btn btn-success" (click)="nextStep()">Siguiente</button>
+            <button mat-stroked-button color="accent" (click)="nextStep()">Siguiente</button>
           </mat-action-row>
 
         </mat-expansion-panel>
@@ -248,14 +248,14 @@
             <mat-tab label="Parte 3">
               <div class="container">
                 <div class="mat-body-2">Agregar archivo de prueba:</div>
-                <button mat-raised-button class="btn btn-dark" (click)="DialogDocumento()" [disabled]="disabledBtnUpload">Cargar <i class="material-icons">attach_file</i></button>
+                <button mat-raised-button color="primary" (click)="DialogDocumento()" [disabled]="disabledBtnUpload">Cargar <i class="material-icons">attach_file</i></button>
               </div>  
             </mat-tab>
           </mat-tab-group>
 
           <mat-action-row>
-            <button mat-button class="btn btn-danger" (click)="prevStep()">Volver</button>
-            <button mat-button class="btn btn-success" (click)="nextStep()">Siguiente</button>
+            <button mat-stroked-button color="warn" (click)="prevStep()">Volver</button>
+            <button mat-stroked-button color="accent" (click)="nextStep()">Siguiente</button>
           </mat-action-row>
 
         </mat-expansion-panel>
@@ -283,11 +283,11 @@
             <textarea matInput placeholder="" [(ngModel)]="hechos.desOtroProceso"></textarea>
           </mat-form-field>
 
-          <button mat-raised-button (click)="DialogFuncionario()" class="btn btn-secondary">Añadir Funcionario</button>
+          <button mat-raised-button color="primary" (click)="DialogFuncionario()">Añadir Funcionario</button>
     
           <mat-action-row>
-            <button mat-button class="btn btn-danger" (click)="prevStep()">Volver</button>
-            <button mat-button class="btn btn-success" (click)="nextStep()">Finalizar</button>
+            <button mat-stroked-button color="warn" (click)="prevStep()">Volver</button>
+            <button mat-stroked-button color="accent" (click)="nextStep()">Finalizar</button>
           </mat-action-row>
         </mat-expansion-panel>
       </mat-accordion>
@@ -298,7 +298,7 @@
       </div> -->
 
       <div>
-        <button class="btn btn-info btn-lg btn-block mt-3 mb-3" mat-raised-button 
+        <button color="primary" class="btn btn-lg btn-block mt-3 mb-3" mat-raised-button 
         (click)="DialogConfirmacion()" >Finalizar <i class="material-icons">arrow_forward</i></button>
       </div>
     </div>

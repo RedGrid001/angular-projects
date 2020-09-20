@@ -1,23 +1,93 @@
 <div class="container mt-3">
     <h3 class="text-center">ETAPA ACTUAL DE LA DENUNCIA</h3>
-    <mat-grid-list class="mt-3 mb-3" cols="1" rowHeight="100px">
+    <!-- <mat-grid-list class="mt-3 mb-3" cols="1" rowHeight="100px">
         <mat-grid-tile
             [colspan]="1"
             [rowspan]="1"
             [style.background]="colorRegistrada">
-            DENUNCIA REGISTRADA 
+            <p>DENUNCIA REGISTRADA </p>
+                <div *ngIf="this.gestion.estado==0"><p><mat-icon>done</mat-icon></p>
+                <p>Debes ingresar a tu correo: {{this.correoUser}}, y seguir el url que te enviamos para confirmar tu denuncia</p>
+                <p>{{gestion.fechaModificacion}}</p></div>
+        </mat-grid-tile>
+        <mat-grid-tile
+            [colspan]="1"
+            [rowspan]="1"
+            [style.background]="colorConfirmada">
+            DENUNCIA CONFIRMADA <div *ngIf="this.gestion.estado==1"><span><mat-icon>done</mat-icon></span>
+                <p>Su denuncia ya ha sido confirmada, en los proximos dias entrara en proceso</p>
+            <p>{{gestion.fechaModificacion}}</p></div>
+
         </mat-grid-tile>
         <mat-grid-tile
             [colspan]="1"
             [rowspan]="1"
             [style.background]="colorProceso">
-            DENUNCIA EN PROCESO
+            DENUNCIA EN PROCESO <div *ngIf="this.gestion.estado==2"><span><mat-icon>done</mat-icon></span>
+                <p>Su denuncia esta en proceso, en los siguientes dias se le solicitara informacion de ser necesario</p>
+            <p>{{gestion.fechaModificacion}}</p></div>
         </mat-grid-tile>
         <mat-grid-tile
             [colspan]="1"
             [rowspan]="1"
             [style.background]="colorFinalizada">
-            DENUNCIA FINALIZADA
+            DENUNCIA FINALIZADA <div *ngIf="this.gestion.estado==3"><span><mat-icon>done</mat-icon></span>
+                <p>El proceso de su denuncia ha finalizado, le agradecemos por ser parte de este proceso y hacer de nuestras instituciones un lugar mas etico</p>
+            <p>{{gestion.fechaModificacion}}</p></div>
         </mat-grid-tile>
-    </mat-grid-list>
+    </mat-grid-list> -->
+    <br>
+    <mat-card>
+        <mat-tab-group dynamicHeight>
+            <mat-tab label="Registrada">
+                Registradas
+            </mat-tab>
+            <mat-tab label="Confirmada">
+              <div class="mat-elevation-z4">
+                Large content
+              </div>
+            </mat-tab>
+            <mat-tab label="Proceso">
+                <div class="mat-elevation-z4">
+                  Large content
+                </div>
+            </mat-tab>
+            <mat-tab label="Finalizada">
+                <div class="mat-elevation-z4">
+                  Large content
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card>
+    <div class="container">
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="expediente">
+                <th mat-header-cell *matHeaderCellDef> Expediente </th>
+                <td mat-cell *matCellDef="let element"> {{element.noExpediente}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombreDenunciante}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="registro">
+                <th mat-header-cell *matHeaderCellDef> Registro </th>
+                <td mat-cell *matCellDef="let element"> {{element.fechaRegistro}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="modificacion">
+                <th mat-header-cell *matHeaderCellDef> Modificacion </th>
+                <td mat-cell *matCellDef="let element"> {{element.fechaModificacion}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef> Estado </th>
+                <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
 </div>

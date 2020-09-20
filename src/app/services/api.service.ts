@@ -6,6 +6,7 @@ import { denuncia } from '../entities/denuncia';
 import { environment } from 'src/environments/environment';
 import { gestiondenuncia } from '../entities/gestiondenuncia';
 import { correo } from '../entities/correo';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ApiService {
 
   data: denuncia = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private _snackBar: MatSnackBar) { }
 
   public getCentrosEscolares(){
     return this.http.get(environment.urlAPI.ce, environment.httpOptions);
@@ -32,7 +33,11 @@ export class ApiService {
     return this.http.post<denuncia>(environment.urlAPI.denuncia, denuncia, environment.httpOptions);
   }
 
-  public getGestion(tipo:string) {
+  public getGestionById(id_denuncia:number): Observable<gestiondenuncia[]> {
+    return this.http.get<gestiondenuncia[]>(environment.urlAPI.gestion+"/Id/"+id_denuncia,environment.httpOptions);
+  }
+
+  public getGestionByTipo(tipo:string) {
     return this.http.get(environment.urlAPI.gestion+"/"+tipo,environment.httpOptions);
   }
 
@@ -56,7 +61,13 @@ export class ApiService {
       // Get server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    window.alert(errorMessage);
+    this.AbrirSnackBar(errorMessage,'');
     return throwError(errorMessage);
+  }
+
+  public AbrirSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 10000,
+    });
   }
 }

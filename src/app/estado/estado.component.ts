@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
-/* export interface Tile {
-  color: string;
-  cols: number;
-  rows: number;
-  text: string;
-} */
+import { MatTableDataSource } from '@angular/material/table';
+import { gestiondenuncia } from '../entities/gestiondenuncia';
+import { ApiService } from '../services/api.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-estado',
@@ -14,36 +11,77 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EstadoComponent implements OnInit {
 
-  colorRegistrada: string = '#DF3D3D';
+  displayedColumns: string[] = ['expediente', 'nombre', 'registro', 'modificacion', 'estado'];
+  dataSource = new MatTableDataSource<gestiondenuncia>();
+
+ /*  colorRegistrada: string = '#DF3D3D';
+  colorConfirmada: string = '#DF3D3D';
   colorProceso: string = '#DF3D3D';
   colorFinalizada: string = '#DF3D3D';
-  /* tiles: Tile[] = [
-    { text: 'DENUNCIA REGISTRADA', cols: 1, rows: 1, color: '#DF3D3D' },
-    { text: 'DENUNCIA EN PROCESO', cols: 1, rows: 1, color: '#DF3D3D' },
-    { text: 'DENUNCIA FINALIZADA', cols: 1, rows: 1, color: '#DF3D3D' }
-  ]; */
-  constructor() { }
-
-  ngOnInit() {
-    this.CambiarColor(0);
+  correoUser: string = 'usuario@dominio.com'; */
+  gestion_dataSource: gestiondenuncia [] = [];
+  gestion: gestiondenuncia = {
+    idDenuncia:0,
+    noExpediente:'',
+    nombreDenunciante:'',
+    estado:0,
+    archivado:0,
+    fechaAudiencia:null,
+    lugar:'',
+    generalidades:'',
+    resolucion:'',
+    idFirmaPresidentejcd:0,
+    portalTransparencia:'',
+    fechaModificacion:null,
+    fechaRegistro:null,
+    usuarioModificacion:'',
+    jdc:'',
+    idFirmaRepresentantecsjjcd:0,
+    idFirmaRepresentanteminedjcd:0
   }
 
-  private CambiarColor(estado:number){
+  constructor(private authUser:AuthService, private api:ApiService) { }
+
+  ngOnInit() {
+    this.getGestion();
+  }
+
+  public getGestion(){
+    try {
+      this.api.getGestionById(this.authUser.data.idDenuncia).subscribe((respuesta) => {
+        this.gestion_dataSource = respuesta;
+        console.log(respuesta);
+        this.dataSource = new MatTableDataSource(this.gestion_dataSource)
+      },(err) => { this.api.handleError(err); /* this.gestion = this.authUser.data.gestionDenuncia.find(datos => datos.idDenuncia== this.authUser.data.idDenuncia); */ }, () => {});
+    } catch (error) {
+      this.api.handleError(error);
+    }
+
+  }
+
+  /* private CambiarColor(estado:number){
     switch (estado) {
+      case 0:
+        this.colorRegistrada = '#78D167';
+        break;
       case 1:
         this.colorRegistrada = '#78D167';
+        this.colorConfirmada = '#78D167';
         break;
       case 2:
         this.colorRegistrada = '#78D167';
+        this.colorConfirmada = '#78D167';
         this.colorProceso = '#78D167';
         break;
       case 3:
         this.colorRegistrada = '#78D167';
+        this.colorConfirmada = '#78D167';
         this.colorProceso = '#78D167';
         this.colorFinalizada = '#78D167';
+        break;
       default:
         break;
     }
-  }
+  } */
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-perfil',
@@ -19,9 +20,19 @@ export class PerfilComponent implements OnInit {
   email = new FormControl('josue@gmail.com', [Validators.required, Validators.email]);
   direccion = new FormControl('Barrio San Simon, calle Ronulfo Romero, casa #15', Validators.required);
 
-  constructor() { }
+  constructor(private authUser:AuthService) { }
 
   ngOnInit() {
+    this.nombre.setValue(this.authUser.data.nombreCiudadano);
+    this.apellido.setValue(this.authUser.data.apellidoCiudadano);
+    this.tipodocumento.setValue(this.authUser.data.tipoDocumento);
+    this.numerodocumento.setValue(this.authUser.data.numeroDocumento);
+    this.fechanacimiento.setValue(this.authUser.data.fechaNacimiento);
+    this.departamento.setValue(this.authUser.data.departamentoCiudadano);
+    this.telefonomovil.setValue(this.authUser.data.telefonoMovil);
+    this.telefonocasa.setValue(this.authUser.data.telefonoCasa);
+    this.email.setValue(this.authUser.data.emailDenunciante);
+    this.direccion.setValue(this.authUser.data.direccionCiudadano);
   }
 
 }

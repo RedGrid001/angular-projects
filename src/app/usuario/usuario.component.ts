@@ -13,7 +13,7 @@ export class UsuarioComponent implements OnInit {
   constructor(private _router:Router, private auth:AuthService) { }
 
   ngOnInit() {
-    this.nombreUsuario = this.auth.data.nombreCiudadano;
+    this.nombreUsuario = this.auth.NombreComple();
   }
 
   public CerrarSesion(){

@@ -12,7 +12,7 @@ export class ConfirmarComponent implements OnInit {
 
   @Input() Confirmacion: boolean = false;
   private gestion: gestiondenuncia = {
-    id_denuncia:0,
+    idDenuncia:0,
     noExpediente:'',
     nombreDenunciante:'',
     estado:0,
@@ -21,18 +21,20 @@ export class ConfirmarComponent implements OnInit {
     lugar:'',
     generalidades:'',
     resolucion:'',
-    id_firma:0,
+    idFirmaPresidentejcd:0,
     portalTransparencia:'',
     fechaRegistro:null,
     fechaModificacion:null,
     usuarioModificacion:'',
-    jdc:''
+    jdc:'',
+    idFirmaRepresentantecsjjcd:0,
+    idFirmaRepresentanteminedjcd:0
   };
   constructor(private api:ApiService, private routeActivate: ActivatedRoute) { }
 
   ngOnInit() {
     console.log('ID:'+this.routeActivate.snapshot.paramMap.get('id'));
-    this.api.getGestion("Confirmar/"+this.routeActivate.snapshot.paramMap.get('id')+"/0").subscribe((respuesta:gestiondenuncia) => { 
+    this.api.getGestionByTipo("Confirmar/"+this.routeActivate.snapshot.paramMap.get('id')+"/0").subscribe((respuesta:gestiondenuncia) => { 
       this.gestion = respuesta;
       if(respuesta!=null) { this.Confirmacion = true; } else { this.Confirmacion = false; console.log(respuesta); }  
     }, (err) => this.api.handleError(err), () => {

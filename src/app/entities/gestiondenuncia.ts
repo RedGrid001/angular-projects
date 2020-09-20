@@ -1,17 +1,19 @@
 export class gestiondenuncia {
-    id_denuncia = 0;
-    noExpediente = '';
-    nombreDenunciante = '';
-    estado = 0;
-    archivado = 0;
-    fechaAudiencia = new Date();
-    lugar = '';
-    generalidades = '';
-    resolucion = '';
-    id_firma = 0;
-    portalTransparencia = '';
-    fechaModificacion = new Date();
-    fechaRegistro = new Date();
-    usuarioModificacion = '';
-    jdc = '';
+    idDenuncia: number = 0;
+    noExpediente: string = '';
+    nombreDenunciante: string = '';
+    estado: number = 0;
+    archivado: number = 0;
+    fechaAudiencia: Date = null;
+    lugar: string = '';
+    generalidades: string = '';
+    resolucion: string = '';
+    idFirmaPresidentejcd: number = 0;
+    portalTransparencia: string = '';
+    fechaModificacion: Date = null;
+    fechaRegistro: Date = null;
+    usuarioModificacion: string = '';
+    jdc: string = '';
+    idFirmaRepresentantecsjjcd: number = 0;
+    idFirmaRepresentanteminedjcd: number = 0;
 }

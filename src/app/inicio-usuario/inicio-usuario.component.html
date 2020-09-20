@@ -1,4 +1,4 @@
-<div id="div-container" class="container" [class.mat-elevation-z2]="true" >
+<mat-card class="container" >
     <div id="div-img">
         <img src="https://img.icons8.com/bubbles/100/000000/cloud-account-login-male.png" width="100px" height="100px" >
     </div>
@@ -14,9 +14,9 @@
             <mat-label>Correlativo de denuncia</mat-label>
             <input matInput placeholder="UI.0-0-0000.0-0.000000000" formControlName="correlativoCtrl" required #correlativo>
         </mat-form-field>
-        <button class="btn btn-success btn-lg btn-block" mat-raised-button 
+        <button color="accent" class="btn btn-lg btn-block" mat-raised-button 
         [disabled]="inicioFormGroup.invalid" (click)="IniciarSesion(documento.value,correlativo.value)">Ingresar</button>
     </form>
-    <button class="btn btn-primary btn-lg btn-block mt-3 mb-3" [routerLink]="['/principal']" 
+    <button color="primary" class="btn btn-lg btn-block mt-3 mb-3" [routerLink]="['/principal']" 
     mat-raised-button >Ingresar Nueva</button>
-</div> 
+</mat-card> 

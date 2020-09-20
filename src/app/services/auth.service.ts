@@ -11,10 +11,27 @@ import { Observable } from 'rxjs';
 
 export class AuthService {
     //public authState: boolean = false; 
-    public data: denuncia = null;
-    constructor(private api:ApiService){
-        
-    }
+    public data: denuncia = {
+        idDenuncia:0,
+        nombreCiudadano:'',
+        apellidoCiudadano:'',
+        tipoDocumento:'',
+        numeroDocumento:0,
+        fechaNacimiento:null,
+        departamentoCiudadano:'',
+        direccionCiudadano:'',
+        telefonoMovil:0,
+        telefonoCasa:0,
+        emailDenunciante:'',
+        noExpediente:'',
+        compromiso:[],
+        hechos:[],
+        funcionario:[],
+        prueba:[],
+        gestionDenuncia:[]
+    };
+
+    constructor(private api:ApiService){}
 
     public AutenticacionUsuario(documento,expediente) {
         return new Promise((resolve, reject) => {
@@ -30,6 +47,18 @@ export class AuthService {
 
     public InvalidarAutenticacion(){
         this.data = null;
+    }
+
+    public NombreComple(): string {
+        return this.data.nombreCiudadano;
+    }
+
+    public getIdDenuncia(): number {
+        return this.data.idDenuncia;
+    }
+
+    public getEmail(): string {
+        return this.data.emailDenunciante;
     }
 
     /*
