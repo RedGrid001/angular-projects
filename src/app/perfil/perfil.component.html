@@ -1,12 +1,12 @@
 <div class="container justify-content-center mt-3 mb-3">
     <div class="mat-typography">
         <h2 class="text-center">PERFIL DE USUARIO</h2>
-        <h4 class="text-dark bg-warning text-justify">NOTA: Los campos obligatorios son los que están marcados 
+        <!-- <h4 class="text-dark bg-warning text-justify">NOTA: Los campos obligatorios son los que están marcados 
             con un *. Para modificar los datos de su número de documento, nombre, apellido y 
             fecha de nacimiento, debe solicitarlo, enviando un correo con un archivo adjunto que contenga, 
             foto o imagen escaneada de tu documento de identidad (revés y derecho) a la dirección 
             mined@mined.gob.sv, para que podamos proceder a realizar estos cambios lo más pronto posible.
-        </h4>
+        </h4> -->
     </div>
     
     <mat-card>
@@ -16,44 +16,44 @@
             <div class="col col-sm-4">
                 <mat-form-field class="form-field-full-width mr-2" appearance="outline">
                     <mat-label>Nombre</mat-label>
-                    <input type="text" matInput placeholder="Nombre" [formControl]="nombre" disabled="true" required>
+                    <input type="text" matInput placeholder="Nombre" [(ngModel)]="datosUser.nombreCiudadano" disabled required>
                 </mat-form-field>
             </div>
             <div class="col col-sm-4">
                 <mat-form-field class="form-field-full-width mr-2" appearance="outline">
                     <mat-label>Apellido</mat-label>
-                    <input type="text" matInput placeholder="Apellido" [formControl]="apellido" disabled="true" required>
+                    <input type="text" matInput placeholder="Apellido" [(ngModel)]="datosUser.apellidoCiudadano" disabled required>
                 </mat-form-field>
             </div>
             <div class="col col-sm-4">
                 <mat-form-field class="form-field-full-width" appearance="outline">
                     <mat-label>Tipo de Documento</mat-label>
-                    <input type="text" matInput placeholder="Tipo de Documento" [formControl]="tipodocumento" disabled="true" required>
+                    <input type="text" matInput placeholder="Tipo de Documento" [(ngModel)]="datosUser.tipoDocumento" disabled required>
                 </mat-form-field>
             </div>
             <div class="col col-sm-4">
                 <mat-form-field class="form-field-full-width" appearance="outline">
                     <mat-label>Numero de Documento</mat-label>
-                    <input type="text" matInput placeholder="Numero de Documento" [formControl]="numerodocumento" required="true" required>
+                    <input type="text" matInput placeholder="Numero de Documento" [(ngModel)]="datosUser.numeroDocumento" disabled required>
                 </mat-form-field>
             </div>
             <div class="col col-sm-4">
                 <mat-form-field class="form-field-full-width" appearance="outline">
                     <mat-label>Fecha de Nacimiento</mat-label>
-                    <input type="text" matInput placeholder="Fecha de Nacimiento" [formControl]="fechanacimiento" disabled="true" required>
+                    <input type="text" matInput placeholder="Fecha de Nacimiento" [value]="datosUser.fechaNacimiento | date:'fullDate'" disabled required>
                 </mat-form-field>
             </div>
             <div class="col col-sm-4">
                 <mat-form-field class="form-field-full-width" appearance="outline">
                     <mat-label>Departamento</mat-label>
-                    <input type="text" matInput placeholder="Departamento" [formControl]="departamento" disabled="true" required>
+                    <input type="text" matInput placeholder="Departamento" [(ngModel)]="datosUser.departamentoCiudadano" disabled required>
                 </mat-form-field>
             </div>
             <div class="col col-sm-4">
                 <mat-form-field class="form-field-full-width" appearance="outline">
                     <mat-label>Telefono Movil</mat-label>
                     <span matPrefix>+503 &nbsp;</span>
-                    <input type="text" matInput placeholder="Telefono Movil" [formControl]="telefonomovil" >
+                    <input type="text" matInput placeholder="Telefono Movil" [(ngModel)]="datosUser.telefonoMovil" disabled >
                     <mat-icon matSuffix>phone</mat-icon>
                 </mat-form-field>
             </div>
@@ -61,27 +61,27 @@
                 <mat-form-field class="form-field-full-width" appearance="outline">
                     <mat-label>Telefono Casa</mat-label>
                     <span matPrefix>+503 &nbsp;</span>
-                    <input type="text" matInput placeholder="Telefono Casa" [formControl]="telefonocasa" >
+                    <input type="text" matInput placeholder="Telefono Casa" [(ngModel)]="datosUser.telefonoCasa" disabled >
                     <mat-icon matSuffix>phone</mat-icon>
                 </mat-form-field>
             </div>
             <div class="col col-sm-4">
                 <mat-form-field class="form-field-full-width" appearance="outline">
                     <mat-label>Correo Electronico</mat-label>
-                    <input type="email" matInput placeholder="Introduce tu correo electrónico" [formControl]="email" required >
-                    <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+                    <input type="email" matInput placeholder="Introduce tu correo electrónico" [(ngModel)]="datosUser.emailDenunciante" disabled required >
+                    <!-- <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
                         Ingrese una direccion de correo <strong>Valida</strong>
                     </mat-error>
                     <mat-error *ngIf="email.hasError('required')">
                         El correo es <strong>Requerido</strong>
-                    </mat-error>
+                    </mat-error> -->
                 </mat-form-field>
             </div>
         </div>
        
         <mat-form-field class="form-field-full-width" appearance="outline">
             <mat-label>Direccion</mat-label>
-            <textarea matInput placeholder="Dirección" [formControl]="direccion" ></textarea>
+            <textarea matInput placeholder="Dirección" [(ngModel)]="datosUser.direccionCiudadano" disabled ></textarea>
         </mat-form-field>
 
     </mat-card>

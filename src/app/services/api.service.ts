@@ -26,6 +26,10 @@ export class ApiService {
     return this.http.get<contacto>(environment.urlAPI.contactos+"/"+numeroDocumento+"/"+tipoDocumento, environment.httpOptions);
   }
 
+  public getDenunciaById(idDenuncia:any): Observable<denuncia>{
+    return this.http.get<denuncia>(environment.urlAPI.denuncia+"/"+idDenuncia,environment.httpOptions);
+  }
+
   public getDenunciaExist(numeroDocumento: string, noExpediente: string): Observable<denuncia> {
     return this.http.get<denuncia>(environment.urlAPI.denuncia+"/"+numeroDocumento+"/"+noExpediente, environment.httpOptions);
   }
