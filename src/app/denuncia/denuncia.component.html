@@ -177,18 +177,16 @@
           </mat-expansion-panel-header>
 
           <mat-form-field class="example-full-width">
-            <input type="text" matInput placeholder="Institución donde sucedieron los hechos" [formControl]="nombreceFC" [matAutocomplete]="autoce" required >
-            <mat-autocomplete #autoce="matAutocomplete">
-              <mat-option (onSelectionChange)="complementarce(codigo.value)" *ngFor="let option of filteredOptions | async" [value]="option.codigo_ce" #codigo>
-                {{option.nombre_ce}}
-              </mat-option>
+            <input type="text" matInput placeholder="Codigo del centro escolar" [formControl]="codigoceFC" [matAutocomplete]="autoce" required #cod>
+            <mat-autocomplete #autoce="matAutocomplete" (optionSelected)="complementarce(cod.value)" >
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option.codigoCe">{{option.nombreCe}}</mat-option>
             </mat-autocomplete>
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Director del centro escolar" [formControl]="directorceFC" required >
           </mat-form-field>
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Numero de identificación del centro escolar" [formControl]="codigoceFC" required >
+            <input matInput placeholder="Nombre del centro escolar" [formControl]="nombreceFC" required >
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Departamento del centro escolar" [formControl]="departamentoceFC" required >

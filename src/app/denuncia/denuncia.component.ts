@@ -19,6 +19,7 @@ import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import { correo } from '../entities/correo';
 import { gestiondenuncia } from '../entities/gestiondenuncia';
+import { isString } from 'util';
 
 export interface ISelector {
   value: string;
@@ -111,8 +112,8 @@ export class DenunciaComponent implements OnInit {
     idFirmaRepresentanteminedjcd:1
   }
 
-  public CentrosEscolares: centrosescolares [] = [{ codigo_ce:1,direccion_ce:'Ninguna',director_ce:'Ninguno',nombre_ce:'Ninguno', departamento_ce:'Ninguno'}];
-  public CentroEscolar: centrosescolares = {codigo_ce:0,direccion_ce:'A',director_ce:'B',nombre_ce:'C',departamento_ce:'D'};
+  public CentrosEscolares: centrosescolares [] = [{ codigoCe:1,direccionCe:'Ninguna',directorCe:'Ninguno',nombreCe:'Ninguno', departamentoCe:'Ninguno'}];
+  public CentroEscolar: centrosescolares = {codigoCe:0,direccionCe:'A',directorCe:'B',nombreCe:'C',departamentoCe:'D'};
 
   //Variables necesarias
   disabledBtnUpload: boolean = false;
@@ -184,28 +185,30 @@ export class DenunciaComponent implements OnInit {
         this.emailFC.hasError('email') ? 'No es un correo valido' : '';
   }
 
-  public complementarce(codigo_ce:number){
-    console.log(codigo_ce);
-    this.CentroEscolar = this.CentrosEscolares.find(data => data.codigo_ce == codigo_ce);
-    this.directorceFC.setValue(this.CentroEscolar.director_ce);
-    this.codigoceFC.setValue(this.CentroEscolar.codigo_ce);
-    this.direccionceFC.setValue(this.CentroEscolar.direccion_ce);
-    this.departamentoceFC.setValue(this.CentroEscolar.departamento_ce);
+  public complementarce(valor:any){
+    console.log(valor);
+    this.CentroEscolar = this.CentrosEscolares.find(datos => datos.codigoCe == valor);
+    this.directorceFC.setValue(this.CentroEscolar.directorCe);
+    this.nombreceFC.setValue(this.CentroEscolar.nombreCe);
+    //this.codigoceFC.setValue(this.CentroEscolar.codigoCe);
+    this.direccionceFC.setValue(this.CentroEscolar.direccionCe);
+    this.departamentoceFC.setValue(this.CentroEscolar.departamentoCe);
   }
 
   private _filter(value: string): centrosescolares[] {
-    const filterValue = value.toLowerCase();
-    return this.CentrosEscolares.filter(option => option.nombre_ce.toLowerCase().includes(filterValue));
+    //const filterValue = value.toLowerCase();
+    return this.CentrosEscolares.filter(option => option.nombreCe.includes(value));
   }
 
   ngOnInit() {
     this.getCentrosEscolares();
-    this.filteredOptions = this.nombreceFC.valueChanges.pipe(startWith(''),map(value => this._filter(value)));
+    this.filteredOptions = this.codigoceFC.valueChanges.pipe(startWith(''),map(value => this._filter(value)));
   }
 
   private getCentrosEscolares(){
     try {
-      this.api.getCentrosEscolares().subscribe((respuesta:centrosescolares[]) => {
+      this.api.getCentrosEscolares().subscribe((respuesta) => {
+        //this.CentrosEscolares.pop();
         this.CentrosEscolares = respuesta;
         console.log(this.CentrosEscolares);
       })

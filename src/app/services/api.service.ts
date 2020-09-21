@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { gestiondenuncia } from '../entities/gestiondenuncia';
 import { correo } from '../entities/correo';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { centrosescolares } from '../entities/centros_escolares';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,8 @@ export class ApiService {
 
   constructor(private http: HttpClient, private _snackBar: MatSnackBar) { }
 
-  public getCentrosEscolares(){
-    return this.http.get(environment.urlAPI.ce, environment.httpOptions);
+  public getCentrosEscolares(): Observable<centrosescolares[]>{
+    return this.http.get<centrosescolares[]>(environment.urlAPI.ce, environment.httpOptions);
   }
 
   public getContacto(numeroDocumento: number,tipoDocumento: string): Observable<contacto> {
