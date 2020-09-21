@@ -11,15 +11,17 @@ import { AuthService } from '../services/auth.service';
 })
 export class EstadoComponent implements OnInit {
 
-  displayedColumns: string[] = ['expediente', 'nombre', 'registro', 'modificacion', 'estado'];
-  dataSource = new MatTableDataSource<gestiondenuncia>();
+  displayedColumns: string[] = ['expediente', 'registro', 'modificacion', 'estado'];
+  dataSource = new MatTableDataSource();
 
  /*  colorRegistrada: string = '#DF3D3D';
   colorConfirmada: string = '#DF3D3D';
   colorProceso: string = '#DF3D3D';
   colorFinalizada: string = '#DF3D3D';
-  correoUser: string = 'usuario@dominio.com'; */
-  gestion_dataSource: gestiondenuncia [] = [];
+  */
+  estadoDenuncia: number = 0;
+  correoUser: string = 'usuario@dominio.com';
+  gestion_dataSource: gestiondenuncia[] = [];
   gestion: gestiondenuncia = {
     idDenuncia:0,
     noExpediente:'',
@@ -43,15 +45,19 @@ export class EstadoComponent implements OnInit {
   constructor(private authUser:AuthService, private api:ApiService) { }
 
   ngOnInit() {
+    this.correoUser = this.authUser.getCorreo();
     this.getGestion();
+    //this.dataSource = new MatTableDataSource(this.gestion_dataSource);
   }
 
   public getGestion(){
     try {
-      this.api.getGestionById(this.authUser.data.idDenuncia).subscribe((respuesta) => {
-        this.gestion_dataSource = respuesta;
+      this.api.getGestionById(this.authUser.getId()).subscribe((respuesta) => {
+        //this.gestion = respuesta;
+        this.gestion_dataSource.push(respuesta);
         console.log(respuesta);
         this.dataSource = new MatTableDataSource(this.gestion_dataSource)
+        this.estadoDenuncia = respuesta.estado;
       },(err) => { this.api.handleError(err); /* this.gestion = this.authUser.data.gestionDenuncia.find(datos => datos.idDenuncia== this.authUser.data.idDenuncia); */ }, () => {});
     } catch (error) {
       this.api.handleError(error);
@@ -59,10 +65,12 @@ export class EstadoComponent implements OnInit {
 
   }
 
-  /* private CambiarColor(estado:number){
+  /*
+  private VerificarEstado(estado:number){
     switch (estado) {
       case 0:
-        this.colorRegistrada = '#78D167';
+        //this.colorRegistrada = '#78D167';
+        return true;
         break;
       case 1:
         this.colorRegistrada = '#78D167';
@@ -82,6 +90,6 @@ export class EstadoComponent implements OnInit {
       default:
         break;
     }
-  } */
+  }*/
 
 }

@@ -1,12 +1,12 @@
 export class hechos {
-    tipoDenunciaP: string;
-    tipoDenunciaS: string;
-    tipoDenunciaT: string;
+    tipoDenuncia: string;
     trabajaLugar: string;
     representanteLegal: string;
     codCe: number;
     nombreCe: string;
     directorCe: string;
+    departamentoCe: string;
+    direccionCe: string;
     descripcionHechos: string;
     fechaIniHechos: Date;
     fechaFinHechos: Date;

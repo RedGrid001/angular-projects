@@ -33,8 +33,8 @@ export class ApiService {
     return this.http.post<denuncia>(environment.urlAPI.denuncia, denuncia, environment.httpOptions);
   }
 
-  public getGestionById(id_denuncia:number): Observable<gestiondenuncia[]> {
-    return this.http.get<gestiondenuncia[]>(environment.urlAPI.gestion+"/Id/"+id_denuncia,environment.httpOptions);
+  public getGestionById(idDenuncia): Observable<gestiondenuncia> {
+    return this.http.get<gestiondenuncia>(environment.urlAPI.gestion+"/Id/"+idDenuncia,environment.httpOptions);
   }
 
   public getGestionByTipo(tipo:string) {

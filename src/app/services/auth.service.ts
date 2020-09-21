@@ -10,7 +10,8 @@ import { Observable } from 'rxjs';
 })
 
 export class AuthService {
-    //public authState: boolean = false; 
+    //public authState: boolean = false;
+    //public session = sessionStorage.setItem('id','0');
     public data: denuncia = {
         idDenuncia:0,
         nombreCiudadano:'',
@@ -35,30 +36,36 @@ export class AuthService {
 
     public AutenticacionUsuario(documento,expediente) {
         return new Promise((resolve, reject) => {
-            this.api.getDenunciaExist(documento,expediente).subscribe((resp) => 
-            { this.data = resp; resolve(resp);  }, (err) => reject(err), () => {});
+            this.api.getDenunciaExist(documento,expediente).subscribe((respuesta) => {
+                if(respuesta!=null){
+                    sessionStorage.setItem('id',respuesta.idDenuncia.toLocaleString());
+                    sessionStorage.setItem('nombre',respuesta.nombreCiudadano);
+                    sessionStorage.setItem('correo',respuesta.emailDenunciante); 
+                }
+                resolve(respuesta);  
+            }, (err) => reject(err), () => {});
         })
     }
 
-    public AutenticacionEstado(): boolean {
-        if(this.data!=null){ return true; }
+    public getAutenticacionEstado(): boolean {
+        if(sessionStorage.getItem('id')!=null){ return true; }
         return false;
     }
 
     public InvalidarAutenticacion(){
-        this.data = null;
+        sessionStorage.clear();
     }
 
-    public NombreComple(): string {
-        return this.data.nombreCiudadano;
+    public getNombre(): string {
+        return sessionStorage.getItem('nombre');
     }
 
-    public getIdDenuncia(): number {
-        return this.data.idDenuncia;
+    public getId(): string {
+        return sessionStorage.getItem('id');
     }
 
-    public getEmail(): string {
-        return this.data.emailDenunciante;
+    public getCorreo(): string {
+        return sessionStorage.getItem('correo');
     }
 
     /*

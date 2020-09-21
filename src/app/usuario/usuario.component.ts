@@ -10,10 +10,11 @@ import { AuthService } from '../services/auth.service';
 export class UsuarioComponent implements OnInit {
 
   nombreUsuario: string = "";
+
   constructor(private _router:Router, private auth:AuthService) { }
 
   ngOnInit() {
-    this.nombreUsuario = this.auth.NombreComple();
+    this.nombreUsuario = this.auth.getNombre();
   }
 
   public CerrarSesion(){

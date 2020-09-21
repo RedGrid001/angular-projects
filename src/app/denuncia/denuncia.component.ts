@@ -18,6 +18,7 @@ import { map, startWith } from 'rxjs/operators';
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import { correo } from '../entities/correo';
+import { gestiondenuncia } from '../entities/gestiondenuncia';
 
 export interface ISelector {
   value: string;
@@ -57,7 +58,7 @@ export class DenunciaComponent implements OnInit {
     tipoDocumento:0,
     numeroDocumento:0,
     cargo:'',
-    respuesta: ''
+    laboraEntidad: ''
   };
 
   compromiso: compromiso = {
@@ -72,26 +73,46 @@ export class DenunciaComponent implements OnInit {
   };
 
   hechos: hechos = {
-    tipoDenunciaP: 'false',
-    tipoDenunciaS: 'false',
-    tipoDenunciaT: 'false',
+    tipoDenuncia: '',
     trabajaLugar: '',
     representanteLegal: '',
     codCe:0,
     nombreCe: '',
     directorCe: '',
+    departamentoCe:'',
+    direccionCe:'',
     descripcionHechos: '',
     fechaIniHechos: null,
     fechaFinHechos: null,
     agresionFisica: '',
     agresionVerbal: '',
     inversionRecuperacion: 0,
-    otroProceso: '',
+    otroProceso: 'NINGUNA',
     desOtroProceso: ''
   };
 
-  ce: centrosescolares [] = [{ codigo_ce:1,direccion_ce:'Ninguna',director_ce:'Ninguno',nombre_ce:'Ninguno'}];
-  CentroEscolar: centrosescolares = {codigo_ce:0,direccion_ce:'',director_ce:'',nombre_ce:''};
+  gestion: gestiondenuncia = {
+    idDenuncia:0,
+    noExpediente:'',
+    nombreDenunciante:'',
+    estado:0,
+    archivado:0,
+    fechaAudiencia: null,
+    lugar:'',
+    generalidades:'',
+    resolucion:'',
+    idFirmaPresidentejcd:1,
+    portalTransparencia:'',
+    fechaModificacion:new Date(),
+    fechaRegistro:new Date(),
+    usuarioModificacion:'USUARIO REGISTRO',
+    jdc:'DEPARTAMENTO',
+    idFirmaRepresentantecsjjcd:1,
+    idFirmaRepresentanteminedjcd:1
+  }
+
+  public CentrosEscolares: centrosescolares [] = [{ codigo_ce:1,direccion_ce:'Ninguna',director_ce:'Ninguno',nombre_ce:'Ninguno', departamento_ce:'Ninguno'}];
+  public CentroEscolar: centrosescolares = {codigo_ce:0,direccion_ce:'A',director_ce:'B',nombre_ce:'C',departamento_ce:'D'};
 
   //Variables necesarias
   disabledBtnUpload: boolean = false;
@@ -106,9 +127,11 @@ export class DenunciaComponent implements OnInit {
   telefonocasaFC = new FormControl('');
   direccionFC = new FormControl('', Validators.required);
 
-  institucionFC = new FormControl('', Validators.required);
-  directorFC = new FormControl('', Validators.required);
-  codceFC = new FormControl('', Validators.required);
+  nombreceFC = new FormControl('', Validators.required);
+  directorceFC = new FormControl('', Validators.required);
+  codigoceFC = new FormControl('', Validators.required);
+  departamentoceFC = new FormControl('', Validators.required);
+  direccionceFC = new FormControl('', Validators.required);
   hechosdescFC = new FormControl('', Validators.required);
   fechahechosiFC = new FormControl('', Validators.required);
   fechahechosfFC = new FormControl('', Validators.required);
@@ -150,6 +173,7 @@ export class DenunciaComponent implements OnInit {
   ];
 
   entidades: ISelector[] = [
+    {value: 'NINGUNA'},
     {value: 'PNC'},
     {value: 'JUNTA'},
     {value: 'FISCALIA'}
@@ -162,30 +186,28 @@ export class DenunciaComponent implements OnInit {
 
   public complementarce(codigo_ce:number){
     console.log(codigo_ce);
-    this.CentroEscolar = this.ce.find(data => data.codigo_ce == codigo_ce)
-    this.directorFC.setValue(this.CentroEscolar.director_ce);
-    this.codceFC.setValue(this.CentroEscolar.codigo_ce);
+    this.CentroEscolar = this.CentrosEscolares.find(data => data.codigo_ce == codigo_ce);
+    this.directorceFC.setValue(this.CentroEscolar.director_ce);
+    this.codigoceFC.setValue(this.CentroEscolar.codigo_ce);
+    this.direccionceFC.setValue(this.CentroEscolar.direccion_ce);
+    this.departamentoceFC.setValue(this.CentroEscolar.departamento_ce);
   }
 
   private _filter(value: string): centrosescolares[] {
     const filterValue = value.toLowerCase();
-    return this.ce.filter(option => option.nombre_ce.toLowerCase().includes(filterValue));
+    return this.CentrosEscolares.filter(option => option.nombre_ce.toLowerCase().includes(filterValue));
   }
 
   ngOnInit() {
     this.getCentrosEscolares();
-    this.filteredOptions = this.institucionFC.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
+    this.filteredOptions = this.nombreceFC.valueChanges.pipe(startWith(''),map(value => this._filter(value)));
   }
 
   private getCentrosEscolares(){
     try {
       this.api.getCentrosEscolares().subscribe((respuesta:centrosescolares[]) => {
-        this.ce = respuesta;
-        console.log(this.ce);
+        this.CentrosEscolares = respuesta;
+        console.log(this.CentrosEscolares);
       })
       
     } catch (error) {
@@ -210,7 +232,7 @@ export class DenunciaComponent implements OnInit {
     try {
       this.api.postDenuncia(denuncia).subscribe((respuesta: denuncia) => { this.denuncia.idDenuncia = respuesta.idDenuncia; console.log(respuesta); },
       (err) => this.api.handleError(err), () => { 
-        this.AbrirSnackBar('REGISTRAR DENUNCIA','COMPLETADO');
+        this.api.AbrirSnackBar('REGISTRAR DENUNCIA','COMPLETADO');
 
         /* var dataemail: correo = {
           emailEmisor: 'sadeuesmined@hotmail.com',
@@ -245,8 +267,8 @@ export class DenunciaComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result!=null) {
+    dialogRef.afterClosed().subscribe(resultado => {
+      if (resultado!=null) {
         this.denuncia.tipoDocumento = this.tipodocumentoFC.value;
         this.denuncia.numeroDocumento = this.documentoFC.value;
         this.denuncia.fechaNacimiento = this.fechanacimientoFC.value;
@@ -254,18 +276,24 @@ export class DenunciaComponent implements OnInit {
         this.denuncia.telefonoCasa = this.telefonocasaFC.value;
         this.denuncia.emailDenunciante = this.emailFC.value;
         this.denuncia.direccionCiudadano = this.direccionFC.value;
-        this.denuncia.noExpediente = result.codRegistro;
-        this.hechos.nombreCe = this.institucionFC.value;
-        this.hechos.directorCe = this.directorFC.value;
-        this.hechos.codCe = this.codceFC.value;
+        this.denuncia.noExpediente = resultado.codRegistro;
+        this.hechos.nombreCe = this.nombreceFC.value;
+        this.hechos.directorCe = this.directorceFC.value;
+        this.hechos.codCe = this.codigoceFC.value;
+        this.hechos.departamentoCe = this.departamentoceFC.value;
+        this.hechos.direccionCe = this.direccionceFC.value;
         this.hechos.descripcionHechos = this.hechosdescFC.value;
         this.hechos.fechaIniHechos = this.fechahechosiFC.value;
         this.hechos.fechaFinHechos = this.fechahechosfFC.value;
+        this.gestion.noExpediente = resultado.codRegistro;
+        this.gestion.jdc = this.departamentoceFC.value;
+        this.gestion.nombreDenunciante = this.denuncia.nombreCiudadano+" "+this.denuncia.apellidoCiudadano;
+        this.denuncia.gestionDenuncia.splice(0,1,this.gestion);
         this.denuncia.compromiso.splice(0,1,this.compromiso);
         this.denuncia.hechos.splice(0,1,this.hechos);
         this.postDenuncia(this.denuncia);
       } else {
-        this.AbrirSnackBar('REGISTRAR DENUNCIA','CANCELADO');
+        this.api.AbrirSnackBar('REGISTRAR DENUNCIA','CANCELADO');
       }
     });
   }
@@ -282,10 +310,10 @@ export class DenunciaComponent implements OnInit {
         this.prueba.minutoEvidencia = resultado.minutoEvidencia;
         this.prueba.archivo = resultado.archivo;
         this.denuncia.prueba.splice(0,1,this.prueba);
-        this.AbrirSnackBar('AGREGAR PRUEBA','REALIZADO');
+        this.api.AbrirSnackBar('AGREGAR PRUEBA','REALIZADO');
         this.disabledBtnUpload = true;
       }else {
-        this.AbrirSnackBar('AGREGAR PRUEBA','CANCELADO')
+        this.api.AbrirSnackBar('AGREGAR PRUEBA','CANCELADO')
       }
     });
   }
@@ -298,15 +326,15 @@ export class DenunciaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(resultado => {
       if (resultado!=null) {
-      this.funcionario.tipoDocumento = resultado.tipodocumento;
-      this.funcionario.nombreFuncionario = resultado.nombrefuncionario;
-      this.funcionario.numeroDocumento = resultado.numerodocumento;
+      this.funcionario.tipoDocumento = resultado.tipoDocumento;
+      this.funcionario.nombreFuncionario = resultado.nombreFuncionario;
+      this.funcionario.numeroDocumento = resultado.numeroDocumento;
       this.funcionario.cargo = resultado.cargo;
-      this.funcionario.respuesta = resultado.respuesta;
+      this.funcionario.laboraEntidad = resultado.laboraEntidad;
       this.denuncia.funcionario.splice(0,1,this.funcionario);
-      this.AbrirSnackBar('AGREGAR FUNCIONARIO','REALIZADO');
+      this.api.AbrirSnackBar('AGREGAR FUNCIONARIO','REALIZADO');
       } else {
-        this.AbrirSnackBar('AGREGAR FUNCIONARIO','CANCELADO');
+        this.api.AbrirSnackBar('AGREGAR FUNCIONARIO','CANCELADO');
       }
     });
   }
@@ -314,12 +342,6 @@ export class DenunciaComponent implements OnInit {
   DialogDescargar() {
     const dialogRef = this.dialog.open(DialogDescargarComponent, {
       data: this.denuncia
-    });
-  }
-
-  AbrirSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 2000,
     });
   }
 
@@ -388,7 +410,6 @@ export class DialogFuncionarioComponent {
 export class DialogDescargarComponent {
 
   filepdf: File;
-  //documento: jsPDF;
 
   constructor(public dialogRef: MatDialogRef<DialogDescargarComponent>, @Inject(MAT_DIALOG_DATA) public data: denuncia) {}
 
