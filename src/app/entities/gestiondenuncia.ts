@@ -8,12 +8,12 @@ export class gestiondenuncia {
     lugar: string = '';
     generalidades: string = '';
     resolucion: string = '';
-    idFirmaPresidentejcd: number = 0;
+    idFirmaRepresentantedocentes: number = 0;
     portalTransparencia: string = '';
     fechaModificacion: Date = null;
     fechaRegistro: Date = null;
     usuarioModificacion: string = '';
     jdc: string = '';
-    idFirmaRepresentantecsjjcd: number = 0;
-    idFirmaRepresentanteminedjcd: number = 0;
+    idFirmaRepresentantecsj: number = 0;
+    idFirmaRepresentantemined: number = 0;
 }

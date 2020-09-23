@@ -102,14 +102,14 @@ export class DenunciaComponent implements OnInit {
     lugar:'',
     generalidades:'',
     resolucion:'',
-    idFirmaPresidentejcd:1,
+    idFirmaRepresentantedocentes:1,
     portalTransparencia:'',
     fechaModificacion:new Date(),
     fechaRegistro:new Date(),
     usuarioModificacion:'USUARIO REGISTRO',
     jdc:'DEPARTAMENTO',
-    idFirmaRepresentantecsjjcd:1,
-    idFirmaRepresentanteminedjcd:1
+    idFirmaRepresentantecsj:1,
+    idFirmaRepresentantemined:1
   }
 
   public CentrosEscolares: centrosescolares [] = [{ codigoCe:1,direccionCe:'Ninguna',directorCe:'Ninguno',nombreCe:'Ninguno', departamentoCe:'Ninguno'}];

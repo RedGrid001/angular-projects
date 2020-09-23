@@ -32,14 +32,14 @@ export class EstadoComponent implements OnInit {
     lugar:'',
     generalidades:'',
     resolucion:'',
-    idFirmaPresidentejcd:0,
+    idFirmaRepresentantedocentes:0,
     portalTransparencia:'',
     fechaModificacion:null,
     fechaRegistro:null,
     usuarioModificacion:'',
     jdc:'',
-    idFirmaRepresentantecsjjcd:0,
-    idFirmaRepresentanteminedjcd:0
+    idFirmaRepresentantecsj:0,
+    idFirmaRepresentantemined:0
   }
 
   constructor(private authUser:AuthService, private api:ApiService) { }

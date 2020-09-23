@@ -21,14 +21,14 @@ export class ConfirmarComponent implements OnInit {
     lugar:'',
     generalidades:'',
     resolucion:'',
-    idFirmaPresidentejcd:0,
+    idFirmaRepresentantedocentes:0,
     portalTransparencia:'',
     fechaRegistro:null,
     fechaModificacion:null,
     usuarioModificacion:'',
     jdc:'',
-    idFirmaRepresentantecsjjcd:0,
-    idFirmaRepresentanteminedjcd:0
+    idFirmaRepresentantecsj:0,
+    idFirmaRepresentantemined:0
   };
   constructor(private api:ApiService, private routeActivate: ActivatedRoute) { }
 
