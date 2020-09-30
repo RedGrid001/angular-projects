@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Documento de sustento</h2>
+<h2 class="text-center" mat-dialog-title>Documento de sustento</h2>
 <mat-dialog-content class="mat-typography">
 <p>(*) Campos obligatorios</p>
 <mat-form-field class="example-full-width">
@@ -25,6 +25,6 @@
 </section>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button [mat-dialog-close]="null" class="btn btn-danger">Cancelar</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial class="btn- btn-primary">Registrar</button>
+  <button mat-stroked-button [mat-dialog-close]="null" color="warn">Cancelar</button>
+  <button mat-stroked-button [mat-dialog-close]="data" cdkFocusInitial color="primary">Registrar</button>
 </mat-dialog-actions>

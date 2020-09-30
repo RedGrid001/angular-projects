@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Funcionario Denunciado</h2>
+<h2 class="text-center" mat-dialog-title>Funcionario Denunciado</h2>
 <mat-dialog-content class="mat-typography">
   <p>Completar con datos verídicos del funcionario denunciado para proceder rápido y a la brevedad posible.</p>
 
@@ -37,6 +37,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button [mat-dialog-close]="null" class="btn btn-danger">Cancelar</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial class="btn btn-primary">Guardar</button>
+  <button mat-stroked-button [mat-dialog-close]="null" color="warn">Cancelar</button>
+  <button mat-stroked-button [mat-dialog-close]="data" cdkFocusInitial color="primary">Guardar</button>
 </mat-dialog-actions>

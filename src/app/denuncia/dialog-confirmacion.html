@@ -1,11 +1,14 @@
-<h2 mat-dialog-title>Confirmación para guardar la denuncia</h2>
+<h2 class="text-center" mat-dialog-title>Confirmación para guardar la denuncia</h2>
 <mat-dialog-content class="mat-typography">
 <p>Se ha generado el siguiente código de registro:</p>
-<h3>{{data.codRegistro}}</h3>
-<p>Tome nota de este código, se le solicitara para poder iniciar sesion al igual que 
-  el numero de documento brindado.</p>
+<div class="alert alert-success text-center mt-2" role="text">
+  {{data.codRegistro}}
+</div>
+<div class="alert alert-warning" role="alert">
+  Tome nota del código, se le solicitara para poder iniciar sesion al igual que el numero de documento brindado.
+</div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button [mat-dialog-close]="null" class="btn btn-danger">Cancelar</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial class="btn btn-primary">Registrar</button>
+  <button mat-stroked-button [mat-dialog-close]="null" color="warn">Cancelar</button>
+  <button mat-stroked-button [mat-dialog-close]="data" cdkFocusInitial color="primary">Registrar</button>
 </mat-dialog-actions>
