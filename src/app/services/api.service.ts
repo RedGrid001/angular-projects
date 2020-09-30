@@ -14,46 +14,52 @@ import { centrosescolares } from '../entities/centros_escolares';
 })
 export class ApiService {
 
-  data: denuncia = null;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': 'jwt-token',
+      'Access-Control-Allow-Origin': '*'
+    })
+  }
 
   constructor(private http: HttpClient, private _snackBar: MatSnackBar) { }
 
   public getCentrosEscolares(): Observable<centrosescolares[]>{
-    return this.http.get<centrosescolares[]>(environment.urlAPI.ce, environment.httpOptions);
+    return this.http.get<centrosescolares[]>(environment.urlAPI.ce, this.httpOptions);
   }
 
-  public getContacto(numeroDocumento: number,tipoDocumento: string): Observable<contacto> {
-    return this.http.get<contacto>(environment.urlAPI.contactos+"/"+numeroDocumento+"/"+tipoDocumento, environment.httpOptions);
+  public getContacto(numeroDocumento: number,tipoDocumento: string,fechaNacimiento:any): Observable<contacto> {
+    return this.http.get<contacto>(environment.urlAPI.contactos+"/"+numeroDocumento+"/"+tipoDocumento+"/"+fechaNacimiento, this.httpOptions);
   }
 
   public getDenunciaById(idDenuncia:any): Observable<denuncia>{
-    return this.http.get<denuncia>(environment.urlAPI.denuncia+"/"+idDenuncia,environment.httpOptions);
+    return this.http.get<denuncia>(environment.urlAPI.denuncia+"/"+idDenuncia, this.httpOptions);
   }
 
   public getDenunciaExist(numeroDocumento: string, noExpediente: string): Observable<denuncia> {
-    return this.http.get<denuncia>(environment.urlAPI.denuncia+"/"+numeroDocumento+"/"+noExpediente, environment.httpOptions);
+    return this.http.get<denuncia>(environment.urlAPI.denuncia+"/"+numeroDocumento+"/"+noExpediente, this.httpOptions);
   }
 
   public postDenuncia(denuncia: denuncia): Observable<denuncia> {
-    return this.http.post<denuncia>(environment.urlAPI.denuncia, denuncia, environment.httpOptions);
+    return this.http.post<denuncia>(environment.urlAPI.denuncia, denuncia, this.httpOptions);
   }
 
   public getGestionById(idDenuncia): Observable<gestiondenuncia> {
-    return this.http.get<gestiondenuncia>(environment.urlAPI.gestion+"/Id/"+idDenuncia,environment.httpOptions);
+    return this.http.get<gestiondenuncia>(environment.urlAPI.gestion+"/Id/"+idDenuncia,this.httpOptions);
   }
 
   public getGestionByTipo(tipo:string) {
-    return this.http.get(environment.urlAPI.gestion+"/"+tipo,environment.httpOptions);
+    return this.http.get(environment.urlAPI.gestion+"/"+tipo,this.httpOptions);
   }
 
   public putGestion(gestion: gestiondenuncia): Observable<gestiondenuncia> {
-    return this.http.put<gestiondenuncia>(environment.urlAPI.gestion, gestion, environment.httpOptions);
+    return this.http.put<gestiondenuncia>(environment.urlAPI.gestion, gestion, this.httpOptions);
   }
 
   //Correos
 
   public postCorreo(tipo: string, correo: correo){
-    return this.http.post(environment.urlAPI.correo+"/"+tipo,correo, environment.httpOptions);
+    return this.http.post(environment.urlAPI.correo+"/"+tipo,correo, this.httpOptions);
   }
 
  // Error handling .pipe(retry(1), catchError(this.handleError))

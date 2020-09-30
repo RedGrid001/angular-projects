@@ -65,9 +65,12 @@
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
-                    <div class="bg-warning text-dark text-center mt-3 mb-3">
+                    <div class="alert alert-warning text-center mt-3 mb-3">
                         Debes entrar a tu correo {{this.correoUser}}, para confirmar tu denuncia y pasar a la siguiente etapa.
                     </div>
+                </div>
+                <div class="alert alert-primary text-center mt-3 mb-3" *ngIf="this.estadoDenuncia!=0">
+                    ¡No hay datos a mostrar en esta etapa, revisa los otros estados posibles!
                 </div>
             </mat-tab>
             <mat-tab label="Confirmada">
@@ -100,6 +103,9 @@
                         Texto opcional con indicaciones.
                     </div>
                 </div>
+                <div class="alert alert-primary text-center mt-3 mb-3" *ngIf="this.estadoDenuncia!=1">
+                    ¡No hay datos a mostrar en esta etapa, revisa los otros estados posibles!
+                </div>
             </mat-tab>
             <mat-tab label="Proceso">
                 <div class="container" *ngIf="this.estadoDenuncia==2">
@@ -131,6 +137,9 @@
                         Texto opcional con indicaciones.
                     </div>
                 </div>
+                <div class="alert alert-primary text-center mt-3 mb-3" *ngIf="this.estadoDenuncia!=2">
+                    ¡No hay datos a mostrar en esta etapa, revisa los otros estados posibles!
+                </div>
             </mat-tab>
             <mat-tab label="Finalizada">
                 <div class="container" *ngIf="this.estadoDenuncia==3">
@@ -161,6 +170,9 @@
                     <div>
                         Texto opcional con indicaciones.
                     </div>
+                </div>
+                <div class="alert alert-primary text-center mt-3 mb-3" *ngIf="this.estadoDenuncia!=3">
+                    ¡No hay datos a mostrar en esta etapa, revisa los otros estados posibles!
                 </div>
             </mat-tab>
         </mat-tab-group>

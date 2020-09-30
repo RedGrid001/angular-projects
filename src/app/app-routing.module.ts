@@ -28,7 +28,7 @@ const routes: Routes = [
     { path: 'inicio-usuario', component: InicioUsuarioComponent },
     { path: 'principal', component: PrincipalComponent },
     { path: 'compromiso', component: CompromisoComponent },
-    { path: 'denuncia/:compromiso', canActivate: [ DenunciaGuardService ], component: DenunciaComponent },
+    { path: 'denuncia', canActivate: [ DenunciaGuardService ], component: DenunciaComponent },
     { path: 'resumen', component: ResumenComponent },
     { path: 'confirmar/:id', component: ConfirmarComponent }
   ]},

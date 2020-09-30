@@ -1,7 +1,9 @@
 const proxy = [
-    {
-      context: '/api',
-      target: 'http://localhost:8080',
-      pathRewrite: {'^/api' : ''}
-    }
-  ];module.exports = proxy;
+  {
+    context: '/apirest',
+    target: 'http://localhost:8080',
+    pathRewrite: {'^/apirest' : ''}
+  }
+];
+
+module.exports = proxy;

@@ -17,8 +17,8 @@
               Personales
             </mat-panel-title>
             <mat-panel-description>
-              <div id="inf-personales">Validar utilizando documento de identidad</div>
-              <mat-icon id="icon-1">account_circle</mat-icon>
+              <div class="mat-panel-description">Validar utilizando documento de identidad</div>
+              <mat-icon class="icon-panel-description">account_circle</mat-icon>
             </mat-panel-description>
           </mat-expansion-panel-header>
           <mat-form-field class="example-full-width">
@@ -32,16 +32,16 @@
           </mat-form-field>
           
             <mat-form-field class="example-full-width">
-              <input type="number" matInput placeholder="Numero de documento" [formControl]="documentoFC" required>
+              <input type="text" matInput placeholder="Numero de documento" [formControl]="documentoFC" required>
             </mat-form-field>
 
             <mat-form-field class="example-full-width">
               <input matInput placeholder="Fecha de nacimiento" [matDatepicker]="picker" (focus)="picker.open()" readonly 
-              [formControl]="fechanacimientoFC" required >
+              [formControl]="fechanacimientoFC" required>
             </mat-form-field>
             <mat-datepicker #picker></mat-datepicker>
 
-            <button type="button" color="primary" class="btn btn-lg btn-block" mat-raised-button (click)="getContacto(documentoFC.value,tipodocumentoFC.value)" >Validar Identidad</button>
+            <button type="button" color="primary" class="btn btn-lg btn-block" mat-raised-button (click)="getContacto(documentoFC.value,tipodocumentoFC.value,fechanacimientoFC.value)" >Validar Identidad</button>
          
           <hr>
 
@@ -68,8 +68,8 @@
               Contactar
             </mat-panel-title>
             <mat-panel-description>
-              <div id="inf-preguntas">Datos para comunicación o ubicación</div>
-              <mat-icon id="icon-2">map</mat-icon>
+              <div class="mat-panel-description">Datos para comunicación o ubicación</div>
+              <mat-icon class="icon-panel-description">map</mat-icon>
             </mat-panel-description>
           </mat-expansion-panel-header>
 
@@ -109,8 +109,8 @@
               Preguntas
             </mat-panel-title>
             <mat-panel-description>
-              <div id="inf-contactar">Marcar según el caso</div>
-              <mat-icon id="icon-3">edit</mat-icon>
+              <div class="mat-panel-description">Marcar según el caso</div>
+              <mat-icon class="icon-panel-description">edit</mat-icon>
             </mat-panel-description>
           </mat-expansion-panel-header>
 
@@ -172,7 +172,7 @@
               Datos
             </mat-panel-title>
             <mat-panel-description>
-              Sobre los hechos
+              <div class="mat-panel-description">Sobre los hechos</div>
             </mat-panel-description>
           </mat-expansion-panel-header>
 
@@ -228,7 +228,7 @@
               Adicional
             </mat-panel-title>
             <mat-panel-description>
-              Añadir más información
+              <div class="mat-panel-description">Añadir más información</div>
             </mat-panel-description>
           </mat-expansion-panel-header>
 
@@ -250,7 +250,7 @@
               <mat-form-field >
                 <input matInput placeholder="Monto" type="number" class="example-right-align" [(ngModel)]="hechos.inversionRecuperacion">
                 <span matPrefix>$&nbsp;</span>
-                <span matSuffix>.00</span>
+                <!-- <span matSuffix>.00</span> -->
               </mat-form-field>
             </mat-tab>
             <mat-tab label="Parte 3">
@@ -273,7 +273,7 @@
               Otros
             </mat-panel-title>
             <mat-panel-description>
-              Brindar más información
+              <div class="mat-panel-description">Brindar más información</div>
             </mat-panel-description>
           </mat-expansion-panel-header>
 

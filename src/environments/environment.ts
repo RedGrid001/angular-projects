@@ -2,8 +2,6 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import { HttpHeaders } from '@angular/common/http';
-
 export const environment = {
   production: false,
   firebaseConfig: {
@@ -17,17 +15,11 @@ export const environment = {
     measurementId: "G-1SDLC1JD18"
   },
   urlAPI: {
-    gestion: '/api/Gestiondenuncia',
-    denuncia: '/api/Denuncia',
-    contactos: '/api/Contactos',
-    correo: '/api/Email',
-    ce: '/api/CE'
-  },
-  httpOptions: {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      'Authorization': 'jwt-token'
-    })
+    gestion: '/apirest/Gestiondenuncia',
+    denuncia: '/apirest/Denuncia',
+    contactos: '/apirest/Contactos',
+    correo: '/apirest/Email',
+    ce: '/apirest/CE'
   }
 };
 

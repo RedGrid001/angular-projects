@@ -10,6 +10,7 @@ export class ResumenComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    sessionStorage.clear();
   }
 
 }

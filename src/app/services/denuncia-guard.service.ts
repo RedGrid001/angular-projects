@@ -5,9 +5,10 @@ import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
 export class DenunciaGuardService implements CanActivate {
     constructor(private _router: Router) {}
 
-    canActivate(route: ActivatedRouteSnapshot): boolean {
-        let compromiso: string = route.url[1].path;
-        if (compromiso=="true") {
+    canActivate(route: ActivatedRouteSnapshot): boolean { 
+        //route.url[1].path;
+        var compromiso = sessionStorage.getItem('compromiso');
+        if (compromiso!=null && compromiso=="true") {
             return true;
         } else {
             alert("Debes aceptar el compromiso para continuar");

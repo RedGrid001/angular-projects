@@ -11,7 +11,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class InicioUsuarioComponent implements OnInit {
 
-  contador: number = 0;
   inicioFormGroup: FormGroup;
 
   constructor(private _formBuilder: FormBuilder, private _router: Router, private auth: AuthService, private _snackBar: MatSnackBar) { }
@@ -25,12 +24,10 @@ export class InicioUsuarioComponent implements OnInit {
 
   public IniciarSesion(documento,expediente){
     this.auth.AutenticacionUsuario(documento,expediente).then((respuesta) => {
-      this.contador++;
       if(respuesta!=null){
-        this.contador++; 
         this._router.navigate(['/inicio']);
         this.AbrirSnackBar('DATOS CORRECTOS','OK'); 
-      } else if(this.contador==2){ 
+      } else{ 
         this.AbrirSnackBar('NUMERO DE DUI O CORRELATIVO','NO COINCIDEN');
       }
     }).catch((err) => this.AbrirSnackBar(err.message,err.code));

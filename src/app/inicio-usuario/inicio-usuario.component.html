@@ -5,7 +5,7 @@
     
     <h3>Bienvenido Usuario</h3>
     <div class="mat-body-2">Acceda a su denuncia</div>
-    <form [formGroup]="inicioFormGroup" (ngSubmit)="IniciarSesion()" novalidate>
+    <form [formGroup]="inicioFormGroup" (ngSubmit)="IniciarSesion(documento.value,correlativo.value)" novalidate>
         <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Numero de documento</mat-label>
             <input matInput formControlName="duiCtrl" required #documento>
@@ -15,7 +15,7 @@
             <input matInput placeholder="UI.0-0-0000.0-0.000000000" formControlName="correlativoCtrl" required #correlativo>
         </mat-form-field>
         <button color="accent" class="btn btn-lg btn-block" mat-raised-button 
-        [disabled]="inicioFormGroup.invalid" (click)="IniciarSesion(documento.value,correlativo.value)">Ingresar</button>
+        [disabled]="inicioFormGroup.invalid">Ingresar</button>
     </form>
     <button color="primary" class="btn btn-lg btn-block mt-3 mb-3" [routerLink]="['/principal']" 
     mat-raised-button >Ingresar Nueva</button>

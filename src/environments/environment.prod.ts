@@ -13,17 +13,11 @@ export const environment = {
     measurementId: "G-1SDLC1JD18"
   },
   urlAPI: {
-    gestion: '/api/Gestiondenuncia',
-    denuncia: '/api/Denuncia',
-    contactos: '/api/Contactos',
-    correo: '/api/Email',
-    ce: '/api/CE'
-  },
-  httpOptions: {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      'Authorization': 'jwt-token'
-    })
+    gestion: '/apirest/Gestiondenuncia',
+    denuncia: '/apirest/Denuncia',
+    contactos: '/apirest/Contactos',
+    correo: '/apirest/Email',
+    ce: '/apirest/CE'
   }
 };
 
