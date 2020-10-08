@@ -12,6 +12,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {CdkStepperModule} from '@angular/cdk/stepper';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
+import { MAT_DATE_LOCALE } from '@angular/material';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
@@ -65,6 +66,7 @@ import { UsuarioLayoutComponent } from './layouts/usuario-layout.component';
 import { DenunciaLayoutComponent } from './layouts/denuncia-layout.component';
 import { FaqComponent } from './faq/faq.component';
 import { ConfirmarComponent } from './confirmar/confirmar.component';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -146,7 +148,7 @@ import { ConfirmarComponent } from './confirmar/confirmar.component';
     DialogDescargarComponent
   ],
   providers: [
-    DenunciaGuardService
+    DenunciaGuardService, { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
   ],
   bootstrap: [AppComponent]
 })
