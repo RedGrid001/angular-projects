@@ -150,9 +150,8 @@ export class DenunciaComponent implements OnInit {
     private api: ApiService, 
     private router: Router, 
     private _route: ActivatedRoute,
-    public _storage: AngularFireStorage,
-    private _snackBar: MatSnackBar) { 
-    console.log(this._route.snapshot.paramMap.get('compromiso'));
+    public _storage: AngularFireStorage) { 
+    //console.log(this._route.snapshot.paramMap.get('compromiso'));
   }
 
   setStep(index: number) {
@@ -200,6 +199,7 @@ export class DenunciaComponent implements OnInit {
   }
 
   ngOnInit() {
+    //var timeout = twttr.widgets.load();
     this.getCentrosEscolares();
     this.filteredOptions = this.codigoceFC.valueChanges.pipe(startWith(''),map(value => this._filter(value)));
   }
@@ -208,8 +208,8 @@ export class DenunciaComponent implements OnInit {
     try {
       this.api.getCentrosEscolares().subscribe((respuesta) => {
         //this.CentrosEscolares.pop();
-        this.CentrosEscolares = respuesta;
-        console.log(this.CentrosEscolares);
+        //this.CentrosEscolares = respuesta;
+        //console.log(this.CentrosEscolares);
       })
       
     } catch (error) {

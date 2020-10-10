@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-inicio',
@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioComponent implements OnInit {
 
-  constructor() { }
+  constructor(private renderer2: Renderer2,private elementRef: ElementRef) { }
 
   ngOnInit() {
+    //Necesario para volver a cargar la libreria widgets.js
+    let scriptElement = document.createElement('script');
+    scriptElement.src = "https://platform.twitter.com/widgets.js"
+    this.renderer2.appendChild(this.elementRef.nativeElement, scriptElement);
   }
 
 }
