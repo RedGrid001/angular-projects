@@ -53,7 +53,7 @@ export class EstadoComponent implements OnInit {
   public getGestion(){
     try {
       this.api.getGestionById(this.authUser.getId()).subscribe((respuesta) => {
-        //this.gestion = respuesta;
+        this.gestion = respuesta;
         this.gestion_dataSource.push(respuesta);
         console.log(respuesta);
         this.dataSource = new MatTableDataSource(this.gestion_dataSource)
@@ -65,31 +65,26 @@ export class EstadoComponent implements OnInit {
 
   }
 
-  /*
-  private VerificarEstado(estado:number){
+  public TextoByEstado(estado:number){
     switch (estado) {
       case 0:
-        //this.colorRegistrada = '#78D167';
-        return true;
-        break;
+        return `Debes entrar a tu correo ${this.correoUser}, para confirmar tu denuncia y pasar a la siguiente etapa.`;
       case 1:
-        this.colorRegistrada = '#78D167';
-        this.colorConfirmada = '#78D167';
-        break;
+        return `Tu denuncia fue confirmada y en los próximos días podrá entrar en la etapa de proceso.`;
       case 2:
-        this.colorRegistrada = '#78D167';
-        this.colorConfirmada = '#78D167';
-        this.colorProceso = '#78D167';
-        break;
+        if(this.gestion.fechaAudiencia!=null && this.gestion.lugar!=null){ 
+          let date = new Date(this.gestion.fechaAudiencia);
+          //this.gestion.fechaAudiencia = date;
+          return `Tienes un citatorio para la fecha ${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()} en ${this.gestion.lugar}, esperamos tu asistencia`;
+        } else {
+          return `La denuncia está en proceso, aun no se ha asignado fecha y lugar para el citatorio.`;
+        }
       case 3:
-        this.colorRegistrada = '#78D167';
-        this.colorConfirmada = '#78D167';
-        this.colorProceso = '#78D167';
-        this.colorFinalizada = '#78D167';
-        break;
+        return `${this.gestion.nombreDenunciante} tu denuncia a terminado todas las etapas posibles, gracias por ser parte de este proceso.`;
       default:
-        break;
+        return `¡No hay información para mostrar!`;
     }
-  }*/
+  }
+
 
 }
