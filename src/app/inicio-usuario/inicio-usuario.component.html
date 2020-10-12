@@ -8,11 +8,13 @@
     <form [formGroup]="inicioFormGroup" (ngSubmit)="IniciarSesion(documento.value,correlativo.value)" novalidate>
         <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Numero de documento</mat-label>
-            <input matInput formControlName="duiCtrl" required #documento>
+            <input matInput formControlName="duiCtrl" maxlength="10" required #documento>
+            <mat-error *ngIf="duiCtrl.hasError('required')">Campo <strong>Requerido</strong></mat-error>
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="outline">
+        <mat-form-field class="example-full-width mt-1" appearance="outline">
             <mat-label>Correlativo de denuncia</mat-label>
             <input matInput placeholder="UI.0-0-0000.0-0.000000000" formControlName="correlativoCtrl" required #correlativo>
+            <mat-error *ngIf="correlativoCtrl.hasError('required')">Campo<strong>Requerido</strong></mat-error>
         </mat-form-field>
         <button color="accent" class="btn btn-lg btn-block" mat-raised-button 
         [disabled]="inicioFormGroup.invalid">Ingresar</button>

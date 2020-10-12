@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,14 +12,20 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class InicioUsuarioComponent implements OnInit {
 
   inicioFormGroup: FormGroup;
+  duiCtrl = new FormControl({value:null, disabled: false}, [Validators.required, Validators.minLength(10)]);
+  correlativoCtrl = new FormControl({value:null, disabled:false}, [Validators.required, Validators.minLength(26)]);
 
-  constructor(private _formBuilder: FormBuilder, private _router: Router, private auth: AuthService, private _snackBar: MatSnackBar) { }
+  constructor(private _router: Router, private auth: AuthService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.inicioFormGroup = this._formBuilder.group({
+    this.inicioFormGroup = new FormGroup({
+      duiCtrl: this.duiCtrl,
+      correlativoCtrl: this.correlativoCtrl
+    })
+    /* this.inicioFormGroup = this._formBuilder.group({
       duiCtrl: ['',Validators.required],
       correlativoCtrl: ['',Validators.required]
-    })
+    }) */
   }
 
   public IniciarSesion(documento,expediente){

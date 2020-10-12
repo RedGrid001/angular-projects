@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Inject, ViewChild, ElementRef } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from '../services/api.service';
 import { contacto } from '../entities/contacto';
@@ -112,30 +112,35 @@ export class DenunciaComponent implements OnInit {
     idFirmaRepresentantemined:1
   }
 
-  public CentrosEscolares: centrosescolares [] = [{ codigoCe:1,direccionCe:'Ninguna',directorCe:'Ninguno',nombreCe:'Ninguno', departamentoCe:'Ninguno'}];
+  public CentrosEscolares: centrosescolares [] = [{ codigoCe:0,direccionCe:'Ninguna',directorCe:'Ninguno',nombreCe:'Ninguno', departamentoCe:'Ninguno'}];
   public CentroEscolar: centrosescolares = {codigoCe:0,direccionCe:'A',directorCe:'B',nombreCe:'C',departamentoCe:'D'};
 
   //Variables necesarias
+  duiMask = [/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,'-',/\d/];
+  telefonoMask = [/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/];
   disabledBtnUpload: boolean = false;
   step = 0;
   filteredOptions: Observable<centrosescolares[]>;
 
-  emailFC = new FormControl('', [Validators.required, Validators.email]);
-  documentoFC = new FormControl('', Validators.required);
-  tipodocumentoFC = new FormControl('', Validators.required);
-  fechanacimientoFC = new FormControl('', Validators.required);
-  telefonomovilFC = new FormControl('', Validators.required);
-  telefonocasaFC = new FormControl('');
-  direccionFC = new FormControl('', Validators.required);
+  datosFormGroup: FormGroup;
+  hechosFormGroup: FormGroup;
 
-  nombreceFC = new FormControl('', Validators.required);
-  directorceFC = new FormControl('', Validators.required);
-  codigoceFC = new FormControl('', Validators.required);
-  departamentoceFC = new FormControl('', Validators.required);
-  direccionceFC = new FormControl('', Validators.required);
-  hechosdescFC = new FormControl('', Validators.required);
-  fechahechosiFC = new FormControl('', Validators.required);
-  fechahechosfFC = new FormControl('', Validators.required);
+  emailFC = new FormControl({value:null,disabled:false}, [Validators.required, Validators.email]);
+  documentoFC = new FormControl({value:null,disabled:false}, Validators.required);
+  tipodocumentoFC = new FormControl({value:null,disabled:false}, Validators.required);
+  fechanacimientoFC = new FormControl({value:null,disabled:false}, Validators.required);
+  telefonomovilFC = new FormControl({value:null,disabled:false}, Validators.required);
+  telefonocasaFC = new FormControl({value:null,disabled:false});
+  direccionFC = new FormControl({value:null,disabled:false}, Validators.required);
+
+  nombreceFC = new FormControl({value:null,disabled:false}, Validators.required);
+  directorceFC = new FormControl({value:null,disabled:false}, Validators.required);
+  codigoceFC = new FormControl({value:null,disabled:false}, Validators.required);
+  departamentoceFC = new FormControl({value:null,disabled:false}, Validators.required);
+  direccionceFC = new FormControl({value:null,disabled:false}, Validators.required);
+  hechosdescFC = new FormControl({value:null,disabled:false}, Validators.required);
+  fechahechosiFC = new FormControl({value:null,disabled:false}, Validators.required);
+  fechahechosfFC = new FormControl({value:null,disabled:false}, Validators.required);
 
   @Input() contacto: contacto = ({ 
     nombreCiudadano:'',
@@ -179,8 +184,7 @@ export class DenunciaComponent implements OnInit {
   ];
 
   getErrorEmailMessage() {
-    return this.emailFC.hasError('required') ? 'Correo electronico es requerido' :
-        this.emailFC.hasError('email') ? 'No es un correo valido' : '';
+    return this.emailFC.hasError('required') ? 'Correo electronico es requerido' : this.emailFC.hasError('email') ? 'No es un correo valido' : '';
   }
 
   public complementarce(valor:any){
@@ -199,7 +203,23 @@ export class DenunciaComponent implements OnInit {
   }
 
   ngOnInit() {
-    //var timeout = twttr.widgets.load();
+    this.datosFormGroup = new FormGroup({
+      emailCtrl: this.emailFC,
+      tipodocumentoCtrl: this.tipodocumentoFC,
+      documentoCtrl: this.documentoFC,
+      fechanacimientoCtrl: this.fechanacimientoFC,
+      telefonomovilCtrl: this.telefonomovilFC,
+      telefonocasaCtrl: this.telefonocasaFC,
+      direccionCtrl: this.direccionFC,
+      nombreceCtrl: this.nombreceFC,
+      directorceCtrl: this.directorceFC,
+      codigoceCtrl: this.codigoceFC,
+      departamentoceCtrl: this.departamentoceFC,
+      direccionceCtrl: this.direccionceFC,
+      hechosdescCtrl: this.hechosdescFC,
+      fechahechosiCtrl: this.fechahechosiFC,
+      fechahechosfCtrl: this.fechahechosfFC
+    });
     this.getCentrosEscolares();
     this.filteredOptions = this.codigoceFC.valueChanges.pipe(startWith(''),map(value => this._filter(value)));
   }
@@ -207,10 +227,10 @@ export class DenunciaComponent implements OnInit {
   private getCentrosEscolares(){
     try {
       this.api.getCentrosEscolares().subscribe((respuesta) => {
-        //this.CentrosEscolares.pop();
-        //this.CentrosEscolares = respuesta;
-        //console.log(this.CentrosEscolares);
-      })
+        this.CentrosEscolares.pop();
+        this.CentrosEscolares = respuesta;
+        //console.log(respuesta);
+      });
       
     } catch (error) {
       this.api.handleError(error);
@@ -248,7 +268,8 @@ export class DenunciaComponent implements OnInit {
           passwordEmisor: 'S1a2D3e4',
           emailReceptor: this.denuncia.emailDenunciante,
           asunto: 'Correo para confirmar denuncia',
-          contenido: `${this.denuncia.nombreCiudadano} ${this.denuncia.apellidoCiudadano}, tu número de expediente es: ${this.denuncia.noExpediente}, te hemos enviado el siguiente enlace para que confirmes tu denuncia: escribe http:// en tu navegador y seguido localhost/confirmar/${this.denuncia.idDenuncia} , lo enviamos de esta forma para que no se considere spam. Sino has utilizado tu correo para realizar esta denuncia ignora este mensaje. También te adjuntamos el enlace que contiene el compromiso que aceptaste, recuerda presentarlo el día de la audiencia. https:// firebasestorage.googleapis.com/v0/b/sigd-be78b.appspot.com/o/Compromisos%20del%20ciudadano.pdf?alt=media&token=edef1aba-f7c7-4300-a92b-5a4f6c5fa3de.pdf `
+          contenido: `La denuncia fue registrada con exito, te recordamos que tu correlativo es: ${this.denuncia.noExpediente}, gracias por ser parte de este proceso.`
+          //contenido: `${this.denuncia.nombreCiudadano} ${this.denuncia.apellidoCiudadano}, tu número de expediente es: ${this.denuncia.noExpediente}, te hemos enviado el siguiente enlace para que confirmes tu denuncia: escribe http:// en tu navegador y seguido localhost/confirmar/${this.denuncia.idDenuncia} , lo enviamos de esta forma para que no se considere spam. Sino has utilizado tu correo para realizar esta denuncia ignora este mensaje. También te adjuntamos el enlace que contiene el compromiso que aceptaste, recuerda presentarlo el día de la audiencia. https:// firebasestorage.googleapis.com/v0/b/sigd-be78b.appspot.com/o/Compromisos%20del%20ciudadano.pdf?alt=media&token=edef1aba-f7c7-4300-a92b-5a4f6c5fa3de.pdf `
         } 
         this.postCorreo('Simple',dataemail);
       

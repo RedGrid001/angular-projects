@@ -1,5 +1,5 @@
 <div class="container" role="main">
-      <!-- Aregar mt-x para que el div container tenga un margen de x -->
+  <div  [formGroup]="datosFormGroup" (ngSubmit)="DialogConfirmacion()" novalidate>
     <div class="row mt-3" >
       <div class="col">
         <div class="mat-typography">
@@ -8,153 +8,138 @@
         </div>
       </div>
     </div>
-    <!-- <hr> -->
-    <div>
-      <mat-accordion class="example-headers-align">
-        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Personales
-            </mat-panel-title>
-            <mat-panel-description>
-              <div class="mat-panel-description">Validar utilizando documento de identidad</div>
-              <mat-icon class="icon-panel-description">account_circle</mat-icon>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
+    <mat-accordion class="example-headers-align">
+      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Personales
+          </mat-panel-title>
+          <mat-panel-description>
+            <div class="mat-panel-description">Validar utilizando documento de identidad</div>
+            <mat-icon class="icon-panel-description">account_circle</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
           <mat-form-field class="example-full-width">
             <mat-label>Tipo de documento</mat-label>
-            <mat-select [formControl]="tipodocumentoFC" required [cdkTrapFocus] >
-              <mat-option *ngFor="let documento of documentos" [value]="documento.value" >
+            <mat-select formControlName="tipodocumentoCtrl" required [cdkTrapFocus] >
+              <mat-option value="DUI">DUI</mat-option>
+              <!-- <mat-option *ngFor="let documento of documentos" [value]="documento.value" >
                 {{documento.value}}
-              </mat-option>
+              </mat-option> -->
             </mat-select>
             <mat-error *ngIf="tipodocumentoFC.hasError('required')">Por favor elige un documento</mat-error>
           </mat-form-field>
-          
-            <mat-form-field class="example-full-width">
-              <input type="text" matInput placeholder="Numero de documento" [formControl]="documentoFC" required>
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Fecha de nacimiento" [matDatepicker]="picker" (focus)="picker.open()" readonly 
-              [formControl]="fechanacimientoFC" required>
-            </mat-form-field>
-            <mat-datepicker #picker></mat-datepicker>
-
-            <button type="button" color="primary" class="btn btn-lg btn-block" mat-raised-button (click)="getContacto(documentoFC.value,tipodocumentoFC.value,fechanacimientoFC.value)" >Validar Identidad</button>
-         
+          <mat-form-field class="example-full-width">
+            <input type="text" matInput placeholder="Numero de documento" formControlName="documentoCtrl" [textMask]="{mask:duiMask}" required>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Fecha de nacimiento" formControlName="fechanacimientoCtrl" [matDatepicker]="picker" (focus)="picker.open()" readonly required>
+          </mat-form-field>
+          <mat-datepicker #picker></mat-datepicker>
+          <button type="button" color="primary" class="btn btn-lg btn-block" mat-raised-button (click)="getContacto(documentoFC.value,tipodocumentoFC.value,fechanacimientoFC.value)" >Validar Identidad</button>
           <hr>
-
           <mat-form-field class="example-full-width">
-            <input type="text" [(ngModel)]="contacto.nombreCiudadano"  matInput placeholder="Nombre" disabled>
+            <input type="text"  matInput placeholder="Nombre" disabled>
           </mat-form-field>
-
           <mat-form-field class="example-full-width">
-            <input type="text" [(ngModel)]="contacto.apellidoCiudadano" matInput placeholder="Apellido" disabled>
+            <input type="text"  matInput placeholder="Apellido" disabled>
           </mat-form-field>
-
           <mat-form-field class="example-full-width">
-            <input type="text" [(ngModel)]="contacto.departamentoCiudadano"  matInput placeholder="Departamento" disabled>
+            <input type="text"  matInput placeholder="Departamento" disabled>
           </mat-form-field>
+        <mat-action-row>
+          <button mat-stroked-button color="accent" (click)="nextStep()">Siguiente</button>
+        </mat-action-row>
+      </mat-expansion-panel>
 
-          <mat-action-row>
-            <button mat-stroked-button color="accent" (click)="nextStep()">Siguiente</button>
-          </mat-action-row>
-        </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Contactar
+          </mat-panel-title>
+          <mat-panel-description>
+            <div class="mat-panel-description">Datos para comunicación o ubicación</div>
+            <mat-icon class="icon-panel-description">map</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Contactar
-            </mat-panel-title>
-            <mat-panel-description>
-              <div class="mat-panel-description">Datos para comunicación o ubicación</div>
-              <mat-icon class="icon-panel-description">map</mat-icon>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <mat-form-field class="example-full-width">
+              <span matPrefix>+503 &nbsp;</span>
+              <input matInput placeholder="Movil" [textMask]="{mask:telefonoMask}" formControlName="telefonomovilCtrl" required >
+              <mat-icon matSuffix>phone</mat-icon>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <span matPrefix>+503 &nbsp;</span>
+              <input matInput placeholder="Casa" [textMask]="{mask:telefonoMask}" formControlName="telefonocasaCtrl" >
+              <mat-icon matSuffix>phone</mat-icon>
+            </mat-form-field>
+          </tr>
+        </table>
 
-          <table class="example-full-width" cellspacing="0">
-            <tr>
-              <mat-form-field class="example-full-width">
-                <span matPrefix>+503 &nbsp;</span>
-                <input matInput placeholder="Movil" [formControl]="telefonomovilFC" required >
-                <mat-icon matSuffix>phone</mat-icon>
-              </mat-form-field>
-              <mat-form-field class="example-full-width">
-                <span matPrefix>+503 &nbsp;</span>
-                <input matInput placeholder="Casa" [formControl]="telefonocasaFC" >
-                <mat-icon matSuffix>phone</mat-icon>
-              </mat-form-field>
-            </tr>
-          </table>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Introduce tu correo electrónico" formControlName="emailCtrl" required >
+          <mat-error *ngIf="emailFC.invalid">{{getErrorEmailMessage()}}</mat-error>
+        </mat-form-field>
 
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Introduce tu correo electrónico" [formControl]="emailFC" required >
-            <mat-error *ngIf="emailFC.invalid">{{getErrorEmailMessage()}}</mat-error>
-          </mat-form-field>
+        <mat-form-field class="example-full-width" hintLabel="Maximo 75 caracteres">
+          <textarea matInput placeholder="Dirección" formControlName="direccionCtrl" required  maxlength="75" #direccion ></textarea>
+          <mat-hint align="end">{{direccion.value?.length || 0}}/75</mat-hint>
+        </mat-form-field>
 
-          <mat-form-field class="example-full-width">
-            <textarea matInput placeholder="Dirección" [formControl]="direccionFC" required ></textarea>
-          </mat-form-field>
+        <mat-action-row>
+          <button mat-stroked-button color="warn" (click)="prevStep()">Volver</button>
+          <button mat-stroked-button color="accent" (click)="nextStep()">Siguiente</button>
+        </mat-action-row>
+      </mat-expansion-panel>
 
-          <mat-action-row>
-            <button mat-stroked-button color="warn" (click)="prevStep()">Volver</button>
-            <button mat-stroked-button color="accent" (click)="nextStep()">Siguiente</button>
-          </mat-action-row>
-        </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Preguntas
+          </mat-panel-title>
+          <mat-panel-description>
+            <div class="mat-panel-description">Marcar según el caso</div>
+            <mat-icon class="icon-panel-description">edit</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Preguntas
-            </mat-panel-title>
-            <mat-panel-description>
-              <div class="mat-panel-description">Marcar según el caso</div>
-              <mat-icon class="icon-panel-description">edit</mat-icon>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-
-          <div class="row">
-            <div class="col-sm-12">
-              <div id="example-radio-group-label" class="mat-body-2">Tipo de denuncia:</div>
-              <mat-radio-group class="example-radio-group" aria-label="Select an option" [(ngModel)]="hechos.tipoDenuncia">
-                <mat-radio-button class="example-radio-button" value="ABUSO-DE-AUTORIDAD">Abuso de autoridad</mat-radio-button>
-                <mat-radio-button class="example-radio-button" value="FALTAS-ESCOLARES">Faltas escolares</mat-radio-button>
-                <mat-radio-button class="example-radio-button" value="ACOSO-ESTUDIANTIL">Acoso estudiantil</mat-radio-button>
-              </mat-radio-group>
-              <!-- <mat-checkbox class="example-margin" [(ngModel)]="hechos.tipoDenunciaP">Abuso de autoridad</mat-checkbox>
-              <mat-checkbox class="example-margin" [(ngModel)]="hechos.tipoDenunciaS">Faltas escolares</mat-checkbox>
-              <mat-checkbox class="example-margin" [(ngModel)]="hechos.tipoDenunciaT">Acoso estudiantil</mat-checkbox> -->
-            </div>
-            <div class="col-sm-12">
-              <div id="example-radio-group-label" class="mat-body-2">Trabaja o estudia en el lugar:</div>
-                <mat-radio-group class="example-radio-group" aria-label="Select an option" [(ngModel)]="hechos.trabajaLugar">
-                  <mat-radio-button class="example-radio-button" value="SI">SI</mat-radio-button>
-                  <mat-radio-button class="example-radio-button" value="NO">NO</mat-radio-button>
-                </mat-radio-group>
-            </div>
-            <div class="col-sm-12">
-              <div id="example-radio-group-label" class="mat-body-2">Es representante legal del estudiante:</div>
-                <mat-radio-group class="example-radio-group" aria-label="Select an option" [(ngModel)]="hechos.representanteLegal">
-                  <mat-radio-button class="example-radio-button" value="SI">SI</mat-radio-button>
-                  <mat-radio-button class="example-radio-button" value="NO">NO</mat-radio-button>
-                </mat-radio-group>
-            </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div id="example-radio-group-label" class="mat-body-2">Tipo de denuncia:</div>
+            <mat-radio-group class="example-radio-group" aria-label="Select an option" >
+              <mat-radio-button class="example-radio-button" value="ABUSO-DE-AUTORIDAD">Abuso de autoridad</mat-radio-button>
+              <mat-radio-button class="example-radio-button" value="FALTAS-ESCOLARES">Faltas escolares</mat-radio-button>
+              <mat-radio-button class="example-radio-button" value="ACOSO-ESTUDIANTIL">Acoso estudiantil</mat-radio-button>
+            </mat-radio-group>
           </div>
+          <div class="col-sm-12">
+            <div id="example-radio-group-label" class="mat-body-2">Trabaja o estudia en el lugar:</div>
+              <mat-radio-group class="example-radio-group" aria-label="Select an option" >
+                <mat-radio-button class="example-radio-button" value="SI">SI</mat-radio-button>
+                <mat-radio-button class="example-radio-button" value="NO">NO</mat-radio-button>
+              </mat-radio-group>
+          </div>
+          <div class="col-sm-12">
+            <div id="example-radio-group-label" class="mat-body-2">Es representante legal del estudiante:</div>
+              <mat-radio-group class="example-radio-group" aria-label="Select an option" >
+                <mat-radio-button class="example-radio-button" value="SI">SI</mat-radio-button>
+                <mat-radio-button class="example-radio-button" value="NO">NO</mat-radio-button>
+              </mat-radio-group>
+          </div>
+        </div>
 
-          <mat-action-row>
-            <button mat-stroked-button color="warn" (click)="prevStep()">Volver</button>
-            <button mat-stroked-button color="accent" (click)="setStep(4)">Finalizar</button>
-          </mat-action-row>
-        </mat-expansion-panel>
-
-      </mat-accordion>
-      <!-- <div>
-        <button class="btn btn-info btn-lg btn-block mt-3 mb-3" (click)="setStep(4)"
-         mat-raised-button >Continuar <i class="material-icons">arrow_forward</i></button>
-      </div> -->
-    </div>
-
+        <mat-action-row>
+          <button mat-stroked-button color="warn" (click)="prevStep()">Volver</button>
+          <button mat-stroked-button color="accent" (click)="setStep(4)">Finalizar</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <!-- <div>
+      <button class="btn btn-info btn-lg btn-block mt-3 mb-3" (click)="setStep(4)"
+       mat-raised-button >Continuar <i class="material-icons">arrow_forward</i></button>
+    </div> -->
     <div class="row mt-3">
         <div class="col">
           <div class="mat-typography">
@@ -164,151 +149,147 @@
           </div>
         </div>
     </div>
-    <div>
-      <mat-accordion class="example-headers-align">
-        <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" >
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Datos
-            </mat-panel-title>
-            <mat-panel-description>
-              <div class="mat-panel-description">Sobre los hechos</div>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
+    <mat-accordion class="example-headers-align">
+      <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Datos
+          </mat-panel-title>
+          <mat-panel-description>
+            <div class="mat-panel-description">Sobre los hechos</div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-          <mat-form-field class="example-full-width">
-            <input type="text" matInput placeholder="Codigo del centro escolar" [formControl]="codigoceFC" [matAutocomplete]="autoce" required #cod>
-            <mat-autocomplete #autoce="matAutocomplete" (optionSelected)="complementarce(cod.value)" >
-              <mat-option *ngFor="let option of filteredOptions | async" [value]="option.codigoCe">{{option.nombreCe}}</mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Director del centro escolar" [formControl]="directorceFC" required >
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Nombre del centro escolar" [formControl]="nombreceFC" required >
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Departamento del centro escolar" [formControl]="departamentoceFC" required >
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Direccion del centro escolar" [formControl]="direccionceFC" required >
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <textarea matInput placeholder="Descripción de los hechos" [formControl]="hechosdescFC" required #desHechos></textarea>
-            <mat-hint align="end">{{desHechos.value?.length || 0}}/300</mat-hint>
-          </mat-form-field>
-          <div class="mat-body-2">¿En qué fecha ocurrieron los hechos?</div>
-          <div class="row justify-content-center">
-            <div class="col-sm-4">
-              <mat-form-field class="example-full-width">
-                <input matInput placeholder="Fecha inicio" [matDatepicker]="picker1" (focus)="picker1.open()" readonly [formControl]="fechahechosiFC" required >
-              </mat-form-field>
-              <mat-datepicker #picker1>
-              </mat-datepicker>
-            </div>
-            <div class="col-sm-4 offset-sm-2">
-              <mat-form-field class="example-full-width">
-                <input matInput placeholder="Fecha final" [matDatepicker]="picker2" (focus)="picker2.open()" readonly [formControl]="fechahechosfFC" required >
-              </mat-form-field>
-              <mat-datepicker #picker2>
-              </mat-datepicker>
-            </div>
+        <mat-form-field class="example-full-width">
+          <input type="text" matInput placeholder="Codigo del centro escolar" formControlName="codigoceCtrl" [matAutocomplete]="autoce" required #cod>
+          <mat-autocomplete #autoce="matAutocomplete" (optionSelected)="complementarce(cod.value)" >
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option.codigoCe">{{option.nombreCe}}</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Director del centro escolar" formControlName="directorceCtrl" required >
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Nombre del centro escolar" formControlName="nombreceCtrl" required >
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Departamento del centro escolar" formControlName="departamentoceCtrl" required >
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Direccion del centro escolar" formControlName="direccionceCtrl" required >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" hintLabel="Maximo 300 caracteres">
+          <textarea matInput placeholder="Descripción de los hechos" formControlName="hechosdescCtrl" required maxlength="300" #desHechos></textarea>
+          <mat-hint align="end">{{desHechos.value?.length || 0}}/300</mat-hint>
+        </mat-form-field>
+        <div class="mat-body-2">¿En qué fecha ocurrieron los hechos?</div>
+        <div class="row justify-content-center">
+          <div class="col-sm-4">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Fecha inicio" formControlName="fechahechosiCtrl" [matDatepicker]="picker1" (focus)="picker1.open()" readonly required >
+            </mat-form-field>
+            <mat-datepicker #picker1>
+            </mat-datepicker>
           </div>
+          <div class="col-sm-4 offset-sm-2">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Fecha final" formControlName="fechahechosfCtrl" [matDatepicker]="picker2" (focus)="picker2.open()" readonly required >
+            </mat-form-field>
+            <mat-datepicker #picker2>
+            </mat-datepicker>
+          </div>
+        </div>
 
-          <mat-action-row>
-            <button mat-stroked-button color="accent" (click)="nextStep()">Siguiente</button>
-          </mat-action-row>
+        <mat-action-row>
+          <button mat-stroked-button color="accent" (click)="nextStep()">Siguiente</button>
+        </mat-action-row>
 
-        </mat-expansion-panel>
+      </mat-expansion-panel>
 
-        <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" >
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Adicional
-            </mat-panel-title>
-            <mat-panel-description>
-              <div class="mat-panel-description">Añadir más información</div>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
+      <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Adicional
+          </mat-panel-title>
+          <mat-panel-description>
+            <div class="mat-panel-description">Añadir más información</div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-          <mat-tab-group dynamicHeight [color]="['accent']" [backgroundColor]="['primary']">
-            <mat-tab label="Parte 1">
-              <div class="mat-body-2">¿Sufrió algún tipo de daño físico?</div>
-              <mat-radio-group class="example-radio-group" aria-label="Select an option" [(ngModel)]="hechos.agresionFisica">
-                <mat-radio-button class="example-radio-button" value="SI">SI</mat-radio-button>
-                <mat-radio-button class="example-radio-button" value="NI">NO</mat-radio-button>
-              </mat-radio-group>
-              <div class="mat-body-2">¿Sufrió algún tipo de daño verbal?</div>
-              <mat-radio-group class="example-radio-group" aria-label="Select an option" [(ngModel)]="hechos.agresionVerbal">
-                <mat-radio-button class="example-radio-button" value="SI">SI</mat-radio-button>
-                <mat-radio-button class="example-radio-button" value="NO">NO</mat-radio-button>
-              </mat-radio-group>
-            </mat-tab>
-            <mat-tab label="Parte 2">
-              <div class="mat-body-2">¿Inversición en recuperación del daño causado?</div>
-              <mat-form-field >
-                <input matInput placeholder="Monto" type="number" class="example-right-align" [(ngModel)]="hechos.inversionRecuperacion">
-                <span matPrefix>$&nbsp;</span>
-                <!-- <span matSuffix>.00</span> -->
-              </mat-form-field>
-            </mat-tab>
-            <mat-tab label="Parte 3">
-              <div class="container">
-                <div class="mat-body-2">Agregar archivo de prueba:</div>
-                <button mat-raised-button color="primary" (click)="DialogDocumento()" [disabled]="disabledBtnUpload">Cargar <i class="material-icons">attach_file</i></button>
-              </div>  
-            </mat-tab>
-          </mat-tab-group>
+        <mat-tab-group dynamicHeight [color]="['accent']" [backgroundColor]="['primary']">
+          <mat-tab label="Parte 1">
+            <div class="mat-body-2">¿Sufrió algún tipo de daño físico?</div>
+            <mat-radio-group class="example-radio-group" aria-label="Select an option">
+              <mat-radio-button class="example-radio-button" value="SI">SI</mat-radio-button>
+              <mat-radio-button class="example-radio-button" value="NI">NO</mat-radio-button>
+            </mat-radio-group>
+            <div class="mat-body-2">¿Sufrió algún tipo de daño verbal?</div>
+            <mat-radio-group class="example-radio-group" aria-label="Select an option" >
+              <mat-radio-button class="example-radio-button" value="SI">SI</mat-radio-button>
+              <mat-radio-button class="example-radio-button" value="NO">NO</mat-radio-button>
+            </mat-radio-group>
+          </mat-tab>
+          <mat-tab label="Parte 2">
+            <div class="mat-body-2">¿Inversición en recuperación del daño causado?</div>
+            <mat-form-field >
+              <input matInput placeholder="Monto" type="number" class="example-right-align">
+              <span matPrefix>$&nbsp;</span>
+              <!-- <span matSuffix>.00</span> -->
+            </mat-form-field>
+          </mat-tab>
+          <mat-tab label="Parte 3">
+            <div class="container">
+              <div class="mat-body-2">Agregar archivo de prueba:</div>
+              <button mat-raised-button color="primary" (click)="DialogDocumento()" [disabled]="disabledBtnUpload">Cargar <i class="material-icons">attach_file</i></button>
+            </div>  
+          </mat-tab>
+        </mat-tab-group>
 
-          <mat-action-row>
-            <button mat-stroked-button color="warn" (click)="prevStep()">Volver</button>
-            <button mat-stroked-button color="accent" (click)="nextStep()">Siguiente</button>
-          </mat-action-row>
+        <mat-action-row>
+          <button mat-stroked-button color="warn" (click)="prevStep()">Volver</button>
+          <button mat-stroked-button color="accent" (click)="nextStep()">Siguiente</button>
+        </mat-action-row>
 
-        </mat-expansion-panel>
-        <mat-expansion-panel [expanded]="step === 6" (opened)="setStep(6)" >
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Otros
-            </mat-panel-title>
-            <mat-panel-description>
-              <div class="mat-panel-description">Brindar más información</div>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
+      </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="step === 6" (opened)="setStep(6)" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Otros
+          </mat-panel-title>
+          <mat-panel-description>
+            <div class="mat-panel-description">Brindar más información</div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-          <mat-form-field class="example-full-width">
-            <mat-label>Otra entidad donde tenga procesos abiertos</mat-label>
-            <mat-select [(ngModel)]="hechos.otroProceso" #entidad>
-              <mat-option *ngFor="let entidad of entidades" [value]="entidad.value" >
-                {{entidad.value}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Otra entidad donde tenga procesos abiertos</mat-label>
+          <mat-select #entidad>
+            <mat-option *ngFor="let entidad of entidades" [value]="entidad.value" >
+              {{entidad.value}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-          <mat-form-field class="example-full-width">
-            <mat-label>Escriba # de expediente y mediador de ese caso</mat-label>
-            <textarea matInput placeholder="" [(ngModel)]="hechos.desOtroProceso" [disabled]="hechos.otroProceso=='NINGUNA'"></textarea>
-          </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Escriba # de expediente y mediador de ese caso</mat-label>
+          <textarea matInput [disabled]="hechos.otroProceso=='NINGUNA'"></textarea>
+        </mat-form-field>
 
-          <button mat-raised-button color="primary" (click)="DialogFuncionario()">Añadir Funcionario</button>
-    
-          <mat-action-row>
-            <button mat-stroked-button color="warn" (click)="prevStep()">Volver</button>
-            <button mat-stroked-button color="accent" (click)="nextStep()">Finalizar</button>
-          </mat-action-row>
-        </mat-expansion-panel>
-      </mat-accordion>
-      
-      <!-- <div>
-        <button class="btn btn-success btn-lg btn-block mt-3 mb-3" mat-raised-button 
-        (click)="DialogDescargar()" >Descargar<mat-icon aria-hidden="false" aria-label="Example cloud_download icon">cloud_download</mat-icon></button>
-      </div> -->
-
-      <div>
-        <button color="primary" class="btn btn-lg btn-block mt-3 mb-3" mat-raised-button 
-        (click)="DialogConfirmacion()" >Finalizar <i class="material-icons">arrow_forward</i></button>
-      </div>
-    </div>
+        <button mat-raised-button color="primary" (click)="DialogFuncionario()">Añadir Funcionario</button>
+  
+        <mat-action-row>
+          <button mat-stroked-button color="warn" (click)="prevStep()">Volver</button>
+          <button mat-stroked-button color="accent" (click)="nextStep()">Finalizar</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <button color="primary" class="btn-lg btn-block mt-3 mb-3" mat-raised-button (click)="DialogConfirmacion()"
+    [disabled]="datosFormGroup.invalid">Finalizar <i class="material-icons">arrow_forward</i>
+  </button>
+    <!-- <div>
+      <button class="btn btn-success btn-lg btn-block mt-3 mb-3" mat-raised-button 
+      (click)="DialogDescargar()" >Descargar<mat-icon aria-hidden="false" aria-label="Example cloud_download icon">cloud_download</mat-icon></button>
+    </div> -->
 </div>
 

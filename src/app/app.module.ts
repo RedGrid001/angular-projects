@@ -67,6 +67,7 @@ import { DenunciaLayoutComponent } from './layouts/denuncia-layout.component';
 import { FaqComponent } from './faq/faq.component';
 import { ConfirmarComponent } from './confirmar/confirmar.component';
 import { from } from 'rxjs';
+import { TextMaskModule } from 'angular2-text-mask';
 
 @NgModule({
   declarations: [
@@ -139,7 +140,8 @@ import { from } from 'rxjs';
     FormsModule, ReactiveFormsModule,
     HttpClientModule, 
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    TextMaskModule
   ],
   entryComponents: [
     DialogFuncionarioComponent,
