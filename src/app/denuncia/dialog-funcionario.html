@@ -1,42 +1,37 @@
 <h2 class="text-center" mat-dialog-title>Funcionario Denunciado</h2>
 <mat-dialog-content class="mat-typography">
-  <p>Completar con datos verídicos del funcionario denunciado para proceder rápido y a la brevedad posible.</p>
-
-  <mat-form-field class="example-full-width">
-    <mat-label>Tipo de documento</mat-label>
-    <mat-select [(ngModel)]="data.tipoDocumento">
-      <mat-option value="DUI" >DUI</mat-option>
-      <mat-option value="NIT" >NIT</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field class="example-full-width">
-    <mat-label>Numero de documento</mat-label>
-    <input matInput [(ngModel)]="data.numeroDocumento">
-  </mat-form-field>
-
-  <mat-form-field class="example-full-width">
-    <mat-label>Cargo</mat-label>
-    <mat-select [(ngModel)]="data.cargo">
-      <mat-option value="DIRECTOR" >Director</mat-option>
-      <mat-option value="SUBDIRECTOR" >Sub-Director</mat-option>
-      <mat-option value="DOCENTE" >Docente</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field class="example-full-width">
-    <mat-label>Nombre completo</mat-label>
-    <input matInput [(ngModel)]="data.nombreFuncionario">
-  </mat-form-field>
-
-  <div class="mat-body-2">¿Aun labora en la entidad educativa?</div>
-  <mat-radio-group [(ngModel)]="data.laboraEntidad" class="example-radio-group" aria-label="Select an option">
-    <mat-radio-button class="example-radio-button" value="SI">SI</mat-radio-button>
-    <mat-radio-button class="example-radio-button" value="NO">NO</mat-radio-button>
-  </mat-radio-group>
+  <div [formGroup]="funcionarioFormGroup" novalidate> 
+    <div class="text-center mt-1 mb-1">Completar con datos verídicos del funcionario denunciado para proceder rápido y a la brevedad posible.</div>
+    <mat-form-field class="example-full-width">
+      <mat-label>Tipo de documento</mat-label>
+      <mat-select formControlName="tipodocumentoCtrl" required>
+        <mat-option value="DUI">DUI</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Numero de documento</mat-label>
+      <input matInput formControlName="numerodocumentoCtrl" [textMask]="{mask:duiMask}" required>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Cargo</mat-label>
+      <mat-select formControlName="cargoCtrl" required >
+        <mat-option value="DIRECTOR" >Director</mat-option>
+        <mat-option value="SUBDIRECTOR" >Sub-Director</mat-option>
+        <mat-option value="DOCENTE" >Docente</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Nombre completo</mat-label>
+      <input matInput formControlName="nombrefuncionarioCtrl" required maxlength="50">
+    </mat-form-field>
+    <div class="mat-body-2">¿Aun labora en la entidad educativa?</div>
+    <mat-radio-group formControlName="laboraentidadCtrl" class="example-radio-group" aria-label="Selecciona una opción" required>
+      <mat-radio-button class="example-radio-button" value="SI">SI</mat-radio-button>
+      <mat-radio-button class="example-radio-button" value="NO">NO</mat-radio-button>
+    </mat-radio-group>
+  </div>
 </mat-dialog-content>
-
 <mat-dialog-actions align="end">
   <button mat-stroked-button [mat-dialog-close]="null" color="warn">Cancelar</button>
-  <button mat-stroked-button [mat-dialog-close]="data" cdkFocusInitial color="primary">Guardar</button>
+  <button mat-stroked-button (click)="CloseDialog()" [disabled]="funcionarioFormGroup.invalid" color="primary">Guardar</button>
 </mat-dialog-actions>

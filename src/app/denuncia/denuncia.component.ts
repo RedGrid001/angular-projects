@@ -32,8 +32,6 @@ export interface ISelector {
 })
 export class DenunciaComponent implements OnInit {
 
-  //@ViewChild() content: ElementRef;
-
   denuncia: denuncia = {
     idDenuncia: 0,
     nombreCiudadano: '',
@@ -123,8 +121,10 @@ export class DenunciaComponent implements OnInit {
   filteredOptions: Observable<centrosescolares[]>;
 
   datosFormGroup: FormGroup;
-  hechosFormGroup: FormGroup;
 
+  nombreCiudadanoFC = new FormControl({value:null,disabled:true});
+  apellidoCiudadanoFC = new FormControl({value:null,disabled:true});
+  departamentoCiudadanoFC = new FormControl({value:null,disabled:true});
   emailFC = new FormControl({value:null,disabled:false}, [Validators.required, Validators.email]);
   documentoFC = new FormControl({value:null,disabled:false}, Validators.required);
   tipodocumentoFC = new FormControl({value:null,disabled:false}, Validators.required);
@@ -138,9 +138,18 @@ export class DenunciaComponent implements OnInit {
   codigoceFC = new FormControl({value:null,disabled:false}, Validators.required);
   departamentoceFC = new FormControl({value:null,disabled:false}, Validators.required);
   direccionceFC = new FormControl({value:null,disabled:false}, Validators.required);
+
+  tipodenunciaFC = new FormControl({value:null,disabled:false}, Validators.required);
+  trabajalugarFC = new FormControl({value:null,disabled:false}, Validators.required);
+  representantelegalFC = new FormControl({value:null,disabled:false}, Validators.required);
   hechosdescFC = new FormControl({value:null,disabled:false}, Validators.required);
   fechahechosiFC = new FormControl({value:null,disabled:false}, Validators.required);
   fechahechosfFC = new FormControl({value:null,disabled:false}, Validators.required);
+  agresionfisicaFC = new FormControl({value:null,disabled:false}, Validators.required);
+  agresionverbalFC = new FormControl({value:null,disabled:false}, Validators.required);
+  inversionrecuperacionFC = new FormControl({value:0,disabled:false}, Validators.compose([Validators.required,Validators.minLength(0),Validators.maxLength(5),Validators.pattern(/^\d+$/)]));
+  otroprocesoFC = new FormControl({value:'NINGUNA',disabled:false}, Validators.required);
+  desotroprocesoFC = new FormControl({value:'',disabled:false});
 
   @Input() contacto: contacto = ({ 
     nombreCiudadano:'',
@@ -204,9 +213,12 @@ export class DenunciaComponent implements OnInit {
 
   ngOnInit() {
     this.datosFormGroup = new FormGroup({
+      nombreCiudadanoCtrl: this.nombreCiudadanoFC,
+      apellidoCiudadanoCtrl: this.apellidoCiudadanoFC,
+      departamentoCiudadanoCtrl: this.departamentoCiudadanoFC,
       emailCtrl: this.emailFC,
-      tipodocumentoCtrl: this.tipodocumentoFC,
       documentoCtrl: this.documentoFC,
+      tipodocumentoCtrl: this.tipodocumentoFC,
       fechanacimientoCtrl: this.fechanacimientoFC,
       telefonomovilCtrl: this.telefonomovilFC,
       telefonocasaCtrl: this.telefonocasaFC,
@@ -216,9 +228,17 @@ export class DenunciaComponent implements OnInit {
       codigoceCtrl: this.codigoceFC,
       departamentoceCtrl: this.departamentoceFC,
       direccionceCtrl: this.direccionceFC,
+      tipodenunciaCtrl: this.tipodenunciaFC,
+      trabajalugarCtrl: this.trabajalugarFC,
+      representantelegalCtrl: this.representantelegalFC,
       hechosdescCtrl: this.hechosdescFC,
       fechahechosiCtrl: this.fechahechosiFC,
-      fechahechosfCtrl: this.fechahechosfFC
+      fechahechosfCtrl: this.fechahechosfFC,
+      agresionfisicaCtrl: this.agresionfisicaFC,
+      agresionverbalCtrl: this.agresionverbalFC,
+      inversionrecuperacionCtrl: this.inversionrecuperacionFC,
+      otroprocesoCtrl: this.otroprocesoFC,
+      desotroprocesoCtrl: this.desotroprocesoFC
     });
     this.getCentrosEscolares();
     this.filteredOptions = this.codigoceFC.valueChanges.pipe(startWith(''),map(value => this._filter(value)));
@@ -244,9 +264,9 @@ export class DenunciaComponent implements OnInit {
        this.api.getContacto(numeroDocumento,tipoDocumento,fechaFormato).subscribe((respuesta: contacto) => {
           if(respuesta!=null){
             this.contacto = respuesta;
-            this.denuncia.nombreCiudadano = respuesta.nombreCiudadano;
-            this.denuncia.apellidoCiudadano = respuesta.apellidoCiudadano;
-            this.denuncia.departamentoCiudadano = respuesta.departamentoCiudadano;
+            this.nombreCiudadanoFC.setValue(respuesta.nombreCiudadano);
+            this.apellidoCiudadanoFC.setValue(respuesta.apellidoCiudadano);
+            this.departamentoCiudadanoFC.setValue(respuesta.departamentoCiudadano);
             this.api.AbrirSnackBar('DATOS ENCONTRADOS CON EXITO','OK');
           }else{
             this.api.AbrirSnackBar('DATOS NO ENCONTRADOS','OK');
@@ -392,14 +412,28 @@ export class DialogConfirmacionComponent{
   templateUrl: './dialog-cargar-documento.html',
   styleUrls: ['./denuncia.component.css']
 })
-export class DialogCargarDocumentoComponent {
+export class DialogCargarDocumentoComponent implements OnInit {
 
   //Variables
   uploadPercent: Observable<number>;
   fileToUpload: File = null;
+  descripcionFC = new FormControl({value:null,disabled:false}, Validators.required);
+  anexopaginaFC = new FormControl({value:'Ninguno',disabled:false}, Validators.required);
+  ubicacionFC = new FormControl({value:'',disabled:false}, Validators.required);
+  archivoFC = new FormControl({value:null,disabled:false}, Validators.required);
+  pruebaFormGroup: FormGroup;
 
   constructor(public dialogRef: MatDialogRef<DialogCargarDocumentoComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: prueba, private _storage: AngularFireStorage){}
+
+  ngOnInit(): void {
+    this.pruebaFormGroup = new FormGroup({
+      descripcionCtrl: this.descripcionFC,
+      anexopaginaCtrl: this.anexopaginaFC,
+      ubicacionCtrl: this.ubicacionFC,
+      archivoCtrl: this.archivoFC
+    });
+  }
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
@@ -413,7 +447,15 @@ export class DialogCargarDocumentoComponent {
     const task = this._storage.upload(filePath, file);
     this.uploadPercent = task.percentageChanges();
     task.snapshotChanges().pipe(finalize(()=>storageRef.getDownloadURL().subscribe((ruta:string) => 
-    { this.data.archivo = ruta; }))).subscribe();
+    { this.data.archivo = ruta; this.archivoFC.setValue(ruta); }))).subscribe();
+  }
+
+  CloseDialog(){
+    this.data.descripcion = this.descripcionFC.value;
+    this.data.anexoPagina = this.anexopaginaFC.value;
+    this.data.minutoEvidencia = this.ubicacionFC.value;
+    this.data.archivo = this.archivoFC.value
+    this.dialogRef.close(this.data);
   }
 }
 
@@ -422,10 +464,37 @@ export class DialogCargarDocumentoComponent {
   templateUrl: './dialog-funcionario.html',
   styleUrls: ['./denuncia.component.css']
 })
-export class DialogFuncionarioComponent {
+export class DialogFuncionarioComponent implements OnInit {
+
+  duiMask = [/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,'-',/\d/];
+  tipodocumentoFC = new FormControl({value:null,disabled:false}, Validators.required);
+  numerodocumentoFC = new FormControl({value:null,disabled:false}, Validators.compose([Validators.required, Validators.minLength(10)]));
+  cargoFC = new FormControl({value:null,disabled:false}, Validators.required);
+  nombrefuncionarioFC = new FormControl({value:null,disabled:false}, Validators.required);
+  laboraentidadFC = new FormControl({value:null,disabled:false}, Validators.required);
+  funcionarioFormGroup: FormGroup;
 
   constructor(public dialogRef: MatDialogRef<DialogFuncionarioComponent>,
     @Inject(MAT_DIALOG_DATA) public data: funcionario) {}
+
+  ngOnInit(): void {
+    this.funcionarioFormGroup = new FormGroup({
+      tipodocumentoCtrl: this.tipodocumentoFC,
+      numerodocumentoCtrl: this.numerodocumentoFC,
+      cargoCtrl: this.cargoFC,
+      nombrefuncionarioCtrl: this.nombrefuncionarioFC,
+      laboraentidadCtrl: this.laboraentidadFC
+    });
+  }
+
+  CloseDialog(){
+    this.data.tipoDocumento = this.tipodocumentoFC.value;
+    this.data.numeroDocumento = this.numerodocumentoFC.value;
+    this.data.cargo = this.cargoFC.value;
+    this.data.nombreFuncionario = this.nombrefuncionarioFC.value;
+    this.data.laboraEntidad = this.laboraentidadFC.value;
+    this.dialogRef.close(this.data);
+  }
 
 }
 

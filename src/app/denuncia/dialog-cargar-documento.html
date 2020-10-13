@@ -1,24 +1,27 @@
 <h2 class="text-center" mat-dialog-title>Documento de sustento</h2>
 <mat-dialog-content class="mat-typography">
-<p>(*) Campos obligatorios</p>
-<mat-form-field class="example-full-width">
-    <mat-label>Descripción(*)</mat-label>
-    <input matInput [(ngModel)]="data.descripcion">
-</mat-form-field>
-<mat-form-field class="example-full-width">
-    <mat-label>Anexo o página</mat-label>
-    <input matInput [(ngModel)]="data.anexoPagina">
-</mat-form-field>
-<mat-form-field class="example-full-width">
-    <mat-label>Ubicación de la información original</mat-label>
-    <input matInput [(ngModel)]="data.minutoEvidencia">
-</mat-form-field>
-<div class="form-group">
-    <label id="label" for="file">File(*)</label>
-    <input class="btn btn-warning" type="file"
-           id="file"
-           (change)="handleFileInput($event.target.files)">
-</div>
+    <div [formGroup]="pruebaFormGroup" novalidate>
+        <p>(*) Campos obligatorios</p>
+        <mat-form-field class="example-full-width mt-2 mb-2" hintLabel="Maximo 75 caracteres">
+            <mat-label>Descripción</mat-label>
+            <input matInput formControlName="descripcionCtrl" maxlength="75" required #descripcion>
+            <mat-hint align="end">{{descripcion.value?.length || 0}}/75</mat-hint>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Anexo o página</mat-label>
+            <input matInput formControlName="anexopaginaCtrl" required>
+        </mat-form-field>
+        <mat-form-field class="example-full-width mt-2 mb-2">
+            <mat-label>Ubicación de la información original</mat-label>
+            <input matInput formControlName="ubicacionCtrl" required>
+        </mat-form-field>
+        <div class="form-group">
+            <label id="label" for="file">Archivo(*)</label>
+            <input class="btn btn-warning" type="file"
+                id="file"
+                (change)="handleFileInput($event.target.files)">
+        </div>
+    </div>
 <hr>
 <section>
     <mat-progress-bar [mode]="'determinate'" [value]="(uploadPercent | async)"></mat-progress-bar>
@@ -26,5 +29,5 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-stroked-button [mat-dialog-close]="null" color="warn">Cancelar</button>
-  <button mat-stroked-button [mat-dialog-close]="data" cdkFocusInitial color="primary">Registrar</button>
+  <button mat-stroked-button (click)="CloseDialog()" [disabled]="pruebaFormGroup.invalid" color="primary">Registrar</button>
 </mat-dialog-actions>
