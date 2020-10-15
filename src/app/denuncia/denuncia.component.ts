@@ -122,9 +122,9 @@ export class DenunciaComponent implements OnInit {
 
   datosFormGroup: FormGroup;
 
-  nombreCiudadanoFC = new FormControl({value:null,disabled:true});
-  apellidoCiudadanoFC = new FormControl({value:null,disabled:true});
-  departamentoCiudadanoFC = new FormControl({value:null,disabled:true});
+  nombreFC = new FormControl({value:null,disabled:true});
+  apellidoFC = new FormControl({value:null,disabled:true});
+  departamentoFC = new FormControl({value:null,disabled:true});
   emailFC = new FormControl({value:null,disabled:false}, [Validators.required, Validators.email]);
   documentoFC = new FormControl({value:null,disabled:false}, Validators.required);
   tipodocumentoFC = new FormControl({value:null,disabled:false}, Validators.required);
@@ -213,9 +213,9 @@ export class DenunciaComponent implements OnInit {
 
   ngOnInit() {
     this.datosFormGroup = new FormGroup({
-      nombreCiudadanoCtrl: this.nombreCiudadanoFC,
-      apellidoCiudadanoCtrl: this.apellidoCiudadanoFC,
-      departamentoCiudadanoCtrl: this.departamentoCiudadanoFC,
+      nombreCtrl: this.nombreFC,
+      apellidoCtrl: this.apellidoFC,
+      departamentoCtrl: this.departamentoFC,
       emailCtrl: this.emailFC,
       documentoCtrl: this.documentoFC,
       tipodocumentoCtrl: this.tipodocumentoFC,
@@ -264,9 +264,9 @@ export class DenunciaComponent implements OnInit {
        this.api.getContacto(numeroDocumento,tipoDocumento,fechaFormato).subscribe((respuesta: contacto) => {
           if(respuesta!=null){
             this.contacto = respuesta;
-            this.nombreCiudadanoFC.setValue(respuesta.nombreCiudadano);
-            this.apellidoCiudadanoFC.setValue(respuesta.apellidoCiudadano);
-            this.departamentoCiudadanoFC.setValue(respuesta.departamentoCiudadano);
+            this.nombreFC.setValue(respuesta.nombreCiudadano);
+            this.apellidoFC.setValue(respuesta.apellidoCiudadano);
+            this.departamentoFC.setValue(respuesta.departamentoCiudadano);
             this.api.AbrirSnackBar('DATOS ENCONTRADOS CON EXITO','OK');
           }else{
             this.api.AbrirSnackBar('DATOS NO ENCONTRADOS','OK');
@@ -317,6 +317,9 @@ export class DenunciaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(resultado => {
       if (resultado!=null) {
+        this.denuncia.nombreCiudadano = this.nombreFC.value;
+        this.denuncia.apellidoCiudadano = this.apellidoFC.value;
+        this.denuncia.departamentoCiudadano = this.departamentoFC.value;
         this.denuncia.tipoDocumento = this.tipodocumentoFC.value;
         this.denuncia.numeroDocumento = this.documentoFC.value;
         this.denuncia.fechaNacimiento = this.fechanacimientoFC.value;
@@ -330,12 +333,20 @@ export class DenunciaComponent implements OnInit {
         this.hechos.codCe = this.codigoceFC.value;
         this.hechos.departamentoCe = this.departamentoceFC.value;
         this.hechos.direccionCe = this.direccionceFC.value;
+        this.hechos.tipoDenuncia = this.tipodenunciaFC.value;
+        this.hechos.trabajaLugar = this.trabajalugarFC.value;
+        this.hechos.representanteLegal = this.representantelegalFC.value;
         this.hechos.descripcionHechos = this.hechosdescFC.value;
         this.hechos.fechaIniHechos = this.fechahechosiFC.value;
         this.hechos.fechaFinHechos = this.fechahechosfFC.value;
+        this.hechos.agresionFisica = this.agresionfisicaFC.value;
+        this.hechos.agresionVerbal = this.agresionverbalFC.value;
+        this.hechos.inversionRecuperacion = this.inversionrecuperacionFC.value;
+        this.hechos.otroProceso = this.otroprocesoFC.value;
+        this.hechos.desOtroProceso = this.desotroprocesoFC.value;
         this.gestion.noExpediente = resultado.codRegistro;
         this.gestion.jdc = this.departamentoceFC.value;
-        this.gestion.nombreDenunciante = this.denuncia.nombreCiudadano+" "+this.denuncia.apellidoCiudadano;
+        this.gestion.nombreDenunciante = this.nombreFC.value+" "+this.apellidoFC.value;
         this.denuncia.gestionDenuncia.splice(0,1,this.gestion);
         this.denuncia.compromiso.splice(0,1,this.compromiso);
         this.denuncia.hechos.splice(0,1,this.hechos);
