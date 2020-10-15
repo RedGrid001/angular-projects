@@ -39,13 +39,13 @@
           <button type="button" color="primary" class="btn-lg btn-block" mat-raised-button (click)="getContacto(documentoFC.value,tipodocumentoFC.value,fechanacimientoFC.value)" >Validar Identidad</button>
           <hr>
           <mat-form-field class="example-full-width">
-            <input type="text"  matInput placeholder="Nombre" formControlName="nombreCiudadanoCtrl" >
+            <input type="text"  matInput placeholder="Nombre" formControlName="nombreCtrl" >
           </mat-form-field>
           <mat-form-field class="example-full-width">
-            <input type="text"  matInput placeholder="Apellido" formControlName="apellidoCiudadanoCtrl" >
+            <input type="text"  matInput placeholder="Apellido" formControlName="apellidoCtrl" >
           </mat-form-field>
           <mat-form-field class="example-full-width">
-            <input type="text"  matInput placeholder="Departamento" formControlName="departamentoCiudadanoCtrl" >
+            <input type="text"  matInput placeholder="Departamento" formControlName="departamentoCtrl" >
           </mat-form-field>
         <mat-action-row>
           <button mat-stroked-button color="accent" (click)="nextStep()">Siguiente</button>
@@ -266,8 +266,7 @@
 
         <mat-form-field class="example-full-width" hintLabel="Maximo 200 caracteres">
           <mat-label>Escriba # de expediente y mediador de ese caso</mat-label>
-          <textarea matInput formControlName="desotroprocesoCtrl" maxlength="200" [disabled]="hechos.otroProceso=='NINGUNA'"
-          #desOtroProceso></textarea>
+          <textarea matInput formControlName="desotroprocesoCtrl" maxlength="200" [disabled]="entidad.value=='NINGUNA'" #desOtroProceso></textarea>
           <mat-hint align="end">{{desOtroProceso.value?.length || 0}}/200</mat-hint>
         </mat-form-field>
 

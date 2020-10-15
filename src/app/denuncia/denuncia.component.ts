@@ -1,9 +1,9 @@
-import { Component, OnInit, Input, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from '../services/api.service';
 import { contacto } from '../entities/contacto';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { denuncia } from '../entities/denuncia';
 import { funcionario } from '../entities/funcionario';
@@ -12,14 +12,12 @@ import { prueba } from '../entities/prueba';
 import { hechos } from '../entities/hechos';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { centrosescolares } from '../entities/centros_escolares';
 import { map, startWith } from 'rxjs/operators';
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import { correo } from '../entities/correo';
 import { gestiondenuncia } from '../entities/gestiondenuncia';
-import { isString } from 'util';
 
 export interface ISelector {
   value: string;
@@ -105,7 +103,7 @@ export class DenunciaComponent implements OnInit {
     fechaModificacion:new Date(),
     fechaRegistro:new Date(),
     usuarioModificacion:'USUARIO REGISTRO',
-    jdc:'DEPARTAMENTO',
+    jcd:'',
     idFirmaRepresentantecsj:1,
     idFirmaRepresentantemined:1
   }
@@ -149,7 +147,7 @@ export class DenunciaComponent implements OnInit {
   agresionverbalFC = new FormControl({value:null,disabled:false}, Validators.required);
   inversionrecuperacionFC = new FormControl({value:0,disabled:false}, Validators.compose([Validators.required,Validators.minLength(0),Validators.maxLength(5),Validators.pattern(/^\d+$/)]));
   otroprocesoFC = new FormControl({value:'NINGUNA',disabled:false}, Validators.required);
-  desotroprocesoFC = new FormControl({value:'',disabled:false});
+  desotroprocesoFC = new FormControl(null);
 
   @Input() contacto: contacto = ({ 
     nombreCiudadano:'',
@@ -197,17 +195,14 @@ export class DenunciaComponent implements OnInit {
   }
 
   public complementarce(valor:any){
-    console.log(valor);
     this.CentroEscolar = this.CentrosEscolares.find(datos => datos.codigoCe == valor);
     this.directorceFC.setValue(this.CentroEscolar.directorCe);
     this.nombreceFC.setValue(this.CentroEscolar.nombreCe);
-    //this.codigoceFC.setValue(this.CentroEscolar.codigoCe);
     this.direccionceFC.setValue(this.CentroEscolar.direccionCe);
     this.departamentoceFC.setValue(this.CentroEscolar.departamentoCe);
   }
 
   private _filter(value: string): centrosescolares[] {
-    //const filterValue = value.toLowerCase();
     return this.CentrosEscolares.filter(option => option.nombreCe.includes(value));
   }
 
@@ -249,7 +244,6 @@ export class DenunciaComponent implements OnInit {
       this.api.getCentrosEscolares().subscribe((respuesta) => {
         this.CentrosEscolares.pop();
         this.CentrosEscolares = respuesta;
-        //console.log(respuesta);
       });
       
     } catch (error) {
@@ -345,7 +339,7 @@ export class DenunciaComponent implements OnInit {
         this.hechos.otroProceso = this.otroprocesoFC.value;
         this.hechos.desOtroProceso = this.desotroprocesoFC.value;
         this.gestion.noExpediente = resultado.codRegistro;
-        this.gestion.jdc = this.departamentoceFC.value;
+        this.gestion.jcd = this.departamentoceFC.value;
         this.gestion.nombreDenunciante = this.nombreFC.value+" "+this.apellidoFC.value;
         this.denuncia.gestionDenuncia.splice(0,1,this.gestion);
         this.denuncia.compromiso.splice(0,1,this.compromiso);

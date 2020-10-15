@@ -37,7 +37,7 @@ export class EstadoComponent implements OnInit {
     fechaModificacion:null,
     fechaRegistro:null,
     usuarioModificacion:'',
-    jdc:'',
+    jcd:'',
     idFirmaRepresentantecsj:0,
     idFirmaRepresentantemined:0
   }

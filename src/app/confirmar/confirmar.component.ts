@@ -26,7 +26,7 @@ export class ConfirmarComponent implements OnInit {
     fechaRegistro:null,
     fechaModificacion:null,
     usuarioModificacion:'',
-    jdc:'',
+    jcd:'',
     idFirmaRepresentantecsj:0,
     idFirmaRepresentantemined:0
   };

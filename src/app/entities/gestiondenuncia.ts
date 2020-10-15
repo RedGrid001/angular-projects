@@ -13,7 +13,7 @@ export class gestiondenuncia {
     fechaModificacion: Date = null;
     fechaRegistro: Date = null;
     usuarioModificacion: string = '';
-    jdc: string = '';
+    jcd: string = '';
     idFirmaRepresentantecsj: number = 0;
     idFirmaRepresentantemined: number = 0;
 }

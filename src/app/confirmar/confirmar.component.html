@@ -4,12 +4,12 @@
             <div *ngIf="Confirmacion" class="alert alert-success text-center" role="alert">
                 <p>¡SU DENUNCIA FUE CONFIRMADA CON EXITO!</p>
                 <p>INICIA SESION PARA REVISAR EL ESTADO ACTUAL DE SU DENUNCIA</p>
-                <p><button [routerLink]="['/inicio-usuario']" color="primary">IR A INICIO</button></p>
+                <p><button mat-raised-button [routerLink]="['/inicio-usuario']" color="primary">IR A INICIO</button></p>
             </div>
             <div *ngIf="!Confirmacion" class="alert alert-info text-center" role="alert">
                 <p>¡SU DENUNCIA YA HA SIDO CONFIRMADA!</p>
                 <p>INICIA SESION PARA REVISAR EL ESTADO ACTUAL DE SU DENUNCIA</p>
-                <p><button [routerLink]="['/inicio-usuario']" color="primary">IR A INICIO</button></p>
+                <p><button mat-raised-button [routerLink]="['/inicio-usuario']" color="primary">IR A INICIO</button></p>
             </div>
         </div>
 
