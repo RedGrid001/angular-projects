@@ -18,10 +18,11 @@ export class InicioUsuarioComponent implements OnInit {
   constructor(private _router: Router, private auth: AuthService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    if(this.auth.getAutenticacionEstado) this._router.navigate(['/inicio']);
     this.inicioFormGroup = new FormGroup({
       duiCtrl: this.duiCtrl,
       correlativoCtrl: this.correlativoCtrl
-    })
+    });
     /* this.inicioFormGroup = this._formBuilder.group({
       duiCtrl: ['',Validators.required],
       correlativoCtrl: ['',Validators.required]
