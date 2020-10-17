@@ -14,7 +14,7 @@
         </mat-form-field>
         <mat-form-field class="example-full-width mt-1" appearance="outline">
             <mat-label>Correlativo de denuncia</mat-label>
-            <input matInput placeholder="UI.00-00-0000.00-00.00000000-0" formControlName="correlativoCtrl" required #correlativo>
+            <input matInput placeholder="UI.00-00-0000.00-00.00000000-0" formControlName="correlativoCtrl" maxlength="30" required #correlativo>
             <mat-error *ngIf="correlativoFC.hasError('required')">Campo <strong>Requerido</strong></mat-error>
             <mat-error *ngIf="correlativoFC.errors?.pattern">Formato requerido UI.00-00-0000.00-00.00000000-0</mat-error>
         </mat-form-field>

@@ -85,7 +85,7 @@
         </table>
 
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Introduce tu correo electrónico" formControlName="emailCtrl" required >
+          <input matInput placeholder="Introduce tu correo electrónico" formControlName="emailCtrl" required maxlength="50">
           <mat-error *ngIf="emailFC.invalid">{{getErrorEmailMessage()}}</mat-error>
         </mat-form-field>
 
@@ -233,7 +233,7 @@
           <mat-tab label="Parte 2">
             <div class="mat-body-2">¿Inversición en recuperación del daño causado?</div>
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Monto" type="text" formControlName="inversionrecuperacionCtrl" class="example-right-align">
+              <input matInput placeholder="Monto" type="text" formControlName="inversionrecuperacionCtrl" maxlength="5" class="example-right-align">
               <span matPrefix>$&nbsp;</span>
               <mat-error *ngIf="inversionrecuperacionFC.hasError('required')">Campo requerido</mat-error>
               <!-- <span matSuffix>.00</span> -->
