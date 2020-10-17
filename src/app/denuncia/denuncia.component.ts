@@ -50,7 +50,7 @@ export class DenunciaComponent implements OnInit {
     gestionDenuncia: []
   };
 
-  @Input() funcionario: funcionario = { 
+  funcionario: funcionario = { 
     nombreFuncionario:'',
     tipoDocumento:0,
     numeroDocumento:0,
@@ -62,7 +62,7 @@ export class DenunciaComponent implements OnInit {
     compromiso: 'SI'
   };
 
-  @Input() prueba: prueba = {
+  prueba: prueba = {
     descripcion: '',
     anexoPagina: '',
     minutoEvidencia: '',
@@ -112,8 +112,6 @@ export class DenunciaComponent implements OnInit {
   public CentroEscolar: centrosescolares = {codigoCe:0,direccionCe:'A',directorCe:'B',nombreCe:'C',departamentoCe:'D'};
 
   //Variables necesarias
-  duiMask = [/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,'-',/\d/];
-  telefonoMask = [/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/];
   disabledBtnUpload: boolean = false;
   step = 0;
   filteredOptions: Observable<centrosescolares[]>;
@@ -124,18 +122,18 @@ export class DenunciaComponent implements OnInit {
   apellidoFC = new FormControl({value:null,disabled:true});
   departamentoFC = new FormControl({value:null,disabled:true});
   emailFC = new FormControl({value:null,disabled:false}, [Validators.required, Validators.email]);
-  documentoFC = new FormControl({value:null,disabled:false}, Validators.required);
+  documentoFC = new FormControl({value:null,disabled:false}, Validators.compose([Validators.required,Validators.pattern("[0-9]{8}[-]{1}[0-9]{1}")]));
   tipodocumentoFC = new FormControl({value:null,disabled:false}, Validators.required);
   fechanacimientoFC = new FormControl({value:null,disabled:false}, Validators.required);
-  telefonomovilFC = new FormControl({value:null,disabled:false}, Validators.required);
-  telefonocasaFC = new FormControl({value:null,disabled:false});
+  telefonomovilFC = new FormControl({value:null,disabled:false}, Validators.compose([Validators.required, Validators.pattern("[0-9]{8}")]));
+  telefonocasaFC = new FormControl({value:'00000000',disabled:false}, Validators.compose([Validators.required, Validators.pattern("[0-9]{1,8}")]));
   direccionFC = new FormControl({value:null,disabled:false}, Validators.required);
 
-  nombreceFC = new FormControl({value:null,disabled:false}, Validators.required);
-  directorceFC = new FormControl({value:null,disabled:false}, Validators.required);
+  nombreceFC = new FormControl({value:null,disabled:true}, Validators.required);
+  directorceFC = new FormControl({value:null,disabled:true}, Validators.required);
   codigoceFC = new FormControl({value:null,disabled:false}, Validators.required);
-  departamentoceFC = new FormControl({value:null,disabled:false}, Validators.required);
-  direccionceFC = new FormControl({value:null,disabled:false}, Validators.required);
+  departamentoceFC = new FormControl({value:null,disabled:true}, Validators.required);
+  direccionceFC = new FormControl({value:null,disabled:true}, Validators.required);
 
   tipodenunciaFC = new FormControl({value:null,disabled:false}, Validators.required);
   trabajalugarFC = new FormControl({value:null,disabled:false}, Validators.required);
@@ -147,9 +145,9 @@ export class DenunciaComponent implements OnInit {
   agresionverbalFC = new FormControl({value:null,disabled:false}, Validators.required);
   inversionrecuperacionFC = new FormControl({value:0,disabled:false}, Validators.compose([Validators.required,Validators.minLength(0),Validators.maxLength(5),Validators.pattern(/^\d+$/)]));
   otroprocesoFC = new FormControl({value:'NINGUNA',disabled:false}, Validators.required);
-  desotroprocesoFC = new FormControl(null);
+  desotroprocesoFC = new FormControl('No se tiene otro proceso',[Validators.required, Validators.minLength(24)]);
 
-  @Input() contacto: contacto = ({ 
+  contacto: contacto = ({ 
     nombreCiudadano:'',
     apellidoCiudadano:'',
     tipoDocumento:'',
@@ -190,8 +188,13 @@ export class DenunciaComponent implements OnInit {
     {value: 'FISCALIA'}
   ];
 
-  getErrorEmailMessage() {
+  public getErrorEmailMessage() {
     return this.emailFC.hasError('required') ? 'Correo electronico es requerido' : this.emailFC.hasError('email') ? 'No es un correo valido' : '';
+  }
+
+  public agregarCero(numero:number){
+    if(numero<10) return '0'+numero;
+    return numero;
   }
 
   public complementarce(valor:any){
@@ -305,7 +308,7 @@ export class DenunciaComponent implements OnInit {
     let date = new Date();
     const dialogRef = this.dialog.open(DialogConfirmacionComponent, {
       data: {
-        codRegistro: `UI.${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}.${date.getHours()}-${date.getMinutes()}.${this.documentoFC.value}`
+        codRegistro: `UI.${this.agregarCero(date.getDate())}-${this.agregarCero(date.getMonth()+1)}-${date.getFullYear()}.${this.agregarCero(date.getHours())}-${this.agregarCero(date.getMinutes())}.${this.documentoFC.value}`
       }
     });
 
@@ -471,9 +474,8 @@ export class DialogCargarDocumentoComponent implements OnInit {
 })
 export class DialogFuncionarioComponent implements OnInit {
 
-  duiMask = [/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,'-',/\d/];
   tipodocumentoFC = new FormControl({value:null,disabled:false}, Validators.required);
-  numerodocumentoFC = new FormControl({value:null,disabled:false}, Validators.compose([Validators.required, Validators.minLength(10)]));
+  numerodocumentoFC = new FormControl({value:null,disabled:false}, Validators.compose([Validators.required, Validators.minLength(10),Validators.pattern("[0-9]{8}[-]{1}[0-9]{1}")]));
   cargoFC = new FormControl({value:null,disabled:false}, Validators.required);
   nombrefuncionarioFC = new FormControl({value:null,disabled:false}, Validators.required);
   laboraentidadFC = new FormControl({value:null,disabled:false}, Validators.required);

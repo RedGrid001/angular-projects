@@ -7,10 +7,13 @@
       <mat-select formControlName="tipodocumentoCtrl" required>
         <mat-option value="DUI">DUI</mat-option>
       </mat-select>
+      <mat-error *ngIf="tipodocumentoFC.hasError('required')">Campo <strong>Requerido</strong></mat-error>
     </mat-form-field>
     <mat-form-field class="example-full-width">
-      <mat-label>Numero de documento</mat-label>
-      <input matInput formControlName="numerodocumentoCtrl" [textMask]="{mask:duiMask}" required>
+      <mat-label>Número de documento</mat-label>
+      <input matInput formControlName="numerodocumentoCtrl" maxlength="10" required>
+      <mat-error *ngIf="numerodocumentoFC.hasError('required')">Campo <strong>Requerido</strong></mat-error>
+      <mat-error>Formato requerido:00000000-0</mat-error>
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-label>Cargo</mat-label>
@@ -19,10 +22,12 @@
         <mat-option value="SUBDIRECTOR" >Sub-Director</mat-option>
         <mat-option value="DOCENTE" >Docente</mat-option>
       </mat-select>
+      <mat-error *ngIf="cargoFC.hasError('required')">Campo <strong>Requerido</strong></mat-error>
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-label>Nombre completo</mat-label>
       <input matInput formControlName="nombrefuncionarioCtrl" required maxlength="50">
+      <mat-error *ngIf="nombrefuncionarioFC.hasError('required')">Campo <strong>Requerido</strong></mat-error>
     </mat-form-field>
     <div class="mat-body-2">¿Aun labora en la entidad educativa?</div>
     <mat-radio-group formControlName="laboraentidadCtrl" class="example-radio-group" aria-label="Selecciona una opción" required>

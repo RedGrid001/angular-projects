@@ -6,14 +6,17 @@
             <mat-label>Descripción</mat-label>
             <input matInput formControlName="descripcionCtrl" maxlength="75" required #descripcion>
             <mat-hint align="end">{{descripcion.value?.length || 0}}/75</mat-hint>
+            <mat-error *ngIf="descripcionFC.hasError('required')">Campo <strong>Requerido</strong></mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width">
             <mat-label>Anexo o página</mat-label>
             <input matInput formControlName="anexopaginaCtrl" required>
+            <mat-error *ngIf="anexopaginaFC.hasError('required')">Campo <strong>Requerido</strong></mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width mt-2 mb-2">
             <mat-label>Ubicación de la información original</mat-label>
             <input matInput formControlName="ubicacionCtrl" required>
+            <mat-error *ngIf="ubicacionFC.hasError('required')">Campo <strong>Requerido</strong></mat-error>
         </mat-form-field>
         <div class="form-group">
             <label id="label" for="file">Archivo(*)</label>

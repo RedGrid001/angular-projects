@@ -12,16 +12,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class InicioUsuarioComponent implements OnInit {
 
   inicioFormGroup: FormGroup;
-  duiCtrl = new FormControl({value:null, disabled: false}, [Validators.required, Validators.minLength(10)]);
-  correlativoCtrl = new FormControl({value:null, disabled:false}, [Validators.required, Validators.minLength(26)]);
+  documentoFC = new FormControl({value:null, disabled: false}, Validators.compose([Validators.required,Validators.pattern("[0-9]{8}[-]{1}[0-9]{1}")]));
+  correlativoFC = new FormControl({value:null, disabled:false}, Validators.compose([Validators.required,Validators.pattern("[A-Z]{2}[.]{1}[0-9]{2}[-]{1}[0-9]{2}[-]{1}[0-9]{4}[.]{1}[0-9]{2}[-]{1}[0-9]{2}[.]{1}[0-9]{8}[-]{1}[0-9]{1}")]));
 
   constructor(private _router: Router, private auth: AuthService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     if(this.auth.getAutenticacionEstado) this._router.navigate(['/inicio']);
     this.inicioFormGroup = new FormGroup({
-      duiCtrl: this.duiCtrl,
-      correlativoCtrl: this.correlativoCtrl
+      documentoCtrl: this.documentoFC,
+      correlativoCtrl: this.correlativoFC
     });
     /* this.inicioFormGroup = this._formBuilder.group({
       duiCtrl: ['',Validators.required],

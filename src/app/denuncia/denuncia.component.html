@@ -21,22 +21,26 @@
         </mat-expansion-panel-header>
           <mat-form-field class="example-full-width">
             <mat-label>Tipo de documento</mat-label>
-            <mat-select formControlName="tipodocumentoCtrl" required [cdkTrapFocus] >
+            <mat-select formControlName="tipodocumentoCtrl" required>
               <mat-option value="DUI">DUI</mat-option>
               <!-- <mat-option *ngFor="let documento of documentos" [value]="documento.value" >
                 {{documento.value}}
               </mat-option> -->
             </mat-select>
-            <mat-error *ngIf="tipodocumentoFC.hasError('required')">Por favor elige el tipo documento</mat-error>
+            <mat-error *ngIf="tipodocumentoFC.hasError('required')">Por favor elige el tipo de documento</mat-error>
           </mat-form-field>
           <mat-form-field class="example-full-width">
-            <input type="text" matInput placeholder="Número de documento" formControlName="documentoCtrl" [textMask]="{mask:duiMask}" required>
+            <input type="text" matInput placeholder="Número de documento" formControlName="documentoCtrl" maxlength="10" required>
+            <mat-error *ngIf="documentoFC.hasError('required')">Campo <strong>Requerido</strong></mat-error>
+            <mat-error *ngIf="documentoFC.errors?.pattern">Formato requerido:00000000-0</mat-error>
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Fecha de nacimiento" formControlName="fechanacimientoCtrl" [matDatepicker]="picker" (focus)="picker.open()" readonly required>
+            <mat-error *ngIf="fechanacimientoFC.hasError('required')">Campo <strong>Requerido</strong></mat-error>
           </mat-form-field>
           <mat-datepicker #picker></mat-datepicker>
-          <button type="button" color="primary" class="btn-lg btn-block" mat-raised-button (click)="getContacto(documentoFC.value,tipodocumentoFC.value,fechanacimientoFC.value)" >Validar Identidad</button>
+          <button type="button" color="primary" class="btn-lg btn-block" mat-raised-button (click)="getContacto(documentoFC.value,tipodocumentoFC.value,fechanacimientoFC.value)" 
+          [disabled]="fechanacimientoFC.hasError('required') || documentoFC.hasError('required') || documentoFC.errors?.pattern || tipodocumentoFC.hasError('required')">Validar Identidad <mat-icon>verified_user</mat-icon></button>
           <hr>
           <mat-form-field class="example-full-width">
             <input type="text"  matInput placeholder="Nombre" formControlName="nombreCtrl" >
@@ -67,13 +71,15 @@
           <tr>
             <mat-form-field class="example-full-width">
               <span matPrefix>+503 &nbsp;</span>
-              <input matInput placeholder="Movil" [textMask]="{mask:telefonoMask}" formControlName="telefonomovilCtrl" required >
+              <input matInput placeholder="Movil" maxlength="8" formControlName="telefonomovilCtrl" required >
               <mat-icon matSuffix>phone</mat-icon>
+              <mat-error *ngIf="telefonomovilFC.hasError('required')">Campo <strong>Requerido</strong></mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width">
               <span matPrefix>+503 &nbsp;</span>
-              <input matInput placeholder="Casa" [textMask]="{mask:telefonoMask}" formControlName="telefonocasaCtrl" >
+              <input matInput placeholder="Casa" maxlength="8" formControlName="telefonocasaCtrl" (focus)="telefonocasaFC.setValue('')" >
               <mat-icon matSuffix>phone</mat-icon>
+              <mat-error *ngIf="telefonocasaFC.hasError('required')">No puedes dejar vacio, rellena con 0</mat-error>
             </mat-form-field>
           </tr>
         </table>
@@ -86,6 +92,7 @@
         <mat-form-field class="example-full-width" hintLabel="Maximo 75 caracteres">
           <textarea matInput placeholder="Dirección" formControlName="direccionCtrl" required  maxlength="75" #direccion ></textarea>
           <mat-hint align="end">{{direccion.value?.length || 0}}/75</mat-hint>
+          <mat-error *ngIf="direccionFC.hasError('required')">Campo <strong>Requerido</strong></mat-error>
         </mat-form-field>
 
         <mat-action-row>
@@ -161,18 +168,19 @@
           <mat-autocomplete #autoce="matAutocomplete" (optionSelected)="complementarce(cod.value)" >
             <mat-option *ngFor="let option of filteredOptions | async" [value]="option.codigoCe">{{option.nombreCe}}</mat-option>
           </mat-autocomplete>
+          <mat-error *ngIf="codigoceFC.hasError('required')">Elegir una opción de la lista</mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Director del centro escolar" formControlName="directorceCtrl" required disabled>
+          <input matInput placeholder="Director del centro escolar" formControlName="directorceCtrl" required>
         </mat-form-field>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Nombre del centro escolar" formControlName="nombreceCtrl" required disabled>
+          <input matInput placeholder="Nombre del centro escolar" formControlName="nombreceCtrl" required>
         </mat-form-field>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Departamento del centro escolar" formControlName="departamentoceCtrl" required disabled>
+          <input matInput placeholder="Departamento del centro escolar" formControlName="departamentoceCtrl" required>
         </mat-form-field>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Dirección del centro escolar" formControlName="direccionceCtrl" required disabled>
+          <input matInput placeholder="Dirección del centro escolar" formControlName="direccionceCtrl" required>
         </mat-form-field>
         <mat-form-field class="example-full-width" hintLabel="Maximo 4000 caracteres">
           <textarea matInput placeholder="Descripción de los hechos" formControlName="hechosdescCtrl" required maxlength="4000" #desHechos></textarea>
@@ -265,8 +273,8 @@
         </mat-form-field>
 
         <mat-form-field class="example-full-width" hintLabel="Maximo 200 caracteres">
-          <mat-label>Escriba # de expediente y mediador de ese caso</mat-label>
-          <textarea matInput formControlName="desotroprocesoCtrl" maxlength="200" [disabled]="entidad.value=='NINGUNA'" #desOtroProceso></textarea>
+          <mat-label>Escriba el número de expediente y mediador de ese caso</mat-label>
+          <textarea matInput formControlName="desotroprocesoCtrl" maxlength="200" #desOtroProceso></textarea>
           <mat-hint align="end">{{desOtroProceso.value?.length || 0}}/200</mat-hint>
         </mat-form-field>
 
@@ -280,7 +288,7 @@
     </mat-accordion>
   </div>
   <button color="primary" class="btn-lg btn-block mt-3 mb-3" mat-raised-button (click)="DialogConfirmacion()"
-    [disabled]="datosFormGroup.invalid">Finalizar <i class="material-icons">arrow_forward</i>
+    [disabled]="datosFormGroup.invalid">Finalizar <mat-icon>arrow_forward</mat-icon>
   </button>
     <!-- <div>
       <button class="btn btn-success btn-lg btn-block mt-3 mb-3" mat-raised-button 
