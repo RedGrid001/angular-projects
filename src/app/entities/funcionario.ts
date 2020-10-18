@@ -1,7 +1,7 @@
 export class funcionario {
     nombreFuncionario: string = '';
-    tipoDocumento: number = 0;
-    numeroDocumento: number = 0;
+    tipoDocumento: string = '';
+    numeroDocumento: string = '';
     cargo: string = '';
     laboraEntidad: string = '';
 }

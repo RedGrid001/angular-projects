@@ -52,8 +52,8 @@ export class DenunciaComponent implements OnInit {
 
   funcionario: funcionario = { 
     nombreFuncionario:'',
-    tipoDocumento:0,
-    numeroDocumento:0,
+    tipoDocumento:'',
+    numeroDocumento:'',
     cargo:'',
     laboraEntidad: ''
   };
@@ -108,6 +108,15 @@ export class DenunciaComponent implements OnInit {
     idFirmaRepresentantemined:1
   }
 
+  contacto: contacto = { 
+    nombreCiudadano:'',
+    apellidoCiudadano:'',
+    tipoDocumento:'',
+    numeroDocumento:0,
+    fechaNacimiento:null,
+    departamentoCiudadano:''
+  };
+
   public CentrosEscolares: centrosescolares [] = [{ codigoCe:0,direccionCe:'Ninguna',directorCe:'Ninguno',nombreCe:'Ninguno', departamentoCe:'Ninguno'}];
   public CentroEscolar: centrosescolares = {codigoCe:0,direccionCe:'A',directorCe:'B',nombreCe:'C',departamentoCe:'D'};
 
@@ -147,14 +156,11 @@ export class DenunciaComponent implements OnInit {
   otroprocesoFC = new FormControl({value:'NINGUNA',disabled:false}, Validators.required);
   desotroprocesoFC = new FormControl('No se tiene otro proceso',[Validators.required, Validators.minLength(24)]);
 
-  contacto: contacto = ({ 
-    nombreCiudadano:'',
-    apellidoCiudadano:'',
-    tipoDocumento:'',
-    numeroDocumento:0,
-    fechaNacimiento:null,
-    departamentoCiudadano:''
-  });
+  tipodocumentofuncFC = new FormControl({value:null,disabled:false}, Validators.required);
+  numerodocumentofuncFC = new FormControl({value:null,disabled:false}, Validators.compose([Validators.required, Validators.minLength(10),Validators.pattern("[0-9]{8}[-]{1}[0-9]{1}")]));
+  cargofuncFC = new FormControl({value:null,disabled:false}, Validators.required);
+  nombrefuncFC = new FormControl({value:null,disabled:false}, Validators.required);
+  laboraentidadfuncFC = new FormControl({value:null,disabled:false}, Validators.required);
 
   constructor(public dialog: MatDialog, 
     private api: ApiService, 
@@ -236,7 +242,12 @@ export class DenunciaComponent implements OnInit {
       agresionverbalCtrl: this.agresionverbalFC,
       inversionrecuperacionCtrl: this.inversionrecuperacionFC,
       otroprocesoCtrl: this.otroprocesoFC,
-      desotroprocesoCtrl: this.desotroprocesoFC
+      desotroprocesoCtrl: this.desotroprocesoFC,
+      tipodocumentofuncCtrl: this.tipodocumentofuncFC,
+      numerodocumentofuncCtrl: this.numerodocumentofuncFC,
+      cargofuncCtrl: this.cargofuncFC,
+      nombrefuncCtrl: this.nombrefuncFC,
+      laboraentidadfuncCtrl: this.laboraentidadfuncFC
     });
     this.getCentrosEscolares();
     this.filteredOptions = this.codigoceFC.valueChanges.pipe(startWith(''),map(value => this._filter(value)));
@@ -388,6 +399,11 @@ export class DenunciaComponent implements OnInit {
       this.funcionario.cargo = resultado.cargo;
       this.funcionario.laboraEntidad = resultado.laboraEntidad;
       this.denuncia.funcionario.splice(0,1,this.funcionario);
+      this.tipodocumentofuncFC.setValue(resultado.tipoDocumento);
+      this.nombrefuncFC.setValue(resultado.nombreFuncionario);
+      this.numerodocumentofuncFC.setValue(resultado.numeroDocumento);
+      this.cargofuncFC.setValue(resultado.cargo);
+      this.laboraentidadfuncFC.setValue(resultado.laboraEntidad);
       this.api.AbrirSnackBar('AGREGAR FUNCIONARIO','REALIZADO');
       } else {
         this.api.AbrirSnackBar('AGREGAR FUNCIONARIO','CANCELADO');
@@ -492,6 +508,13 @@ export class DialogFuncionarioComponent implements OnInit {
       nombrefuncionarioCtrl: this.nombrefuncionarioFC,
       laboraentidadCtrl: this.laboraentidadFC
     });
+    if(this.data.tipoDocumento!=null && this.data.numeroDocumento!=null && this.data.nombreFuncionario!=null && this.data.cargo!=null && this.data.laboraEntidad!=null){
+      this.tipodocumentoFC.setValue(this.data.tipoDocumento);
+      this.numerodocumentoFC.setValue(this.data.numeroDocumento);
+      this.cargoFC.setValue(this.data.cargo);
+      this.nombrefuncionarioFC.setValue(this.data.nombreFuncionario);
+      this.laboraentidadFC.setValue(this.data.laboraEntidad);
+    }
   }
 
   CloseDialog(){
