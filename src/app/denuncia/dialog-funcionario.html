@@ -13,7 +13,7 @@
       <mat-label>Número de documento</mat-label>
       <input matInput formControlName="numerodocumentoCtrl" maxlength="10" required>
       <mat-error *ngIf="numerodocumentoFC.hasError('required')">Campo <strong>Requerido</strong></mat-error>
-      <mat-error>Formato requerido:00000000-0</mat-error>
+      <mat-error *ngIf="numerodocumentoFC.errors?.pattern">Formato requerido:00000000-0</mat-error>
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-label>Cargo</mat-label>
