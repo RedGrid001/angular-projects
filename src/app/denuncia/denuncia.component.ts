@@ -152,7 +152,7 @@ export class DenunciaComponent implements OnInit {
   fechahechosfFC = new FormControl({value:null,disabled:false}, Validators.required);
   agresionfisicaFC = new FormControl({value:null,disabled:false}, Validators.required);
   agresionverbalFC = new FormControl({value:null,disabled:false}, Validators.required);
-  inversionrecuperacionFC = new FormControl({value:0.00,disabled:false}, Validators.compose([Validators.required,Validators.minLength(0),Validators.maxLength(5),Validators.pattern("[0-9]{1,6}[.]{1}[0-9]{2}")]));
+  inversionrecuperacionFC = new FormControl({value:'0.00',disabled:false}, Validators.compose([Validators.required,Validators.minLength(0),Validators.maxLength(9),Validators.pattern("[0-9]{1,6}[.]{1}[0-9]{2}")]));
   otroprocesoFC = new FormControl({value:'NINGUNA',disabled:false}, Validators.required);
   desotroprocesoFC = new FormControl('No se tiene otro proceso',[Validators.required, Validators.minLength(24)]);
 
