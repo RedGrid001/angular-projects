@@ -65,7 +65,7 @@ export class DenunciaComponent implements OnInit {
   prueba: prueba = {
     descripcion: 'Ninguna',
     anexoPagina: 'Ninguno',
-    minutoEvidencia: 'Ninguno',
+    minutoEvidencia: 'Ninguna',
     archivo: 'https://previews.123rf.com/images/pockygallery/pockygallery1504/pockygallery150400848/39168375-no-v%C3%A1lida-texto-del-sello-rojo-sobre-blanco.jpg'
   };
 
