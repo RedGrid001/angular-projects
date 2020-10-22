@@ -19,7 +19,7 @@
             <mat-error *ngIf="ubicacionFC.hasError('required')">Campo <strong>Requerido</strong></mat-error>
         </mat-form-field>
         <div class="form-group">
-            <label id="label" for="file">Archivo(*)</label>
+            <label id="label" for="file">Archivo (*)</label>
             <input class="btn btn-warning" type="file"
                 id="file"
                 (change)="handleFileInput($event.target.files)">

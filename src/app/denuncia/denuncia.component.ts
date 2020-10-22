@@ -152,7 +152,7 @@ export class DenunciaComponent implements OnInit {
   fechahechosfFC = new FormControl({value:null,disabled:false}, Validators.required);
   agresionfisicaFC = new FormControl({value:null,disabled:false}, Validators.required);
   agresionverbalFC = new FormControl({value:null,disabled:false}, Validators.required);
-  inversionrecuperacionFC = new FormControl({value:'0.00',disabled:false}, Validators.compose([Validators.required,Validators.minLength(0),Validators.maxLength(9),Validators.pattern("[0-9]{1,6}[.]{1}[0-9]{2}")]));
+  inversionrecuperacionFC = new FormControl({value:0.00,disabled:false}, Validators.compose([Validators.required,Validators.minLength(0),Validators.maxLength(9),Validators.pattern("[0-9]{1,6}[.]{0,1}[0-9]{0,2}")]));
   otroprocesoFC = new FormControl({value:'NINGUNA',disabled:false}, Validators.required);
   desotroprocesoFC = new FormControl('No se tiene otro proceso',[Validators.required, Validators.minLength(24)]);
 
@@ -277,6 +277,9 @@ export class DenunciaComponent implements OnInit {
             this.departamentoFC.setValue(respuesta.departamentoCiudadano);
             this.api.AbrirSnackBar('DATOS ENCONTRADOS CON EXITO','OK');
           }else{
+            this.nombreFC.setValue('');
+            this.apellidoFC.setValue('');
+            this.departamentoFC.setValue('');
             this.api.AbrirSnackBar('DATOS NO ENCONTRADOS','OK');
           }
         },(err) => this.api.handleError(err), () => {});
@@ -287,8 +290,8 @@ export class DenunciaComponent implements OnInit {
 
   public postDenuncia(denuncia:denuncia){
     try {
-      this.api.postDenuncia(denuncia).subscribe((respuesta: denuncia) => { this.denuncia.idDenuncia = respuesta.idDenuncia; console.log(respuesta); },
-      (err) => this.api.handleError(err), () => { 
+      this.api.postDenuncia(denuncia).subscribe((respuesta: denuncia) => { this.denuncia.idDenuncia = respuesta.idDenuncia; 
+      },(err) => this.api.handleError(err), () => { 
         this.api.AbrirSnackBar('REGISTRAR DENUNCIA','COMPLETADO');
 
         var dataemail: correo = {
@@ -309,7 +312,7 @@ export class DenunciaComponent implements OnInit {
 
   public postCorreo(tipo:string, correo:correo){
     try {
-      this.api.postCorreo(tipo,correo).subscribe(resultado => {},(err) => this.api.handleError(err),() => { this.router.navigate(['/resumen']); } )
+      this.api.postCorreo(tipo,correo).subscribe(resultado => {},(err) => this.api.handleError(err),() => { this.router.navigate(['/resumen']); } );
     } catch (error) {
       this.api.handleError(this.api);
     }
@@ -478,7 +481,7 @@ export class DialogCargarDocumentoComponent implements OnInit {
     this.data.descripcion = this.descripcionFC.value;
     this.data.anexoPagina = this.anexopaginaFC.value;
     this.data.minutoEvidencia = this.ubicacionFC.value;
-    this.data.archivo = this.archivoFC.value
+    //this.data.archivo = this.archivoFC.value
     this.dialogRef.close(this.data);
   }
 }
