@@ -113,7 +113,7 @@
         </mat-expansion-panel-header>
 
         <div class="row">
-          <div class="col-sm-12">
+          <div class="col-sm-3">
             <div id="example-radio-group-label" class="mat-body-2">Tipo de denuncia (*):</div>
             <mat-radio-group class="example-radio-group" aria-label="Selecciona una opción" formControlName="tipodenunciaCtrl" required>
               <mat-radio-button class="example-radio-button" value="Abuso de autoridad">Abuso de autoridad</mat-radio-button>
@@ -121,14 +121,14 @@
               <mat-radio-button class="example-radio-button" value="Acoso estudiantil">Acoso estudiantil</mat-radio-button>
             </mat-radio-group>
           </div>
-          <div class="col-sm-12">
+          <div class="col-sm-3">
             <div id="example-radio-group-label" class="mat-body-2">Trabaja o estudia en el lugar (*):</div>
               <mat-radio-group class="example-radio-group" aria-label="Selecciona una opción" formControlName="trabajalugarCtrl" required>
                 <mat-radio-button class="example-radio-button" value="SI">SI</mat-radio-button>
                 <mat-radio-button class="example-radio-button" value="NO">NO</mat-radio-button>
               </mat-radio-group>
           </div>
-          <div class="col-sm-12">
+          <div class="col-sm-4">
             <div id="example-radio-group-label" class="mat-body-2">Es representante legal del estudiante (*):</div>
               <mat-radio-group class="example-radio-group" aria-label="Selecciona una opción" formControlName="representantelegalCtrl" required>
                 <mat-radio-button class="example-radio-button" value="SI">SI</mat-radio-button>
@@ -219,16 +219,22 @@
 
         <mat-tab-group dynamicHeight [color]="['accent']" [backgroundColor]="['primary']">
           <mat-tab label="Parte 1">
-            <div class="mat-body-2">¿Sufrió algún tipo de daño físico? (*)</div>
-            <mat-radio-group class="example-radio-group" aria-label="Selecciona una opción" formControlName="agresionfisicaCtrl" required>
-              <mat-radio-button class="example-radio-button" value="SI">SI</mat-radio-button>
-              <mat-radio-button class="example-radio-button" value="NI">NO</mat-radio-button>
-            </mat-radio-group>
-            <div class="mat-body-2">¿Sufrió algún tipo de daño verbal? (*)</div>
-            <mat-radio-group class="example-radio-group" aria-label="Selecciona una opción" formControlName="agresionverbalCtrl" required>
-              <mat-radio-button class="example-radio-button" value="SI">SI</mat-radio-button>
-              <mat-radio-button class="example-radio-button" value="NO">NO</mat-radio-button>
-            </mat-radio-group>
+            <div class="row">
+              <div class="col-sm-5">
+                <div class="mat-body-2 mt-2">¿Sufrió algún tipo de daño físico? (*)</div>
+                <mat-radio-group class="example-radio-group" aria-label="Selecciona una opción" formControlName="agresionfisicaCtrl" required>
+                  <mat-radio-button class="example-radio-button" value="SI">SI</mat-radio-button>
+                  <mat-radio-button class="example-radio-button" value="NI">NO</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="col-sm-5">
+                <div class="mat-body-2 mt-2">¿Sufrió algún tipo de daño verbal? (*)</div>
+                <mat-radio-group class="example-radio-group" aria-label="Selecciona una opción" formControlName="agresionverbalCtrl" required>
+                  <mat-radio-button class="example-radio-button" value="SI">SI</mat-radio-button>
+                  <mat-radio-button class="example-radio-button" value="NO">NO</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
           </mat-tab>
           <mat-tab label="Parte 2">
             <div class="mat-body-2 mt-2 mb-2 text-center">¿Inversición en recuperación del daño causado?</div>

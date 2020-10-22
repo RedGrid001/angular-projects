@@ -63,10 +63,10 @@ export class DenunciaComponent implements OnInit {
   };
 
   prueba: prueba = {
-    descripcion: '',
-    anexoPagina: '',
-    minutoEvidencia: '',
-    archivo: ''
+    descripcion: 'Ninguna',
+    anexoPagina: 'Ninguno',
+    minutoEvidencia: 'Ninguno',
+    archivo: 'https://previews.123rf.com/images/pockygallery/pockygallery1504/pockygallery150400848/39168375-no-v%C3%A1lida-texto-del-sello-rojo-sobre-blanco.jpg'
   };
 
   hechos: hechos = {
@@ -328,6 +328,9 @@ export class DenunciaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(resultado => {
       if (resultado!=null) {
+        if(this.disabledBtnUpload==false){
+          this.denuncia.prueba.splice(0,1,this.prueba);
+        }
         this.denuncia.nombreCiudadano = this.nombreFC.value;
         this.denuncia.apellidoCiudadano = this.apellidoFC.value;
         this.denuncia.departamentoCiudadano = this.departamentoFC.value;
