@@ -29,7 +29,7 @@ export interface ISelector {
   styleUrls: ['./denuncia.component.css']
 })
 export class DenunciaComponent implements OnInit {
-
+  //#region 
   denuncia: denuncia = {
     idDenuncia: 0,
     nombreCiudadano: '',
@@ -161,6 +161,7 @@ export class DenunciaComponent implements OnInit {
   cargofuncFC = new FormControl({value:null,disabled:false}, Validators.required);
   nombrefuncFC = new FormControl({value:null,disabled:false}, Validators.required);
   laboraentidadfuncFC = new FormControl({value:null,disabled:false}, Validators.required);
+  //#endregion
 
   constructor(public dialog: MatDialog, 
     private api: ApiService, 
