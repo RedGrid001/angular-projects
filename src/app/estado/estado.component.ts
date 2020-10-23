@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatTableDataSource } from '@angular/material/table';
 import { gestiondenuncia } from '../entities/gestiondenuncia';
 import { ApiService } from '../services/api.service';
 import { AuthService } from '../services/auth.service';
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 
 @Component({
   selector: 'app-estado',
@@ -13,12 +16,6 @@ export class EstadoComponent implements OnInit {
 
   displayedColumns: string[] = ['expediente', 'registro', 'modificacion', 'estado'];
   dataSource = new MatTableDataSource();
-
- /*  colorRegistrada: string = '#DF3D3D';
-  colorConfirmada: string = '#DF3D3D';
-  colorProceso: string = '#DF3D3D';
-  colorFinalizada: string = '#DF3D3D';
-  */
   estadoDenuncia: number = 0;
   correoUser: string = 'usuario@dominio.com';
   gestion_dataSource: gestiondenuncia[] = [];
@@ -42,7 +39,7 @@ export class EstadoComponent implements OnInit {
     idFirmaRepresentantemined:0
   }
 
-  constructor(private authUser:AuthService, private api:ApiService) { }
+  constructor(private authUser:AuthService, private api:ApiService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.correoUser = this.authUser.getCorreo();
@@ -62,7 +59,6 @@ export class EstadoComponent implements OnInit {
     } catch (error) {
       this.api.handleError(error);
     }
-
   }
 
   public TextoByEstado(estado:number){
@@ -86,5 +82,45 @@ export class EstadoComponent implements OnInit {
     }
   }
 
+  DialogCompromiso() {
+    const dialogRef = this.dialog.open(DialogCompromisoComponent, {
+      data: { 
+        
+      }
+    });
+  }
+}
+
+@Component({
+  selector: 'dialog-compromiso.component',
+  templateUrl: './dialog-compromiso.html',
+  styleUrls: ['./estado.component.css']
+})
+
+export class DialogCompromisoComponent {
+
+  nombreCompleto: string = 'Nombre y Apellido';
+  numeroDocumento: string = '00000000-0';
+  filepdf: File;
+  doc = new jsPDF('p','mm','letter');
+
+  constructor(public dialogRef: MatDialogRef<DialogCompromisoComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.nombreCompleto = sessionStorage.getItem('nombre')+" "+sessionStorage.getItem('apellido'); 
+    this.numeroDocumento = sessionStorage.getItem('numerodocumento');
+  }
+
+  public DescargarPDF(){
+
+    var element = document.getElementById('contenido');
+    html2canvas(element).then((canvas) => {
+      var imgData = canvas.toDataURL('image/jpeg',1.0);
+      var imgWidth = 185.9;
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      this.doc.addImage(imgData,'JPEG',15,10,imgWidth,imgHeight);
+      this.doc.save("Compromiso.pdf");
+
+    });
+
+  }
 
 }

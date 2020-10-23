@@ -1,0 +1,32 @@
+<h2 mat-dialog-title class="text-center">Descargar Compromiso</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="text-justify text-dark" style="padding: 10mm; width: 215.9mm; height: 279.4mm; background-color: white;" id="contenido" #contenido >
+        <h2 class="text-center">Compromisos del ciudadano</h2>
+        <p>
+            Yo, {{nombreCompleto}} con número unico de identidad {{numeroDocumento}} estoy dispuesto a suscribir 
+            el compromiso de brindar toda la información que sea solicitada por 
+            el departamento de asesoría jurídica, a fin de cumplir con uno de los requisitos de autenticidad 
+            que las juntas de la carrera docente necesitan para acogerme a la Ley de la carrera docente en 
+            el ámbito administrativo y de colaboración en el ámbito judicial para que mi denuncia tenga la 
+            validez y resolución necesaria.
+        </p>
+        <p>
+            La Dirección de Asesoría Jurídica en conjunto con la junta de la carrera docente, de acuerdo con 
+            lo establecido en la Ley de procedimientos administrativos, cumplirá con la responsabilidad de 
+            que debe guardar la reserva y confidencialidad de la identidad del ciudadano y del contenido de 
+            la denuncia con el propósito de garantizar el adecuado trámite de esta. Le sugerimos que al 
+            registrar su denuncia mantenga la confidencialidad de esta en todo momento.
+        </p>
+        <br>
+        <br>
+        
+        <div class="text-center">
+            <p>F._________________________</p>
+            <p>{{nombreCompleto}}</p>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-stroked-button color="warn" mat-dialog-close>Cancelar</button>
+  <button mat-stroked-button color="accent" (click)="DescargarPDF()" cdkFocusInitial>Descargar</button>
+</mat-dialog-actions>

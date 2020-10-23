@@ -40,6 +40,8 @@ export class AuthService {
                 if(respuesta!=null){
                     sessionStorage.setItem('id',respuesta.idDenuncia.toLocaleString());
                     sessionStorage.setItem('nombre',respuesta.nombreCiudadano);
+                    sessionStorage.setItem('apellido',respuesta.apellidoCiudadano);
+                    sessionStorage.setItem('numerodocumento',respuesta.numeroDocumento.toString());
                     sessionStorage.setItem('correo',respuesta.emailDenunciante); 
                 }
                 resolve(respuesta);  

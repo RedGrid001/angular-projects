@@ -49,7 +49,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { DenunciaComponent, DialogFuncionarioComponent, DialogConfirmacionComponent, DialogCargarDocumentoComponent, DialogDescargarComponent } from './denuncia/denuncia.component';
+import { DenunciaComponent, DialogFuncionarioComponent, DialogConfirmacionComponent, DialogCargarDocumentoComponent } from './denuncia/denuncia.component';
 import { InicioUsuarioComponent } from './inicio-usuario/inicio-usuario.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { CompromisoComponent } from './compromiso/compromiso.component';
@@ -61,7 +61,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { PerfilComponent } from './perfil/perfil.component';
-import { EstadoComponent } from './estado/estado.component';
+import { EstadoComponent, DialogCompromisoComponent } from './estado/estado.component';
 import { UsuarioLayoutComponent } from './layouts/usuario-layout.component';
 import { DenunciaLayoutComponent } from './layouts/denuncia-layout.component';
 import { FaqComponent } from './faq/faq.component';
@@ -76,7 +76,6 @@ import { TextMaskModule } from 'angular2-text-mask';
     DialogFuncionarioComponent,
     DialogConfirmacionComponent,
     DialogCargarDocumentoComponent,
-    DialogDescargarComponent,
     InicioUsuarioComponent,
     PrincipalComponent,
     CompromisoComponent,
@@ -85,6 +84,7 @@ import { TextMaskModule } from 'angular2-text-mask';
     InicioComponent,
     PerfilComponent,
     EstadoComponent,
+    DialogCompromisoComponent,
     UsuarioLayoutComponent,
     DenunciaLayoutComponent,
     FaqComponent,
@@ -147,7 +147,7 @@ import { TextMaskModule } from 'angular2-text-mask';
     DialogFuncionarioComponent,
     DialogCargarDocumentoComponent, 
     DialogConfirmacionComponent,
-    DialogDescargarComponent
+    DialogCompromisoComponent
   ],
   providers: [
     DenunciaGuardService, { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }

@@ -14,8 +14,8 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { centrosescolares } from '../entities/centros_escolares';
 import { map, startWith } from 'rxjs/operators';
-import { jsPDF } from "jspdf";
-import html2canvas from "html2canvas";
+/* import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas"; */
 import { correo } from '../entities/correo';
 import { gestiondenuncia } from '../entities/gestiondenuncia';
 
@@ -417,11 +417,11 @@ export class DenunciaComponent implements OnInit {
     });
   }
 
-  DialogDescargar() {
+  /* DialogDescargar() {
     const dialogRef = this.dialog.open(DialogDescargarComponent, {
       data: this.denuncia
     });
-  }
+  } */
 
 }
 
@@ -534,7 +534,7 @@ export class DialogFuncionarioComponent implements OnInit {
 
 }
 
-@Component({
+/* @Component({
   selector: 'dialog-descargar.component',
   templateUrl: './dialog-descargar.html',
   styleUrls: ['./denuncia.component.css']
@@ -562,4 +562,4 @@ export class DialogDescargarComponent {
 
   }
 
-}
+} */
